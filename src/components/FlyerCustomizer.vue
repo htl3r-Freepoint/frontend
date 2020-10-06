@@ -4,14 +4,12 @@
       <input v-model="title">
     </label>
     <button @click="createPDF">create PDF</button>
-
-    <div id="qrcode"></div>
-    <qrcode value="Hello, World!" :options="{ width: 200 }"></qrcode>
   </div>
 </template>
 
 <script>
 import JsPDF from 'jspdf'
+import qrcode from 'qrcode-generator'
 
 export default {
   name: "FlyerCustomizer",
@@ -26,7 +24,10 @@ export default {
     createPDF: function () {
       let documentName = 'Flyer'
       let doc = new JsPDF()
-      doc.addImage(null, 15, 40, 180, 180)
+      let qr = qrcode(4, 'L');
+      qr.addData(this.qrCodeURL);
+      qr.make();
+      doc.addImage(qr.createDataURL(), 15, 40, 180, 180)
       doc.save(documentName + '.pdf')
     }
   }
