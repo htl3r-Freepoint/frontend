@@ -17,16 +17,36 @@
         <img src="http://findicons.com/files/icons/1688/web_blog/48/user_female_white_pink_black.png" alt="female">
       </label>
     </fieldset>
+  <div>
+    <label>
+      <input v-model="title">
+    </label>
+    <button @click="createPDF">create PDF</button>
+
+    <div id="qrcode"></div>
+    <qrcode value="Hello, World!" :options="{ width: 200 }"></qrcode>
   </div>
 </template>
 
 <script>
+import JsPDF from 'jspdf'
+
 export default {
   name: "FlyerCustomizer",
   data: function () {
     return {
-      title: ""
+      company: "",
+      text: "",
+      qrCodeURL: "diplomarbeit.freepoint.at"
     };
+  },
+  methods: {
+    createPDF: function () {
+      let documentName = 'Flyer'
+      let doc = new JsPDF()
+      doc.addImage(null, 15, 40, 180, 180)
+      doc.save(documentName + '.pdf')
+    }
   }
 }
 </script>
