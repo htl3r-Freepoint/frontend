@@ -17,7 +17,6 @@
         <img src="http://findicons.com/files/icons/1688/web_blog/48/user_female_white_pink_black.png" alt="female">
       </label>
     </fieldset>
-  <div>
     <label>
       <input v-model="title">
     </label>
