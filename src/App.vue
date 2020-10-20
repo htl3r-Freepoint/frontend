@@ -1,13 +1,11 @@
 <template>
-  <flyer-customizer></flyer-customizer>
   <router-view/>
 </template>
 
 <script>
-import FlyerCustomizer from "@/components/FlyerCustomizer";
 export default {
   name: "App",
-  components: {FlyerCustomizer}
+  components: {}
 }
 </script>
 
