@@ -1,5 +1,6 @@
 <template>
   <router-view/>
+  <rabatt-menu></rabatt-menu>
 </template>
 
 <style>
@@ -24,3 +25,9 @@
   color: #42b983;
 }
 </style>
+<script>
+import RabattMenu from "@/components/RabattMenu";
+export default {
+  components: {RabattMenu}
+}
+</script>
