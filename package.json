@@ -13,6 +13,7 @@
     "jspdf": "^2.1.1",
     "qrcode-generator": "^1.4.4",
     "vue": "^3.0.0-0",
+    "vue-qrcode-reader": "^2.3.14",
     "vue-router": "^4.0.0-0"
   },
   "devDependencies": {

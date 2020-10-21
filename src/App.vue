@@ -1,4 +1,9 @@
 <template>
+  <div class="row">
+    <router-link to="/scan">
+      <button>QR-Scanner</button>
+    </router-link>
+  </div>
   <router-view/>
 </template>
 

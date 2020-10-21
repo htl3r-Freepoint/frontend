@@ -10,7 +10,7 @@ const routes = [
   {
     path: '/scan',
     name: 'QrCodeScanner',
-    component: () => import('../views/QrCodeScannerView.vue')
+    component: () => import('../views/QrCodeScanner.vue')
   }
 ]
 
