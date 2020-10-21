@@ -1,12 +1,15 @@
 <template>
-  <div class="">
+  <div>
     <h1>Qr-Code Scanner</h1>
+    <p class="error">{{ error }}</p>
+
+    <p class="decode-result">Last result: <b>{{ result }}</b></p>
     <qrcode-stream @decode="onDecode" @init="onInit"></qrcode-stream>
   </div>
 </template>
 
 <script>
-import QrcodeStream from 'vue-qrcode-reader'
+import { QrcodeStream } from 'vue-qrcode-reader'
 
 export default {
   name: "QrCodeScannerView",

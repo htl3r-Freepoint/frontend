@@ -1,10 +1,10 @@
 <template>
-  <div class="row">
+  <div id="app">
     <router-link to="/scan">
       <button>QR-Scanner</button>
     </router-link>
+    <router-view/>
   </div>
-  <router-view/>
 </template>
 
 <script>
