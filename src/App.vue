@@ -1,6 +1,7 @@
 <template>
-  <router-view/>
-  <rabatt-menu></rabatt-menu>
+  <div>
+    <router-view/>
+  </div>
 </template>
 
 <script>
