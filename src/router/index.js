@@ -1,21 +1,25 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+import FlyerCustomizerView from "@/views/FlyerCustomizerView";
+import QrCodeScanner from "@/views/QrCodeScanner";
+
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: '/flyer',
     name: 'FlyerCustomizer',
-    component: () => import('../views/FlyerCustomizerView.vue')
+    component: FlyerCustomizerView
   },
   {
     path: '/scan',
     name: 'QrCodeScanner',
-    component: () => import('../views/QrCodeScannerView.vue')
-  }
-]
+    component: QrCodeScanner
+  }]
 
-export default new VueRouter({
+const router = new VueRouter({
   routes
 })
+
+export default router
