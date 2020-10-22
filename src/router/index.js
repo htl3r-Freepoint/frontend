@@ -4,18 +4,23 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter);
 
 const routes = [
-  {
-    path: '/flyer',
-    name: 'FlyerCustomizer',
-    component: () => import('../views/FlyerCustomizerView.vue')
-  },
-  {
-    path: '/scan',
-    name: 'QrCodeScanner',
-    component: () => import('../views/QrCodeScannerView.vue')
-  }
+    {
+        path: '/flyer',
+        name: 'FlyerCustomizer',
+        component: () => import('../views/FlyerCustomizerView.vue')
+    },
+    {
+        path: '/scan',
+        name: 'QrCodeScanner',
+        component: () => import('../views/QrCodeScannerView.vue')
+    },
+    {
+        path: '/menu',
+        name: 'RabattMenu',
+        component: () => import('../views/RabattMenuView.vue')
+    }
 ]
 
 export default new VueRouter({
-  routes
+    routes
 })
