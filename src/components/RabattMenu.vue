@@ -15,8 +15,33 @@
 </template>
 
 <script>
+import Axios from 'axios'
 export default {
-  name: "RabattMenu"
+  name: "RabattMenu",
+  data() {
+    return{
+      url: 'http://freepoint.at',
+      user: '1',
+      store: '1',
+      options: {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json;charset=UTF-8'
+        },
+      }
+    }
+  },
+  methods:{
+    getData(){
+      Axios.get(this.url, {
+        params: {
+          user: this.user,
+          store: this.store
+        }
+      }, this.headers)
+    }
+  }
 }
 </script>
 
