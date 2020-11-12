@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import FlyerCustomizerView from "@/views/FlyerCustomizerView";
+import FlyerCustomizer from "@/views/FlyerCustomizer";
 import QrCodeScanner from "@/views/QrCodeScanner";
 
 Vue.use(VueRouter);
@@ -10,7 +10,7 @@ const routes = [
   {
     path: '/flyer',
     name: 'FlyerCustomizer',
-    component: FlyerCustomizerView
+    component: FlyerCustomizer
   },
   {
     path: '/scan',
