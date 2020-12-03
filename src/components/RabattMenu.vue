@@ -1,12 +1,14 @@
 <template>
-  <div class="container">
+  <div class="container-fluid">
+
+
     <div id="head" class="row">
       <div class="col-8"><img src="../assets/Unbenannt-1.svg" alt="logo" width="30%" height="auto"></div>
       <div class="col-4 m-auto" id="business">Flame</div>
     </div>
 
 
-    <div class="row" id="coupon">
+    <div class=" col row coupon">
       <div class="col-md-4">
         <div class="card">
           <div class="card-body text-left">
@@ -37,7 +39,9 @@
       </div>
     </div>
 
-    <div class="row" id="coupon">
+
+
+    <div class=" col row coupon">
       <div class="col-md-4">
         <div class="card">
           <div class="card-body text-left">
@@ -68,7 +72,9 @@
       </div>
     </div>
 
-    <div class="row" id="coupon">
+
+
+    <div class="col row coupon">
       <div class="col-md-4">
         <div class="card">
           <div class="card-body text-left">
@@ -98,6 +104,8 @@
         </div>
       </div>
     </div>
+
+
 
   </div>
 </template>
@@ -136,9 +144,10 @@ export default {
 
 <style scoped>
 
-.container{
+.container-fluid{
   width: 100%;
   height: 100%;
+  background: #B1D4E3;
 }
 
 #business{
@@ -151,16 +160,12 @@ export default {
   padding: 20px;
 }
 
-.container {
-  background: #B1D4E3;
-}
-
-#coupon {
+.coupon {
   margin: 30px 0 30px 0;
 
 }
 
-#coupon .card-edit {
+.coupon .card-edit {
   position: absolute;
   right: -10px;
   top: -20px;
@@ -176,7 +181,7 @@ export default {
   width: 25px;
 }
 
-#coupon .card-delete {
+.coupon .card-delete {
   position: absolute;
   right: -10px;
   top: 30px;
@@ -193,7 +198,7 @@ export default {
 }
 
 
-#coupon .card-points {
+.coupon .card-points {
   border-radius: 50%;
   color: #10cdb7;
   font-weight: bold;
@@ -206,9 +211,13 @@ export default {
   transition: all 0.3s ease;
 }
 
-#coupon .card-image-overlay span {
+.coupon .card-image-overlay span {
   display: inline-block;
 }
 
+
+/*
+tabbar
+ */
 
 </style>
