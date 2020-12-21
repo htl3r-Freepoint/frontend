@@ -33,7 +33,7 @@ export default {
       email: "",
       password: "",
       remember: false,
-      url: 'http://freepoint.at/api/',
+      url: 'http://freepoint.at/api/user.json',
       data: {
         params: {
           email: this.email,

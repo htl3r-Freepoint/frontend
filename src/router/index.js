@@ -6,6 +6,7 @@ import QrCodeScanner from "@/views/QrCodeScanner";
 import ResetPassword from "@/views/ResetPassword"
 import TermsAndService from "@/views/TermsAndService";
 import TermsAndServiceCompany from "@/views/TermsAndServiceCompany";
+import Login from "@/views/Login";
 
 Vue.use(VueRouter);
 
@@ -34,7 +35,13 @@ const routes = [
     path: '/terms-and-service-company',
     name: 'TermsAndServiceCompany',
     component: TermsAndServiceCompany
-  }]
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login
+  }
+]
 
 const router = new VueRouter({
   routes

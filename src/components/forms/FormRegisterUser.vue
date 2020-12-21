@@ -68,7 +68,7 @@ export default {
       passwordConfirm: "",
       name: "",
       TOS: false,
-      url: 'http://freepoint.at/api/user',
+      url: 'http://freepoint.at/api/user.json',
       data: {
         params: {
           email: this.email,
