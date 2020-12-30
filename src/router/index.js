@@ -17,7 +17,7 @@ const routes = [
     {
         path: '/menu',
         name: 'RabattMenu',
-        component: () => import('../views/RabattMenuView.vue')
+        component: () => import('../views/RabattMenu.vue')
     }
 ]
 
