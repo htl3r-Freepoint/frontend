@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+import FlyerCustomizer from "@/views/FlyerCustomizer";
+import QrCodeScanner from "@/views/QrCodeScanner";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -21,6 +24,8 @@ const routes = [
     }
 ]
 
-export default new VueRouter({
-    routes
+const router = new VueRouter({
+  routes
 })
+
+export default router

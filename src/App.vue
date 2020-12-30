@@ -1,5 +1,8 @@
 <template>
-  <div>
+  <div id="app">
+    <router-link to="/scan">
+      <button class="btn btn-primary">QR-Scanner</button>
+    </router-link>
     <router-view/>
   </div>
 </template>
@@ -11,7 +14,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -22,16 +25,15 @@ export default {
 
 #nav {
   padding: 30px;
+  a {
+    font-weight: bold;
+    color: #2c3e50;
+    .router-link-exact-active {
+    color: #42b983;
+  }
+  }
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>
 <script>
 import RabattMenu from "@/components/RabattMenu";
