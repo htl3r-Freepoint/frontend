@@ -1,11 +1,49 @@
 <template>
   <div class="container-fluid" style="min-height: 100%">
 
+    <div class="container w-25">
+      <form role="form">
 
-    <div id="head" class="row">
-      <div class="col-8"><img src="../assets/Unbenannt-1.svg" alt="logo" width="30%" height="auto"></div>
-      <div class="col-4 m-auto" id="business">Flame</div>
+        <div class="row">
+          <div class="form-group col">
+            <input type="text" class="form-control" placeholder="Name"/>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col">
+            <textarea class="form-control" placeholder="Beschreibung"/>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col">
+            <input type="number" class="form-control" placeholder="benötigte Punkte"/>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col">
+            <label class="radio-inline">
+              <input type="radio" name="optradio" checked>gratis
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="optradio">%
+            </label>
+          </div>
+        </div>
+
+        
+
+        <div class="">
+          <div class="form-group row justify-content-around">
+            <button type="submit" class="btn btn-primary">speichern</button>
+            <button type="submit" class="btn btn-primary">abbrechen</button>
+          </div>
+        </div>
+      </form>
     </div>
+
 
     <div id="coupon-container" class="row gx my-4 mx-3">
       <coupon class="col-6"
@@ -53,7 +91,7 @@ export default {
           store: this.store
         }
       }, this.headers)
-      .then(r => this.coupons = r)
+          .then(r => this.coupons = r)
     }
   }
 }
@@ -76,8 +114,5 @@ export default {
 }
 
 
-/*
-tabbar
- */
 
 </style>
