@@ -21,6 +21,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  min-height: 100vh;
 }
 
 #nav {
@@ -29,15 +30,9 @@ export default {
     font-weight: bold;
     color: #2c3e50;
     .router-link-exact-active {
-    color: #42b983;
-  }
+      color: #42b983;
+    }
   }
 }
 
 </style>
-<script>
-import RabattMenu from "@/components/RabattMenu";
-export default {
-  components: {RabattMenu}
-}
-</script>

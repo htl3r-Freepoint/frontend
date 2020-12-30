@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid" style="min-height: 100vh">
+  <div class="container-fluid" style="min-height: 100%">
 
 
     <div id="head" class="row">
@@ -7,7 +7,7 @@
       <div class="col-4 m-auto" id="business">Flame</div>
     </div>
 
-    <div class="row">
+    <div id="coupon-container" class="row gx my-4 mx-3">
       <coupon class="col-6"
               title="Cheeseburger"
               text="Genieße den saftigen Cheeseburger mit Gurken, Salat und geschmolzenen Ementaler"
@@ -53,6 +53,7 @@ export default {
           store: this.store
         }
       }, this.headers)
+      .then(r => this.coupons = r)
     }
   }
 }
