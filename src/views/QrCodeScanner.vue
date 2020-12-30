@@ -1,11 +1,13 @@
 <template>
   <div>
+    <navigationsleiste></navigationsleiste>
     <h1>Qr-Code Scanner</h1>
-
     <qrcode-stream @decode="onDecode" @init="checkCamera"></qrcode-stream>
     <div v-if="error">
       <qrcode-drop-zone @decode="onDecode"></qrcode-drop-zone>
       <qrcode-capture @decode="onDecode"></qrcode-capture>
+    </div>
+    <div>
     </div>
   </div>
 </template>
@@ -13,11 +15,12 @@
 <script>
 import {QrcodeStream, QrcodeDropZone, QrcodeCapture} from 'vue-qrcode-reader'
 import Axios from "axios";
+import Navigationsleiste from "@/components/Navigationsleiste";
 
 export default {
   name: "QrCodeScannerView",
   // eslint-disable-next-line vue/no-unused-components
-  components: {QrcodeStream, QrcodeDropZone, QrcodeCapture},
+  components: {Navigationsleiste, QrcodeStream, QrcodeDropZone, QrcodeCapture},
   data() {
     return {
       regex: "_?R\\d-AT\\d_(.+)_(.+)_(\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2})_(\\d+,\\d{2})_(\\d+,\\d{2})_(\\d+,\\d{2})_(\\d+,\\d{2})_(\\d+,\\d{2})_(.+)={1,2}_(.+)==",
