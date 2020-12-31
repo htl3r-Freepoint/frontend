@@ -1,49 +1,7 @@
 <template>
   <div class="container-fluid" style="min-height: 100%">
 
-    <div class="container w-25">
-      <form role="form">
-
-        <div class="row">
-          <div class="form-group col">
-            <input type="text" class="form-control" placeholder="Name"/>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="form-group col">
-            <textarea class="form-control" placeholder="Beschreibung"/>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="form-group col">
-            <input type="number" class="form-control" placeholder="benötigte Punkte"/>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="form-group col">
-            <label class="radio-inline">
-              <input type="radio" name="optradio" checked>gratis
-            </label>
-            <label class="radio-inline">
-              <input type="radio" name="optradio">%
-            </label>
-          </div>
-        </div>
-
-        
-
-        <div class="">
-          <div class="form-group row justify-content-around">
-            <button type="submit" class="btn btn-primary">speichern</button>
-            <button type="submit" class="btn btn-primary">abbrechen</button>
-          </div>
-        </div>
-      </form>
-    </div>
-
+    <form-new-coupon></form-new-coupon>
 
     <div id="coupon-container" class="row gx my-4 mx-3">
       <coupon class="col-6"
@@ -64,13 +22,14 @@
 <script>
 import Axios from 'axios'
 import Coupon from "@/components/Coupon";
+import FormNewCoupon from "@/components/forms/FormNewCoupon";
 
 export default {
   name: "RabattMenu",
-  components: {Coupon},
+  components: {FormNewCoupon, Coupon},
   data() {
     return {
-      url: 'http://freepoint.at',
+      url: 'http://freepoint.at/api',
       user: '1',
       store: '1',
       options: {
