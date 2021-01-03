@@ -30,7 +30,7 @@
     </div>
 
 
-    <nav class="navbar border">
+    <nav class="navbar fixed-top border">
       <div id="header" class="container">
         <div>
           <a class="" href="#">

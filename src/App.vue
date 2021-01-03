@@ -4,7 +4,7 @@
     <!--<router-link to="/scan">
       <button class="btn btn-primary">QR-Scanner</button>
     </router-link>-->
-    <router-view/>
+    <router-view style="padding-top: 50px"/>
   </div>
 </template>
 
@@ -24,7 +24,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #153E73;
-  background: #FAFAFA;;
+  background: #FAFAFA;
   min-height: 100vh;
 }
 
