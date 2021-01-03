@@ -1,32 +1,48 @@
 <template>
-  <div class="container-fluid" style="min-height: 100%">
+  <div class="container-fluid">
 
-    <form-new-coupon></form-new-coupon>
-
-    <div id="coupon-container" class="row gx my-4 mx-3">
-      <coupon class="col-6"
+    <div id="coupon-container" class="row">
+      <coupon class="col-12 col-md-4"
               title="Cheeseburger"
               text="Genieße den saftigen Cheeseburger mit Gurken, Salat und geschmolzenen Ementaler"
               percentage="15"
               value="25"></coupon>
-      <coupon class="col-6"
+      <coupon class="col-12 col-md-4"
+              title="Cheeseburger"
+              text="Genieße den saftigen Cheeseburger mit Gurken, Salat und geschmolzenen Ementaler"
+              percentage="0"
+              value="30"></coupon>
+      <coupon class="col-12 col-md-4"
+              title="Cheeseburger"
+              text="Genieße den saftigen Cheeseburger mit Gurken, Salat und geschmolzenen Ementaler"
+              percentage="0"
+              value="30"></coupon>
+      <coupon class="col-12 col-md-4"
+              title="Cheeseburger"
+              text="Genieße den saftigen Cheeseburger mit Gurken, Salat und geschmolzenen Ementaler"
+              percentage="15"
+              value="25"></coupon>
+      <coupon class="col-12 col-md-4"
+              title="Cheeseburger"
+              text="Genieße den saftigen Cheeseburger mit Gurken, Salat und geschmolzenen Ementaler"
+              percentage="0"
+              value="30"></coupon>
+      <coupon class="col-12 col-md-4"
               title="Cheeseburger"
               text="Genieße den saftigen Cheeseburger mit Gurken, Salat und geschmolzenen Ementaler"
               percentage="0"
               value="30"></coupon>
     </div>
-
   </div>
 </template>
 
 <script>
 import Axios from 'axios'
 import Coupon from "@/components/Coupon";
-import FormNewCoupon from "@/components/forms/FormNewCoupon";
 
 export default {
   name: "RabattMenu",
-  components: {FormNewCoupon, Coupon},
+  components: {Coupon},
   data() {
     return {
       url: 'http://freepoint.at/api',
@@ -58,20 +74,9 @@ export default {
 
 <style scoped>
 
+
 .container-fluid {
-  background: #B1D4E3;
+  background: #FAFAFA;
 }
-
-#business {
-  font-size: 30px;
-  text-align: center;
-}
-
-#head {
-  background: #7FA7C9;
-  padding: 20px;
-}
-
-
 
 </style>

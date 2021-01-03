@@ -37,6 +37,7 @@ export default {
 }
 
 .coupon {
+  margin-top: 30px;
   .card-edit {
     position: absolute;
     right: -10px;

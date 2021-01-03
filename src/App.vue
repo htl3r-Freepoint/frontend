@@ -1,8 +1,5 @@
 <template>
   <div id="app">
-    <router-link to="/scan">
-      <button class="btn btn-primary">QR-Scanner</button>
-    </router-link>
     <router-view/>
   </div>
 </template>
