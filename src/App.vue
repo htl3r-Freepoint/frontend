@@ -1,16 +1,19 @@
 <template>
   <div id="app">
-    <router-link to="/scan">
+    <navigationsleiste></navigationsleiste>
+    <!--<router-link to="/scan">
       <button class="btn btn-primary">QR-Scanner</button>
-    </router-link>
+    </router-link>-->
     <router-view/>
   </div>
 </template>
 
 <script>
+import Navigationsleiste from "@/components/Navigationsleiste";
+
 export default {
   name: "App",
-  components: {}
+  components: {Navigationsleiste}
 }
 </script>
 
