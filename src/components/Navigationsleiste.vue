@@ -22,7 +22,7 @@
       <div class="container">
         <div>
           <a class="" href="#">
-            <img src="../assets/Schriftzug.svg" width="200">
+            <img src="../assets/Schriftzug.svg" width="150">
           </a>
         </div>
         <div>
@@ -30,17 +30,17 @@
         </div>
         <div>
           <img v-if="!homeActive" v-on:click="homeActive=true; plusActive=false; gearActive=false ; qrActive=false"
-               class="icon" src="../assets/house.svg" width="30">
-          <img v-if="homeActive" class="icon" src="../assets/house-fill.svg" width="30">
+               class="icon" src="../assets/house.svg" width="25">
+          <img v-if="homeActive" class="icon" src="../assets/house-fill.svg" width="25">
           <img v-if="!plusActive" v-on:click="plusActive=true; gearActive=false; homeActive=false; qrActive=false"
-               class="icon" src="../assets/plus-circle.svg" width="30">
-          <img v-if="plusActive" class="icon" src="../assets/plus-circle-fill.svg" width="30">
+               class="icon" src="../assets/plus-circle.svg" width="25">
+          <img v-if="plusActive" class="icon" src="../assets/plus-circle-fill.svg" width="25">
           <img v-if="!qrActive" v-on:click="qrActive=true; plusActive=false; gearActive=false; homeActive=false"
-               class="icon" src="../assets/upc.svg" width="30">
-          <img v-if="qrActive" class="icon" src="../assets/upc-scan.svg" width="30">
+               class="icon" src="../assets/upc.svg" width="25">
+          <img v-if="qrActive" class="icon" src="../assets/upc-scan.svg" width="25">
           <img v-if="!gearActive" v-on:click="gearActive=true; plusActive=false; homeActive=false; qrActive=false"
-               class="icon" src="../assets/gear.svg" width="30">
-          <img v-if="gearActive" class="icon" src="../assets/gear-fill.svg" width="30">
+               class="icon" src="../assets/gear.svg" width="25">
+          <img v-if="gearActive" class="icon" src="../assets/gear-fill.svg" width="25">
         </div>
       </div>
     </nav>
@@ -65,7 +65,8 @@ export default {
 
 <style scoped>
 .icon {
-  margin: 8px;
+  cursor: pointer;
+  margin-left: 20px;
 }
 
 .navbar {
