@@ -1,13 +1,19 @@
 <template>
   <div id="app">
+    <navigationsleiste></navigationsleiste>
+    <!--<router-link to="/scan">
+      <button class="btn btn-primary">QR-Scanner</button>
+    </router-link>-->
     <router-view/>
   </div>
 </template>
 
 <script>
+import Navigationsleiste from "@/components/Navigationsleiste";
+
 export default {
   name: "App",
-  components: {}
+  components: {Navigationsleiste}
 }
 </script>
 
@@ -18,6 +24,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #153E73;
+  background: #FAFAFA;;
   min-height: 100vh;
 }
 

@@ -1,33 +1,33 @@
 <template>
-  <div class="container-fluid">
+  <div class="container">
 
-    <div id="coupon-container" class="row">
-      <coupon class="col-12 col-md-4"
+    <div id="coupon-container" class="row justify-content-center">
+      <coupon class="col-12 col-md-4 col-sm-6"
               title="Cheeseburger"
               text="Genieße den saftigen Cheeseburger mit Gurken, Salat und geschmolzenen Ementaler"
               percentage="15"
               value="25"></coupon>
-      <coupon class="col-12 col-md-4"
+      <coupon class="col-12 col-md-4  col-sm-6"
               title="Cheeseburger"
               text="Genieße den saftigen Cheeseburger mit Gurken, Salat und geschmolzenen Ementaler"
               percentage="0"
               value="30"></coupon>
-      <coupon class="col-12 col-md-4"
+      <coupon class="col-12 col-md-4  col-sm-6"
               title="Cheeseburger"
               text="Genieße den saftigen Cheeseburger mit Gurken, Salat und geschmolzenen Ementaler"
               percentage="0"
               value="30"></coupon>
-      <coupon class="col-12 col-md-4"
+      <coupon class="col-12 col-md-4  col-sm-6"
               title="Cheeseburger"
               text="Genieße den saftigen Cheeseburger mit Gurken, Salat und geschmolzenen Ementaler"
               percentage="15"
               value="25"></coupon>
-      <coupon class="col-12 col-md-4"
+      <coupon class="col-12 col-md-4  col-sm-6"
               title="Cheeseburger"
               text="Genieße den saftigen Cheeseburger mit Gurken, Salat und geschmolzenen Ementaler"
               percentage="0"
               value="30"></coupon>
-      <coupon class="col-12 col-md-4"
+      <coupon class="col-12 col-md-4  col-sm-6"
               title="Cheeseburger"
               text="Genieße den saftigen Cheeseburger mit Gurken, Salat und geschmolzenen Ementaler"
               percentage="0"
@@ -75,8 +75,9 @@ export default {
 <style scoped>
 
 
-.container-fluid {
-  background: #FAFAFA;
+.container {
+  margin-bottom: 60px;
+
 }
 
 </style>
