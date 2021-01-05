@@ -32,15 +32,23 @@
               </div>
 
               <div class="row">
-                <div class="form-group col">
-                  <label class="radio-inline">
-                    <input type="radio" name="optradio" checked>gratis
+                <div class="col btn-group">
+                  <label class="btn btn-primary">
+                    <input type="radio" :value="true" v-model="selected" checked>gratis
                   </label>
-                  <label class="radio-inline">
-                    <input type="radio" name="optradio">%
+                  <label class="btn btn-primary">
+                    <input type="radio" :value="false" v-model="selected">%
                   </label>
                 </div>
               </div>
+
+
+              <div class="row">
+                <div class="form-group col">
+                  <input type="number" class="form-control" placeholder="Rabatt" :disabled="selected"/>
+                </div>
+              </div>
+
               <div class="row">
                 <div class="col">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
@@ -67,7 +75,8 @@ export default {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json;charset=UTF-8'
-      }
+      },
+      selected: true
     }
   },
   methods: {
@@ -87,5 +96,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>
