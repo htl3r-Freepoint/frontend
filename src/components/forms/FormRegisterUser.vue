@@ -68,27 +68,22 @@ export default {
       passwordConfirm: "",
       name: "",
       TOS: false,
-      url: 'https://freepoint.htl3r.com/api/RegisterUser.json',
-      data: {
-        params: {
-          email: this.email,
-          password: this.password,
-          username: this.name
-        }
-      },
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json;charset=UTF-8'
-      }
+      url: 'https://freepoint.htl3r.com/api/RegisterUser.json'
     }
   },
   methods: {
     register() {
       if (this.email && this.password && this.passwordConfirm && this.TOS) {
         if (this.password === this.passwordConfirm) {
-          Axios.post(this.url, this.data, this.headers)
-              .then()
-              .catch(function (error) {
+          Axios.post(this.url, {
+            email: this.email,
+            password: this.password,
+            username: this.name
+          })
+              .then(response => {
+                console.log(response)
+              })
+              .catch(error => {
                 if (error.response) {
                   console.log(error.response.data);
                   console.log(error.response.status);
@@ -100,7 +95,7 @@ export default {
                 }
                 console.log(error.config);
               })
-        }else console.log("The repeated password must be equal")
+        } else console.log("The repeated password must be equal")
       } else {
         console.log("Form incomplete")
         console.log([this.email, this.password, this.passwordConfirm, this.TOS])
