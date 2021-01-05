@@ -9,9 +9,8 @@
         </router-link>
 
         <div>
-          <img v-if="!plusActive" v-on:click="plusActive=true; gearActive=false; homeActive=false; qrActive=false"
-               class="icon-mobile" src="../assets/plus-circle.svg" width="30" type="button" data-toggle="modal" data-target="#exampleModalCenter">
-          <img v-if="plusActive" class="icon-mobile" src="../assets/plus-circle-fill.svg" width="30">
+          <img class="icon-mobile" src="../assets/plus-circle.svg" width="30" type="button" data-toggle="modal"
+               data-target="#exampleModalCenter">
         </div>
 
         <router-link to="/scan">
@@ -43,7 +42,7 @@
         <div id="icons-header">
 
           <router-link to="/menu">
-            <img v-if="!homeActive" v-on:click="homeActive=true; gearActive=false ; qrActive=false"
+            <img v-if="!homeActive" v-on:click="homeActive=true; gearActive=false; qrActive=false"
                  class="icon" src="../assets/house.svg" width="25">
             <img v-if="homeActive" class="icon" src="../assets/house-fill.svg" width="25">
           </router-link>
@@ -63,14 +62,20 @@
         </div>
       </div>
     </nav>
+
+    <form-new-coupon></form-new-coupon>
+
   </div>
 
 </template>
 
 <script>
 
+import FormNewCoupon from "@/components/forms/FormNewCoupon";
+
 export default {
   name: "Navigationsleiste",
+  components: {FormNewCoupon},
   data() {
     return {
       homeActive: false,
