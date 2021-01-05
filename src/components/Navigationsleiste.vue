@@ -8,11 +8,11 @@
           <img v-if="homeActive" class="icon-mobile" src="../assets/house-fill.svg" width="30">
         </router-link>
 
-        <router-link to="/flyer">
+        <div>
           <img v-if="!plusActive" v-on:click="plusActive=true; gearActive=false; homeActive=false; qrActive=false"
-               class="icon-mobile" src="../assets/plus-circle.svg" width="30">
+               class="icon-mobile" src="../assets/plus-circle.svg" width="30" type="button" data-toggle="modal" data-target="#exampleModalCenter">
           <img v-if="plusActive" class="icon-mobile" src="../assets/plus-circle-fill.svg" width="30">
-        </router-link>
+        </div>
 
         <router-link to="/scan">
           <img v-if="!qrActive" v-on:click="qrActive=true; plusActive=false; gearActive=false; homeActive=false"
