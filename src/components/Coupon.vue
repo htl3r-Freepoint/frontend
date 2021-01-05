@@ -13,7 +13,7 @@
           </div>
         </div>
       </div>
-      <button class="btn card-edit btn-primary">
+      <button class="btn card-edit btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
         <i class="fas fa-pen"></i>
       </button>
       <button class="btn card-delete btn-danger">

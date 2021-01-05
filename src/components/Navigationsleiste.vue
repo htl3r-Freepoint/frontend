@@ -43,25 +43,19 @@
         <div id="icons-header">
 
           <router-link to="/menu">
-            <img v-if="!homeActive" v-on:click="homeActive=true; plusActive=false; gearActive=false ; qrActive=false"
+            <img v-if="!homeActive" v-on:click="homeActive=true; gearActive=false ; qrActive=false"
                  class="icon" src="../assets/house.svg" width="25">
             <img v-if="homeActive" class="icon" src="../assets/house-fill.svg" width="25">
           </router-link>
 
-          <router-link to="/flyer">
-            <img v-if="!plusActive" v-on:click="plusActive=true; gearActive=false; homeActive=false; qrActive=false"
-                 class="icon" src="../assets/plus-circle.svg" width="25">
-            <img v-if="plusActive" class="icon" src="../assets/plus-circle-fill.svg" width="25">
-          </router-link>
-
           <router-link to="/scan">
-            <img v-if="!qrActive" v-on:click="qrActive=true; plusActive=false; gearActive=false; homeActive=false"
+            <img v-if="!qrActive" v-on:click="qrActive=true; gearActive=false; homeActive=false"
                  class="icon" src="../assets/upc.svg" width="25">
             <img v-if="qrActive" class="icon" src="../assets/upc-scan.svg" width="25">
           </router-link>
 
           <router-link to="/flyer">
-            <img v-if="!gearActive" v-on:click="gearActive=true; plusActive=false; homeActive=false; qrActive=false"
+            <img v-if="!gearActive" v-on:click="gearActive=true; homeActive=false; qrActive=false"
                  class="icon" src="../assets/gear.svg" width="25">
             <img v-if="gearActive" class="icon" src="../assets/gear-fill.svg" width="25">
           </router-link>
@@ -81,7 +75,6 @@ export default {
     return {
       homeActive: false,
       qrActive: false,
-      plusActive: false,
       gearActive: false
     }
   }

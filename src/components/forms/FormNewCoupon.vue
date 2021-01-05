@@ -1,44 +1,57 @@
 <template>
-  <div class="container w-25">
-    <form role="form">
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+       aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Neues Coupon</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <form role="form">
 
-      <div class="row">
-        <div class="form-group col">
-          <input type="text" class="form-control" placeholder="Name"/>
+              <div class="row">
+                <div class="form-group col">
+                  <input type="text" class="form-control" placeholder="Name"/>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-group col">
+                  <textarea class="form-control" placeholder="Beschreibung"/>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-group col">
+                  <input type="number" class="form-control" placeholder="benötigte Punkte"/>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-group col">
+                  <label class="radio-inline">
+                    <input type="radio" name="optradio" checked>gratis
+                  </label>
+                  <label class="radio-inline">
+                    <input type="radio" name="optradio">%
+                  </label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+                  <button type="submit" class="btn btn-primary">Speichern</button>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-
-      <div class="row">
-        <div class="form-group col">
-          <textarea class="form-control" placeholder="Beschreibung"/>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="form-group col">
-          <input type="number" class="form-control" placeholder="benötigte Punkte"/>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="form-group col">
-          <label class="radio-inline">
-            <input type="radio" name="optradio" checked>gratis
-          </label>
-          <label class="radio-inline">
-            <input type="radio" name="optradio">%
-          </label>
-        </div>
-      </div>
-
-
-      <div class="">
-        <div class="form-group row justify-content-around">
-          <button type="submit" class="btn btn-primary">speichern</button>
-          <button type="submit" class="btn btn-primary">abbrechen</button>
-        </div>
-      </div>
-    </form>
+    </div>
   </div>
 </template>
 
@@ -58,9 +71,9 @@ export default {
     }
   },
   methods: {
-    postNewCoupon(){
+    postNewCoupon() {
       Axios.post(this.url + '/rabatt.js', {
-        params:{
+        params: {
           store: this.store,
           title: this.title,
           text: this.text,
