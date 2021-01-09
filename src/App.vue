@@ -4,7 +4,7 @@
     <!--<router-link to="/scan">
       <button class="btn btn-primary">QR-Scanner</button>
     </router-link>-->
-    <router-view style="padding-top: 50px"/>
+    <router-view style="padding-top: 60px"/>
   </div>
 </template>
 

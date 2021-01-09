@@ -36,8 +36,8 @@
             <img src="../assets/Schriftzug.svg" width="150">
           </a>
         </div>
-        <div>
-          <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+        <div id="nav-points" class="font-weight-bold">
+          <h4>25FP</h4>
         </div>
         <div id="icons-header">
 
@@ -89,6 +89,7 @@ export default {
 <style scoped>
 * {
   z-index: 1;
+  --primary: #10cdb7;
 }
 
 .icon {
@@ -104,24 +105,29 @@ export default {
   background: white;
 }
 
+#nav-points{
+  background: var(--primary);
+  color: white;
+  padding: 2px;
+  width: 100px;
+  border-bottom-right-radius: 90px;
+  border-bottom-left-radius: 90px;
+  justify-content: center;
+  margin-bottom: 0px;
+}
+
 @media (max-width: 560px) {
   #icons-header {
     display: none;
   }
 
-  #header {
-    justify-content: center;
+  #nav-points{
+    border-top-left-radius: 90px;
   }
 
 }
 
-@media (max-width: 767px) {
-  .form-control {
-    display: none;
-  }
-}
-
-@media (min-width: 560px) {
+@media (min-width: 561px) {
   .navbar-mobile {
     display: none;
   }
