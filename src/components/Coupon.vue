@@ -2,63 +2,81 @@
   <div class="coupon">
     <div class="card">
       <div class="card-body text-left col">
-        <h4 class="col font-weight-bold">{{ this.title }}</h4>
-        <p class="col-auto">{{this.text}}</p>
-        <div class="col row">
+
+        <h4 class="card-title font-weight-bold">{{ this.coupon.title }}</h4>
+
+        <p>{{ this.coupon.text }}</p>
+
+        <div class="row">
           <div class="col-6 text-left">
-            <h4 class="card-percentage font-weight-bold">{{ !(this.percentage > 0) || this.percentage == 100 ? 'Gratis' : this.percentage > 100 ? '100%' : this.percentage + '%' }}</h4>
+            <h4 class="font-weight-bold">{{
+                coupon.isPercent ?
+                    !(this.coupon.percentage > 0) || this.coupon.percentage >= 100 ?
+                        'Gratis' : this.coupon.percentage + '%'
+                    :
+                    !(this.coupon.price > 0) || this.coupon.price >= 100 ?
+                        'Gratis' : '-' + this.coupon.price + '€'
+              }}
+            </h4>
           </div>
+
           <div class="col-6 text-right">
-            <h4 class="card-value font-weight-bold">{{ this.value + " FP" }}</h4>
+            <h4 class="primary-text font-weight-bold">{{ this.coupon.value + " FP" }}</h4>
           </div>
         </div>
+
       </div>
-      <button class="btn card-edit btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-        <i class="fas fa-pen"></i>
-      </button>
-      <button class="btn card-delete btn-danger">
-        <i class="fas fa-trash"></i>
-      </button>
+      <div v-if="editRights" class="edit-buttons btn-toolbar">
+        <button class="btn btn-primary mb-1" data-toggle="modal"
+                data-target="#modalEditCoupon" v-on:click="edit = true">
+          <i class="fas fa-pen"></i>
+        </button>
+
+        <button class="btn btn-danger mt-1">
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
     </div>
+    <modal :id="'modalEditCoupon' + coupon.id">
+      <form-edit-coupon :coupon="coupon"></form-edit-coupon>
+    </modal>
   </div>
 </template>
 
 <script>
+import Modal from "@/components/Modal";
+import FormEditCoupon from "@/components/forms/FormEditCoupon";
+
 export default {
   name: "Coupon",
-  props:['title', 'text', 'percentage', 'value']
+  components: {FormEditCoupon, Modal},
+  props: ['coupon', 'editRights'],
 }
 </script>
 
 <style scoped lang="scss">
 
-*{
-  --primary: #10cdb7;
-}
-
 .coupon {
-  margin-top: 30px;
-  .card-edit {
+  margin: var(--card-margin) 0 var(--card-margin);
+
+  .edit-buttons {
+    display: flex;
+    flex-direction: column;
     position: absolute;
-    right: -10px;
+    width: fit-content;
+    right: -20px;
     top: -20px;
   }
-  .card-delete {
-    position: absolute;
-    right: -10px;
-    top: 30px;
-  }
-  .card-percentage{
-  }
-  .card-value {
-    color: var(--primary);
-  }
+
   .card {
     transition: 0.3s;
+    min-height: var(--card-height);
+
     &:hover {
-      box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.15);
+      box-shadow: 12px 12px 20px 0 rgba(70, 70, 70, 0.15);
     }
   }
+
   .card-image-overlay span {
     display: inline-block;
   }
@@ -69,7 +87,8 @@ export default {
   height: 40px;
   border-radius: 20px;
   transition: .2s;
-  &:hover{
+
+  &:hover {
     border-radius: 8px;
   }
 }

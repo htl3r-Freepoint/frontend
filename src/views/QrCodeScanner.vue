@@ -1,11 +1,11 @@
 <template>
   <div>
     <h1>Qr-Code Scanner</h1>
-    <qrcode-stream @decode="onDecode" @init="checkCamera"></qrcode-stream>
     <div v-if="error">
       <qrcode-drop-zone @decode="onDecode"></qrcode-drop-zone>
       <qrcode-capture @decode="onDecode"></qrcode-capture>
     </div>
+    <qrcode-stream v-else @decode="onDecode" @init="checkCamera"></qrcode-stream>
     <div>
     </div>
   </div>

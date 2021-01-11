@@ -59,7 +59,8 @@
 import Axios from "axios";
 
 export default {
-  name: "FormNewCoupon",
+  name: "FormEditCoupon",
+  components: {},
   props: ['store', 'coupon'],
   data() {
     return {
@@ -72,11 +73,17 @@ export default {
       value: 0
     }
   },
+  created() {
+    if (this.coupon) {
+      this.resetData()
+    }
+  },
   methods: {
     postNewCoupon() {
       Axios.post(this.url + '/coupon.js', {
         params: {
           store: this.store,
+          id: this.coupon.id,
           coupon: {
             isPercent: this.isPercent,
             title: this.title,
@@ -89,12 +96,10 @@ export default {
       })
     },
     resetData() {
-      this.isPercent = true;
-      this.title = ""
-      this.text = ""
-      this.price = 0
-      this.percentage = 0
-      this.value = 0
+      this.title = this.coupon.title
+      this.text = this.coupon.text
+      this.percentage = this.coupon.percentage
+      this.value = this.coupon.value
     }
   }
 }

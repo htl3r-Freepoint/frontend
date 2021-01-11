@@ -1,10 +1,7 @@
 <template>
   <div id="app">
     <navigationsleiste></navigationsleiste>
-    <!--<router-link to="/scan">
-      <button class="btn btn-primary">QR-Scanner</button>
-    </router-link>-->
-    <router-view style="padding-top: 60px"/>
+    <router-view class="router-view"/>
   </div>
 </template>
 
@@ -18,6 +15,20 @@ export default {
 </script>
 
 <style lang="scss">
+
+*{
+  --store-primary: #10cdb7;
+  --text-color: #2c3e50;
+}
+
+p{
+  color: var(--text-color);
+}
+
+.primary-text{
+  color: var(--store-primary);
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -30,13 +41,17 @@ export default {
 
 #nav {
   padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    .router-link-exact-active {
-      color: #42b983;
-    }
-  }
+}
+
+.router-view{
+}
+
+.btn-primary{
+  background: var(--store-primary);
+}
+
+.container{
+  margin: 16px auto;
 }
 
 </style>

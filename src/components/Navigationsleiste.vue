@@ -1,81 +1,81 @@
 <template>
-  <div>
-    <div class="navbar-mobile container">
+  <div id="navbar" class="sticky-top">
+    <nav class="navbar-mobile container">
       <footer class="footer row justify-content-between">
         <router-link to="/menu">
           <img v-if="!homeActive" v-on:click="homeActive=true; plusActive=false; gearActive=false ; qrActive=false"
-               class="icon-mobile" src="../assets/house.svg" width="30">
-          <img v-if="homeActive" class="icon-mobile" src="../assets/house-fill.svg" width="30">
+               class="icon-mobile" src="../assets/icons/house.svg" width="30">
+          <img v-if="homeActive" class="icon-mobile" src="../assets/icons/house-fill.svg" width="30">
         </router-link>
 
         <div>
-          <img class="icon-mobile" src="../assets/plus-circle.svg" width="30" type="button" data-toggle="modal"
+          <img class="icon-mobile" src="../assets/icons/plus-circle.svg" width="30" type="button" data-toggle="modal"
                data-target="#exampleModalCenter">
         </div>
 
         <router-link to="/scan">
           <img v-if="!qrActive" v-on:click="qrActive=true; plusActive=false; gearActive=false; homeActive=false"
-               class="icon-mobile" src="../assets/upc.svg" width="30">
-          <img v-if="qrActive" class="icon-mobile" src="../assets/upc-scan.svg" width="30">
+               class="icon-mobile" src="../assets/icons/upc.svg" width="30">
+          <img v-if="qrActive" class="icon-mobile" src="../assets/icons/upc-scan.svg" width="30">
         </router-link>
 
         <router-link to="/flyer">
           <img v-if="!gearActive" v-on:click="gearActive=true; plusActive=false; homeActive=false; qrActive=false"
-               class="icon-mobile" src="../assets/gear.svg" width="30">
-          <img v-if="gearActive" class="icon-mobile" src="../assets/gear-fill.svg" width="30">
+               class="icon-mobile" src="../assets/icons/gear.svg" width="30">
+          <img v-if="gearActive" class="icon-mobile" src="../assets/icons/gear-fill.svg" width="30">
         </router-link>
 
       </footer>
-    </div>
+    </nav>
 
 
-    <nav class="navbar fixed-top border">
+    <nav class="navbar border">
       <div id="header" class="container">
         <div>
           <a class="" href="#">
-            <img src="../assets/Schriftzug.svg" width="150">
+            <img src="../assets/icons/Schriftzug.svg" width="150">
           </a>
         </div>
+
         <div id="nav-points" class="font-weight-bold">
           <h4>25FP</h4>
         </div>
+
         <div id="icons-header">
 
           <router-link to="/menu">
             <img v-if="!homeActive" v-on:click="homeActive=true; gearActive=false; qrActive=false"
-                 class="icon" src="../assets/house.svg" width="25">
-            <img v-if="homeActive" class="icon" src="../assets/house-fill.svg" width="25">
+                 class="icon" src="../assets/icons/house.svg" width="25">
+            <img v-if="homeActive" class="icon" src="../assets/icons/house-fill.svg" width="25">
           </router-link>
 
           <router-link to="/scan">
             <img v-if="!qrActive" v-on:click="qrActive=true; gearActive=false; homeActive=false"
-                 class="icon" src="../assets/upc.svg" width="25">
-            <img v-if="qrActive" class="icon" src="../assets/upc-scan.svg" width="25">
+                 class="icon" src="../assets/icons/upc.svg" width="25">
+            <img v-if="qrActive" class="icon" src="../assets/icons/upc-scan.svg" width="25">
           </router-link>
 
           <router-link to="/flyer">
             <img v-if="!gearActive" v-on:click="gearActive=true; homeActive=false; qrActive=false"
-                 class="icon" src="../assets/gear.svg" width="25">
-            <img v-if="gearActive" class="icon" src="../assets/gear-fill.svg" width="25">
+                 class="icon" src="../assets/icons/gear.svg" width="25">
+            <img v-if="gearActive" class="icon" src="../assets/icons/gear-fill.svg" width="25">
           </router-link>
 
+          <router-link to="/login" class="font-weight-bold">
+            login
+          </router-link>
         </div>
+
       </div>
     </nav>
-
-    <form-new-coupon></form-new-coupon>
-
   </div>
-
 </template>
 
 <script>
 
-import FormNewCoupon from "@/components/forms/FormNewCoupon";
-
 export default {
   name: "Navigationsleiste",
-  components: {FormNewCoupon},
+  components: {},
   data() {
     return {
       homeActive: false,
@@ -86,14 +86,24 @@ export default {
 }
 </script>
 
-<style scoped>
-* {
-  z-index: 1;
-  --primary: #10cdb7;
+<style scoped lang="scss">
+
+.container{
+  margin: 0 auto;
+}
+
+#navbar {
+  a {
+    color: var(--text-color);
+    font-size: 2.5vh;
+  }
+}
+
+.router-link-active {
+  color: var(--store-primary);
 }
 
 .icon {
-  cursor: pointer;
   margin-left: 20px;
 }
 
@@ -103,17 +113,18 @@ export default {
 
 .navbar {
   background: white;
+  padding-top: 0;
 }
 
-#nav-points{
-  background: var(--primary);
+#nav-points {
+  background: var(--store-primary);
   color: white;
   padding: 2px;
   width: 100px;
   border-bottom-right-radius: 90px;
   border-bottom-left-radius: 90px;
   justify-content: center;
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 
 @media (max-width: 560px) {
@@ -121,7 +132,7 @@ export default {
     display: none;
   }
 
-  #nav-points{
+  #nav-points {
     border-top-left-radius: 90px;
   }
 
