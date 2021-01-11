@@ -96,8 +96,10 @@ export default {
       })
     },
     resetData() {
+      this.isPercent = this.coupon.isPercent
       this.title = this.coupon.title
       this.text = this.coupon.text
+      this.price = this.coupon.price
       this.percentage = this.coupon.percentage
       this.value = this.coupon.value
     }

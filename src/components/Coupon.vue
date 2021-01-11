@@ -16,8 +16,7 @@
                     :
                     !(this.coupon.price > 0) || this.coupon.price >= 100 ?
                         'Gratis' : '-' + this.coupon.price + '€'
-              }}
-            </h4>
+              }}</h4>
           </div>
 
           <div class="col-6 text-right">
@@ -28,7 +27,7 @@
       </div>
       <div v-if="editRights" class="edit-buttons btn-toolbar">
         <button class="btn btn-primary mb-1" data-toggle="modal"
-                data-target="#modalEditCoupon" v-on:click="edit = true">
+                :data-target="'#modalEditCoupon' + coupon.id" v-on:click="edit = true">
           <i class="fas fa-pen"></i>
         </button>
 
