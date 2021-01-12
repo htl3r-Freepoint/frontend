@@ -11,9 +11,12 @@
     "axios": "^0.20.0",
     "bootstrap": "^4.5.2",
     "core-js": "^3.6.5",
+    "jquery": "^3.5.1",
     "jspdf": "^2.1.1",
+    "popper.js": "^1.16.1",
     "qrcode-generator": "^1.4.4",
     "vue": "^2.6.12",
+    "vue-cli": "^2.9.6",
     "vue-qrcode-reader": "^2.3.14",
     "vue-router": "^3.4.7"
   },

@@ -1,13 +1,12 @@
 <template>
-
   <form class="col">
     <div class="form-group">
-      <label for="inputLoginEmail" class="col-form-label">Enter Email:</label>
+      <!--<label for="inputLoginEmail" class="col-form-label">Enter Email:</label>-->
       <input type="email" class="col form-control" id="inputLoginEmail" v-model="this.email"
              placeholder="E-Mail..." required>
     </div>
     <div class="form-group">
-      <label for="inputLoginPassword" class="col-form-label">Enter Password:</label>
+      <!--<label for="inputLoginPassword" class="col-form-label">Enter Password:</label>-->
       <input type="password" class="col form-control" id="inputLoginPassword" v-model="this.password"
              placeholder="Password...">
     </div>
@@ -20,7 +19,6 @@
     </div>
     <router-link to="/resetPassword" class="col">Forgot Password</router-link>
   </form>
-
 </template>
 
 <script>

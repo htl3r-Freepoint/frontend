@@ -1,50 +1,53 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import FlyerCustomizer from "@/views/FlyerCustomizer";
-import QrCodeScanner from "@/views/QrCodeScanner";
-import ResetPassword from "@/views/ResetPassword"
-import TermsAndService from "@/views/TermsAndService";
-import TermsAndServiceCompany from "@/views/TermsAndServiceCompany";
-import Login from "@/views/Login";
-
 Vue.use(VueRouter);
 
 const routes = [
-  {
-    path: '/flyer',
-    name: 'FlyerCustomizer',
-    component: FlyerCustomizer
-  },
-  {
-    path: '/scan',
-    name: 'QrCodeScanner',
-    component: QrCodeScanner
-  },
-  {
-    path: '/reset-password',
-    name: 'ResetPassword',
-    component: ResetPassword
-  },
-  {
-    path: '/terms-and-service',
-    name: 'TermsAndService',
-    component: TermsAndService
-  },
-  {
-    path: '/terms-and-service-company',
-    name: 'TermsAndServiceCompany',
-    component: TermsAndServiceCompany
-  },
-  {
-    path: '/login',
-    name: 'Login',
-    component: Login
-  }
+    {
+        path: '/reset-password',
+        name: 'ResetPassword',
+        component: () => import('../views/ResetPassword')
+    },
+    {
+        path: '/terms-and-service',
+        name: 'TermsAndService',
+        component: () => import('../views/TermsAndService')
+    },
+    {
+        path: '/terms-and-service-company',
+        name: 'TermsAndServiceCompany',
+        component: () => import('../views/TermsAndServiceCompany')
+    },
+    {
+        path: '/login',
+        name: 'Login',
+        component: () => import('../views/Login')
+    },
+    {
+        path: '/flyer',
+        name: 'FlyerCustomizer',
+        component: () => import('../views/FlyerCustomizer.vue')
+    },
+    {
+        path: '/scan',
+        name: 'QrCodeScanner',
+        component: () => import('../views/QrCodeScanner.vue')
+    },
+    {
+        path: '/menu',
+        name: 'RabattMenu',
+        component: () => import('../views/RabattMenu.vue')
+    },
+    {
+        path: '/inventar',
+        name: 'RabattInventar',
+        component: () => import('../views/RabattInventar.vue')
+    }
 ]
 
 const router = new VueRouter({
-  routes
+    routes
 })
 
 export default router
