@@ -112,6 +112,11 @@ const routes = [
                 component: () => import('../views/settingsCompany/Statistics.vue')
             }
         ]
+    },
+    {
+        path: '/nearby',
+        name: 'Nearby',
+        component: () => import('../views/NearbyStores.vue')
     }
 ]
 

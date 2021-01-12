@@ -72,3 +72,24 @@ export default {
   width: fit-content;
 }
 </style>
+<style scoped lang="scss">
+tr {
+  border-top: solid 1px;
+  border-bottom: solid 1px;
+
+  &:first-child {
+    border-top: none;
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.btn-primary {
+  background: var(--store-primary);
+  border: none;
+  border-radius: 20px;
+  font-size: 1.5em;
+}
+</style>
