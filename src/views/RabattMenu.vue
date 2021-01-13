@@ -14,7 +14,7 @@
       </coupon>
 
       <div v-if="editRights" class="add-coupon col-12 col-md-4 col-sm-6">
-        <button class="btn btn-block"
+        <button class="btn-block"
                 data-toggle="modal" data-target="#modalCreateNewCoupon">
           <i class="fas fa-plus-circle align-self-center"></i>
         </button>
@@ -111,6 +111,7 @@ export default {
 
   button {
     border: .2rem dashed var(--store-primary);
+    background: none;
     color: var(--store-primary);
     height: 100%;
     transition: .5s;
