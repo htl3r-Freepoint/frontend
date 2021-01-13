@@ -75,7 +75,7 @@ export default {
     register() {
       if (this.email && this.password && this.passwordConfirm && this.TOS) {
         if (this.password === this.passwordConfirm) {
-          Axios.post(this.url, {
+          Axios.post(this.$store.state.url + 'RegisterUser.json', {
             email: this.email,
             password: this.password,
             username: this.name

@@ -10,7 +10,9 @@ import Navigationsleiste from "@/components/Navigationsleiste";
 
 export default {
   name: "App",
-  components: {Navigationsleiste}
+  components: {Navigationsleiste},
+  methods:{
+  }
 }
 </script>
 

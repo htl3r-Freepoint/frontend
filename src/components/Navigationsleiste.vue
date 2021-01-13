@@ -1,6 +1,6 @@
 <template>
-  <div id="navbar" class="sticky-top">
-    <nav class="navbar-mobile container">
+  <nav id="navbar" class="sticky-top">
+    <div class="navbar-mobile container">
       <footer class="footer row justify-content-between">
         <router-link to="/menu">
           <img v-if="!homeActive" v-on:click="homeActive=true; plusActive=false; gearActive=false ; qrActive=false"
@@ -26,22 +26,22 @@
         </router-link>
 
       </footer>
-    </nav>
+    </div>
 
 
-    <nav class="navbar border">
-      <div id="header" class="container">
-        <div>
-          <a class="" href="#">
+    <div class="navbar border">
+      <header id="header" class="container row">
+        <div class="col-4">
+          <a class="" href="/">
             <img src="../assets/icons/Schriftzug.svg" width="150">
           </a>
         </div>
 
-        <div id="nav-points" class="font-weight-bold">
-          <h4>25FP</h4>
+        <div id="nav-points" class="col-4 font-weight-bold">
+          <h4>{{ this.$store.state.points }}</h4>
         </div>
 
-        <div id="icons-header">
+        <div id="icons-header" class="col-4">
 
           <router-link to="/menu">
             <img v-if="!homeActive" v-on:click="homeActive=true; gearActive=false; qrActive=false"
@@ -62,13 +62,13 @@
           </router-link>
 
           <router-link to="/login" class="font-weight-bold">
-            login
+            <i class="fas fa-user"></i>
           </router-link>
         </div>
 
-      </div>
-    </nav>
-  </div>
+      </header>
+    </div>
+  </nav>
 </template>
 
 <script>

@@ -6,8 +6,9 @@
       <qrcode-capture @decode="onDecode"></qrcode-capture>
     </div>
     <qrcode-stream v-else @decode="onDecode" @init="checkCamera"></qrcode-stream>
-    <div>
-    </div>
+    <button v-on:click="postData(test)">
+      Test Points
+    </button>
   </div>
 </template>
 
@@ -22,63 +23,50 @@ export default {
   data() {
     return {
       regex: "_?R\\d-AT\\d_(.+)_(.+)_(\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2})_(\\d+,\\d{2})_(\\d+,\\d{2})_(\\d+,\\d{2})_(\\d+,\\d{2})_(\\d+,\\d{2})_(.+)={1,2}_(.+)==",
-      url: 'http://freepoint.at',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json;charset=UTF-8'
-      },
-      error: ''
+      error: '',
+      test: '_R1-AT1_ZELJKOMUS01A_27914_2020-09-26T16:26:38_3,20_110,00_0,00_0,00_0,00_IXkPErtUR1A=_13e8e502_ctENeqtyCtU=_tQlbGAaQyGiuUR7EhIOgHJlf4s/K9ykoDyacSTutgCrLbhm4/sHHGhSqdaRAnjHl1121111Do1Oc5JVG/ftLhp5u+lTQg=='
     }
   },
   methods: {
     onDecode(result) {
       if (this.regex.exec(result)) {
-        Axios.post(this.url, {
-          params: {
-            data: result
-          }
-        }, this.headers)
-            .catch(function (error) {
-              if (error.response) {
-                console.log(error.response.data);
-                console.log(error.response.status);
-                console.log(error.response.headers);
-              } else if (error.request) {
-                console.log(error.request);
-              } else {
-                console.log('Error', error.message);
-              }
-              console.log(error.config);
-            });
+        this.postData(result)
       } else {
         console.error("Qrcode is invalid");
       }
+    },
+    postData(code){
+      Axios.post(this.$store.state.url + 'AddQrCode.json', {
+        code: code,
+        UserId: 2
+      }).then(result => {
+        console.debug("Points:", result.data)
+        this.$store.commit('setPoints', result.data)
+      }).catch(function (error) {
+        console.error("Error",error)
+        if (error.response) {
+          console.error(error.response.data);
+          console.error(error.response.status);
+          console.error(error.response.headers);
+        } else if (error.request) {
+          console.error(error.request);
+        } else {
+          console.error('Error:', error.message);
+        }
+        console.error(error);
+      });
     },
     async checkCamera(promise) {
       try {
         await promise
         console.log("Qrcode-Scanner loaded")
       } catch (error) {
-        console.error(error);
-        if (error.name === 'NotAllowedError') {
-          this.error = "ERROR: you need to grant camera access permission"
-        } else if (error.name === 'NotFoundError') {
-          this.error = "ERROR: no camera on this device"
-        } else if (error.name === 'NotSupportedError') {
-          this.error = "ERROR: secure context required (HTTPS, localhost)"
-        } else if (error.name === 'NotReadableError') {
-          this.error = "ERROR: is the camera already in use?"
-        } else if (error.name === 'OverconstrainedError') {
-          this.error = "ERROR: installed cameras are not suitable"
-        } else if (error.name === 'StreamApiNotSupportedError') {
-          this.error = "ERROR: Stream API is not supported in this browser"
-        }
-        console.error(this.error)
+        this.error = error
+        console.error("Error", error);
+
       }
-    }
-
+    },
   }
-
 }
 </script>
 
