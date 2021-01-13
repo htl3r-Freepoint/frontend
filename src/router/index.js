@@ -7,22 +7,22 @@ const routes = [
     {
         path: '/reset-password',
         name: 'ResetPassword',
-        component: () => import('../views/ResetPassword')
+        component: () => import('../views/ResetPassword.vue')
     },
     {
         path: '/terms-and-service',
         name: 'TermsAndService',
-        component: () => import('../views/TermsAndService')
+        component: () => import('../views/TermsAndService.vue')
     },
     {
         path: '/terms-and-service-company',
         name: 'TermsAndServiceCompany',
-        component: () => import('../views/TermsAndServiceCompany')
+        component: () => import('../views/TermsAndServiceCompany.vue')
     },
     {
         path: '/login',
         name: 'Login',
-        component: () => import('../views/Login')
+        component: () => import('../views/Login.vue')
     },
     {
         path: '/flyer',
