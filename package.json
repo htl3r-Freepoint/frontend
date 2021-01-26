@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "vue-cli-service serve --https",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
@@ -18,7 +18,8 @@
     "vue": "^2.6.12",
     "vue-cli": "^2.9.6",
     "vue-qrcode-reader": "^2.3.14",
-    "vue-router": "^3.4.7"
+    "vue-router": "^3.4.7",
+    "vuex": "^3.6.0"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.15.1",

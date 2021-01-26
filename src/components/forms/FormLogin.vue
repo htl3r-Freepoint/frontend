@@ -30,24 +30,16 @@ export default {
     return {
       email: "",
       password: "",
-      remember: false,
-      url: 'http://freepoint.at/api/user.json',
-      data: {
-        params: {
-          email: this.email,
-          password: this.password
-        }
-      },
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json;charset=UTF-8'
-      }
+      remember: false
     }
   },
   methods: {
     login() {
       if (this.email && this.password) {
-        Axios.post(this.url, this.data, this.headers)
+        Axios.post(this.$store.state.url + 'user.json', {
+          email: this.email,
+          password: this.password
+        }, this.headers)
             .then()
             .catch(function (error) {
               if (error.response) {

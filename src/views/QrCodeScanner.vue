@@ -1,84 +1,54 @@
 <template>
   <div>
-    <h1>Qr-Code Scanner</h1>
     <div v-if="error">
-      <qrcode-drop-zone @decode="onDecode"></qrcode-drop-zone>
-      <qrcode-capture @decode="onDecode"></qrcode-capture>
+
     </div>
     <qrcode-stream v-else @decode="onDecode" @init="checkCamera"></qrcode-stream>
-    <div>
-    </div>
   </div>
 </template>
 
 <script>
-import {QrcodeStream, QrcodeDropZone, QrcodeCapture} from 'vue-qrcode-reader'
+import {QrcodeStream} from 'vue-qrcode-reader'
 import Axios from "axios";
 
 export default {
   name: "QrCodeScannerView",
-  // eslint-disable-next-line vue/no-unused-components
-  components: {QrcodeStream, QrcodeDropZone, QrcodeCapture},
+  components: {QrcodeStream},
   data() {
     return {
-      regex: "_?R\\d-AT\\d_(.+)_(.+)_(\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2})_(\\d+,\\d{2})_(\\d+,\\d{2})_(\\d+,\\d{2})_(\\d+,\\d{2})_(\\d+,\\d{2})_(.+)={1,2}_(.+)==",
-      url: 'http://freepoint.at',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json;charset=UTF-8'
-      },
+      regex: new RegExp("_?R\\d-AT\\d_(.+)_(.+)_(\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2})_(\\d+,\\d{2})_(\\d+,\\d{2})_(\\d+,\\d{2})_(\\d+,\\d{2})_(\\d+,\\d{2})_(.+)={1,2}_(.+)=="),
       error: ''
     }
   },
   methods: {
     onDecode(result) {
-      if (this.regex.exec(result)) {
-        Axios.post(this.url, {
-          params: {
-            data: result
-          }
-        }, this.headers)
-            .catch(function (error) {
-              if (error.response) {
-                console.log(error.response.data);
-                console.log(error.response.status);
-                console.log(error.response.headers);
-              } else if (error.request) {
-                console.log(error.request);
-              } else {
-                console.log('Error', error.message);
-              }
-              console.log(error.config);
-            });
+      navigator.vibrate(100)
+      this.postData(result)
+    },
+    postData(code) {
+      if (this.regex.exec(code)) {
+        console.debug(code)
+        Axios.post(this.$store.state.url + 'AddQrCode.json', {
+          code: code,
+          UserId: 2
+        }).then(result => {
+          this.$store.commit('setPoints', result.data)
+        }).catch(function (error) {
+          console.error(error)
+        })
       } else {
-        console.error("Qrcode is invalid");
+        console.error("Qrcode is invalid")
       }
     },
     async checkCamera(promise) {
       try {
         await promise
-        console.log("Qrcode-Scanner loaded")
       } catch (error) {
-        console.error(error);
-        if (error.name === 'NotAllowedError') {
-          this.error = "ERROR: you need to grant camera access permission"
-        } else if (error.name === 'NotFoundError') {
-          this.error = "ERROR: no camera on this device"
-        } else if (error.name === 'NotSupportedError') {
-          this.error = "ERROR: secure context required (HTTPS, localhost)"
-        } else if (error.name === 'NotReadableError') {
-          this.error = "ERROR: is the camera already in use?"
-        } else if (error.name === 'OverconstrainedError') {
-          this.error = "ERROR: installed cameras are not suitable"
-        } else if (error.name === 'StreamApiNotSupportedError') {
-          this.error = "ERROR: Stream API is not supported in this browser"
-        }
-        console.error(this.error)
+        this.error = true
+        console.error(error)
       }
-    }
-
+    },
   }
-
 }
 </script>
 
