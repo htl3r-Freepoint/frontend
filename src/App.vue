@@ -11,6 +11,9 @@ import Navigationsleiste from "@/components/Navigationsleiste";
 export default {
   name: "App",
   components: {Navigationsleiste},
+  created() {
+    this.$store.commit('setToken', JSON.parse(sessionStorage.getItem('user')).token)
+  },
   methods:{
   }
 }

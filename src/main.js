@@ -14,10 +14,14 @@ Vue.config.productionTip = false
 
 const store = new Vuex.Store({
     state: {
-        url: 'https://freepoint.htl3r.com/api/',
+        url: 'https://freepoint.htl3r.com/api',
+        token: '',
         points: 0
     },
     mutations: {
+        setToken(state, token){
+            state.token = token
+        },
         increment(state) {
             state.points++
         },

@@ -21,8 +21,18 @@ const routes = [
     },
     {
         path: '/login',
-        name: 'Login',
-        component: () => import('../views/Login.vue')
+        name: 'LoginUser',
+        component: () => import('../views/LoginUser.vue')
+    },
+    {
+        path: '/register',
+        name: 'RegisterUser',
+        component: () => import('../views/RegisterUser.vue')
+    },
+    {
+        path: '/register/company',
+        name: 'RegisterCompany',
+        component: () => import('../views/RegisterCompany.vue')
     },
     {
         path: '/flyer',

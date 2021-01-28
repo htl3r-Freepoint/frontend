@@ -47,17 +47,9 @@ export default {
   components: {Modal, FormNewCoupon, Coupon},
   data() {
     return {
-      url: 'http://freepoint.at/api',
       user: '1',
       store: '1',
       editRights: true,
-      options: {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json;charset=UTF-8'
-        },
-      },
       coupons: [
         {
           id: 0,
@@ -82,13 +74,12 @@ export default {
   },
   methods: {
     getData() {
-      Axios.get(this.url, {
+      Axios.get(this.$store.state.url + "/", {
         params: {
           user: this.user,
           store: this.store
         }
-      }, this.headers)
-          .then(r => this.coupons = r)
+      }).then(r => this.coupons = r)
     }
   }
 }

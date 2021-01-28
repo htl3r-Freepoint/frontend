@@ -2,22 +2,21 @@
   <form class="col">
     <div class="form-group">
       <!--<label for="inputLoginEmail" class="col-form-label">Enter Email:</label>-->
-      <input type="email" class="col form-control" id="inputLoginEmail" v-model="this.email"
+      <input type="email" class="col form-control" id="inputLoginEmail" v-model="email"
              placeholder="E-Mail..." required>
     </div>
     <div class="form-group">
       <!--<label for="inputLoginPassword" class="col-form-label">Enter Password:</label>-->
-      <input type="password" class="col form-control" id="inputLoginPassword" v-model="this.password"
+      <input type="password" class="col form-control" id="inputLoginPassword" v-model="password"
              placeholder="Password...">
     </div>
     <div class="form-check">
-      <input type="checkbox" class="form-check-input" id="inputLoginRemember" v-model="this.remember">
+      <input type="checkbox" class="form-check-input" id="inputLoginRemember" v-model="remember">
       <label for="inputLoginRemember">Remember me</label>
     </div>
     <div class="form-group">
-      <button type="submit" class="btn btn-primary" @click="this.login()">Login</button>
+      <button type="button" class="btn btn-primary" @click="login()">Login</button>
     </div>
-    <router-link to="/resetPassword" class="col">Forgot Password</router-link>
   </form>
 </template>
 
@@ -36,23 +35,33 @@ export default {
   methods: {
     login() {
       if (this.email && this.password) {
-        Axios.post(this.$store.state.url + 'user.json', {
+        Axios.post(this.$store.state.url + '/loginUser', {
           email: this.email,
           password: this.password
-        }, this.headers)
-            .then()
-            .catch(function (error) {
-              if (error.response) {
-                console.log(error.response.data);
-                console.log(error.response.status);
-                console.log(error.response.headers);
-              } else if (error.request) {
-                console.log(error.request);
-              } else {
-                console.log('Error', error.message);
-              }
-              console.log(error.config);
-            })
+        }).then(response => {
+          console.debug("Response:", response.data)
+          console.debug("Saving user login")
+          if (this.remember) {
+            localStorage.setItem('user', JSON.stringify(response.data))
+          } else {
+            localStorage.setItem('user', JSON.stringify({}))
+          }
+          sessionStorage.setItem('user', JSON.stringify(response.data))
+          this.$store.commit('setToken', JSON.parse(sessionStorage.getItem('user')).token)
+          console.debug("Token:", this.$store.state.token)
+          this.$router.push({path: 'menu'})
+        }).catch(error => {
+          if (error.response) {
+            console.debug("Data:", error.response.data);
+            console.debug("Status:", error.response.status);
+            console.debug("Headers:", error.response.headers);
+          } else if (error.request) {
+            console.debug("Request:", error.request);
+          } else {
+            console.debug("Error:", error.message);
+          }
+          console.debug("Config:", error.config);
+        })
       }
     }
   }
