@@ -58,6 +58,26 @@ const routes = [
         path: '/settings/user',
         name: 'UserSettings',
         component: () => import('../views/UserSettings.vue')
+    },
+    {
+        path: '/settings/user/profile',
+        name: 'Profile',
+        component: () => import('../views/Profile.vue')
+    },
+    {
+        path: '/settings/user/info',
+        name: 'Info',
+        component: () => import('../views/Info.vue')
+    },
+    {
+        path: '/settings/user/help',
+        name: 'Help',
+        component: () => import('../views/Help.vue')
+    },
+    {
+        path: '/settings/user/feedback',
+        name: 'Feedback',
+        component: () => import('../views/Feedback.vue')
     }
 ]
 
