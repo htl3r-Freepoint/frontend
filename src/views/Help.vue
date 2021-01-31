@@ -1,30 +1,20 @@
 <template>
-  <div class="card container">
-    <div class="row settings-header">
-      <div class="col-1 text-left">
-        <router-link class="router-link" to="/settings/user">
-          <i class="fas fa-arrow-left fa-2x"></i>
-        </router-link>
+  <div>
+    <settings title="Hilfe">
+      <div slot="body">
       </div>
-      <h3 class="col text-left">Hilfe</h3>
-    </div>
-    <div class="row"></div>
+    </settings>
   </div>
 </template>
 
 <script>
+import Settings from "@/components/Settings";
+
 export default {
-name: "Help"
+name: "Help",
+  components: {Settings}
 }
 </script>
 
 <style scoped>
-
-.router-link{
-  text-decoration: none; color: inherit;
-}
-
-.settings-header {
-  margin-bottom: 1em;
-}
 </style>
