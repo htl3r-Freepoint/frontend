@@ -19,7 +19,7 @@
           <img v-if="qrActive" class="icon-mobile" src="../assets/icons/upc-scan.svg" width="30">
         </router-link>
 
-        <router-link to="/settings/user/profile">
+        <router-link to="/settings/user">
           <img v-if="!gearActive" v-on:click="gearActive=true; plusActive=false; homeActive=false; qrActive=false"
                class="icon-mobile" src="../assets/icons/gear.svg" width="30">
           <img v-if="gearActive" class="icon-mobile" src="../assets/icons/gear-fill.svg" width="30">

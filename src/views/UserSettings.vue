@@ -1,11 +1,11 @@
 <template>
   <div class="card container">
-    <div class="row">
-      <h3 class="col-3 text-left settings-main-header">Einstellungen</h3>
-      <h4 class="col settings-sub-header">{{ title }}</h4>
+    <div class="row settings-header">
+      <div class="col-1"></div>
+      <h3 class="col text-left">Einstellungen</h3>
     </div>
     <div class="row">
-      <div class="col-3 settings-links">
+      <div class="col">
         <router-link class="router-link" to="/settings/user/profile">
           <div class="row settings-row">
             <div class="col-1"><i class="far fa-user-circle settings-icon"></i></div>
@@ -32,71 +32,45 @@
           </div>
         </router-link>
       </div>
-      <div class="col">
-        <slot name="body"></slot>
-      </div>
     </div>
 
   </div>
+
 </template>
 
 <script>
 export default {
-  name: "Settings",
-  props: ['title']
+  name: "UserSettings"
 }
 </script>
 
 <style scoped>
-
-.settings-icon {
-  font-size: 1.5em;
-}
 
 .router-link {
   text-decoration: none;
   color: inherit;
 }
 
+.settings-icon {
+  font-size: 1.5em;
+}
+
 .settings-row {
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
+  padding-top: 0.4em;
+  padding-bottom: 0.4em;
+  cursor: pointer;
+}
+
+.settings-row:active {
+  background: lightgrey;
 }
 
 .settings-row:hover {
   background: lightgrey;
 }
 
-.router-link-active {
-  font-weight: bold;
-  color: var(--store-primary);
-}
-
-
-@media (max-width: 561px) {
-  .settings-links {
-    display: none;
-  }
-  .settings-main-header{
-    display: none;
-  }
-}
-
-.settings-links {
-  background: #F1F1F1;
-}
-
-.settings-main-header {
-  background: #F1F1F1;
-  padding-top: 1em;
-  padding-bottom: 0.5em;
-  margin-bottom: 0px;
-}
-
-.settings-sub-header {
-  background: white;
-  padding-top: 1em;
-  padding-bottom: 0.5em;
+.settings-header {
+  margin-bottom: 1em;
 }
 
 
