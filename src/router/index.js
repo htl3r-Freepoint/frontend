@@ -35,11 +35,6 @@ const routes = [
         component: () => import('../views/RegisterCompany.vue')
     },
     {
-        path: '/flyer',
-        name: 'FlyerCustomizer',
-        component: () => import('../views/FlyerCustomizer.vue')
-    },
-    {
         path: '/scan',
         name: 'QrCodeScanner',
         component: () => import('../views/QrCodeScanner.vue')
@@ -78,6 +73,27 @@ const routes = [
         path: '/settings/user/feedback',
         name: 'Feedback',
         component: () => import('../views/Feedback.vue')
+    }
+    ,
+    {
+        path: '/settings/company/profile',
+        name: 'CompanyProfile',
+        component: () => import('../views/settingsCompany/CompanyProfile.vue')
+    },
+    {
+        path: '/settings/company/design',
+        name: 'Design',
+        component: () => import('../views/settingsCompany/Design.vue')
+    },
+    {
+        path: '/settings/company/statistics',
+        name: 'Statistics',
+        component: () => import('../views/settingsCompany/Statistics.vue')
+    },
+    {
+        path: '/settings/company/flyer',
+        name: 'Flyer-Customizer',
+        component: () => import('../views/settingsCompany/Flyer-Customizer.vue')
     }
 ]
 
