@@ -5,33 +5,34 @@
       <h3 class="col text-left">Einstellungen</h3>
     </div>
     <div class="row">
-      <div class="col">
-        <router-link class="router-link" to="/settings/user/profile">
+      <div class="col-auto">
+        <router-link class="router-link" to="/user/settings/profile">
           <div class="row settings-row">
             <div class="col-1"><i class="far fa-user-circle settings-icon"></i></div>
             <div class="col text-left">Profil bearbeiten</div>
           </div>
         </router-link>
 
-        <router-link class="router-link" to="/settings/user/info">
+        <router-link class="router-link" to="/user/settings/info">
           <div class="row settings-row">
             <div class="col-1"><i class="fas fa-info-circle settings-icon"></i></div>
             <div class="col text-left">Info</div>
           </div>
         </router-link>
-        <router-link class="router-link" to="/settings/user/help">
+        <router-link class="router-link" to="/user/settings/help">
           <div class="row settings-row">
             <div class="col-1"><i class="far fa-question-circle settings-icon"></i></div>
             <div class="col text-left">Hilfe</div>
           </div>
         </router-link>
-        <router-link class="router-link" to="/settings/user/feedback">
+        <router-link class="router-link" to="/user/settings/feedback">
           <div class="row settings-row">
             <div class="col-1"><i class="far fa-comment-dots settings-icon"></i></div>
             <div class="col text-left">Feedback</div>
           </div>
         </router-link>
       </div>
+      <router-view class="col"></router-view>
     </div>
 
   </div>
