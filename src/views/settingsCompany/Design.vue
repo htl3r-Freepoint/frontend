@@ -1,26 +1,21 @@
 <template>
   <div>
-    <settings-company title="Design">
-      <div slot="body">
 
-        <settings-group label="Hauptfarbe:" description="Die Hauptfarbe sollte dem Farbschema Ihres Logos entsprechen.">
-          <div slot="input" class="col-md-7 text-left">
-            <input @change="myColor($event)" type="color" id="color-picker" value="#ff0000">
-          </div>
-        </settings-group>
-
+    <settings-group label="Hauptfarbe:" description="Die Hauptfarbe sollte dem Farbschema Ihres Logos entsprechen.">
+      <div slot="input" class="col-md-7 text-left">
+        <input @change="myColor($event)" type="color" id="color-picker" value="#ff0000">
       </div>
-    </settings-company>
+    </settings-group>
+
   </div>
 </template>
 
 <script>
-import SettingsCompany from "@/components/SettingsCompany";
 import SettingsGroup from "@/components/SettingsGroup";
 
 export default {
   name: "Design",
-  components: {SettingsGroup, SettingsCompany},
+  components: {SettingsGroup},
   data: function () {
     return {
       color: String
@@ -34,7 +29,6 @@ export default {
     }
   }
 }
-
 
 
 </script>

@@ -19,7 +19,7 @@
           <img v-if="qrActive" class="icon-mobile" src="../assets/icons/upc-scan.svg" width="30">
         </router-link>
 
-        <router-link to="/settings/user">
+        <router-link to="/company/settings">
           <img v-if="!gearActive" v-on:click="gearActive=true; plusActive=false; homeActive=false; qrActive=false"
                class="icon-mobile" src="../assets/icons/gear.svg" width="30">
           <img v-if="gearActive" class="icon-mobile" src="../assets/icons/gear-fill.svg" width="30">
@@ -59,7 +59,7 @@
             <img v-if="qrActive" class="icon" src="../assets/icons/upc-scan.svg" width="25">
           </router-link>
 
-          <router-link to="/settings/user/profile">
+          <router-link to="/company/settings">
             <img v-if="!gearActive" v-on:click="gearActive=true; homeActive=false; qrActive=false"
                  class="icon" src="../assets/icons/gear.svg" width="25">
             <img v-if="gearActive" class="icon" src="../assets/icons/gear-fill.svg" width="25">

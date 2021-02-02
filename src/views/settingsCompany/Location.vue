@@ -1,19 +1,15 @@
 <template>
   <div>
-    <settings-company title="Standorte">
-      <div slot="body">
-        fisdnfmlskfmsdfdsfsf
-      </div>
-    </settings-company>
+    fisdnfmlskfmsdfdsfsf
   </div>
+
 </template>
 
 <script>
-import SettingsCompany from "@/components/SettingsCompany";
 
 export default {
   name: "Location",
-  components: {SettingsCompany}
+  components: {}
 }
 </script>
 

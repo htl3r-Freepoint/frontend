@@ -1,9 +1,6 @@
 <template>
-    <settings-company title="Profil bearbeiten">
-      <div slot="body">
 
         <form>
-
           <settings-group label="Logo" description="Mit dem Logo setzen Sie einen wichtigen Schritt in die Richtung, ihre App zu individualisieren.">
             <div slot="input" class="col-md-7">
               <input type="file" class="form-control-file">
@@ -41,19 +38,15 @@
           </settings-group>
 
           <button type="submit" class="btn btn-primary">Ändern</button>
-
-
         </form>
-      </div>
-    </settings-company>
+
 </template>
 
 <script>
-import SettingsCompany from "@/components/SettingsCompany";
 import SettingsGroup from "@/components/SettingsGroup";
 export default {
 name: "CompanyProfile",
-  components: {SettingsGroup, SettingsCompany}
+  components: {SettingsGroup }
 }
 </script>
 

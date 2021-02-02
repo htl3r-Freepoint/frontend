@@ -1,7 +1,5 @@
 <template>
   <div>
-    <settings-company title="Flyer-Customizer">
-      <div slot="body">
 
         <settings-group label="Logo auswählen" description="Ihr Firmenname">
           <div slot="input" class="col-md-7">
@@ -38,20 +36,17 @@
         <button @click="createPDF" class="btn btn-primary">PDF erstellen</button>
 
       </div>
-    </settings-company>
-  </div>
 </template>
 
 <script>
 import JsPDF from 'jspdf'
 import qrcode from 'qrcode-generator'
-import SettingsCompany from "@/components/SettingsCompany"
 import SettingsGroup from "@/components/SettingsGroup";
 
 
 export default {
   name: "Flyer",
-  components: {SettingsGroup, SettingsCompany},
+  components: {SettingsGroup},
   data: function () {
     return {
       company: "",

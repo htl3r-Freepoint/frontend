@@ -50,14 +50,46 @@ const routes = [
         component: () => import('../views/RabattInventar.vue')
     },
     {
-        path: '/settings/user',
-        name: 'UserSettingsMobile',
-        component: () => import('../views/UserSettingsMobile.vue')
+        path: '/company/settings',
+        name: 'CompanySettingsMobile',
+        component: () => import('../views/CompanySettings.vue'),
+        children: [
+            {
+                path: 'profile',
+                name: 'CompanyProfile',
+                component: () => import('../views/settingsCompany/CompanyProfile.vue')
+            },
+            {
+                path: 'design',
+                name: 'Design',
+                component: () => import('../views/settingsCompany/Design')
+            },
+            {
+                path: 'flyer',
+                name: 'Flyer',
+                component: () => import('../views/settingsCompany/Flyer-Customizer.vue')
+            },
+            {
+                path: 'location',
+                name: 'Location',
+                component: () => import('../views/settingsCompany/Location.vue')
+            },
+            {
+                path: 'staff',
+                name: 'Staff',
+                component: () => import('../views/settingsCompany/Staff.vue')
+            },
+            {
+                path: 'statistics',
+                name: 'Statistics',
+                component: () => import('../views/settingsCompany/Statistics.vue')
+            }
+        ]
     },
     {
-        path: '/settings/company',
-        name: 'CompanySettingsMobile',
-        component: () => import('../views/CompanySettingsMobile.vue')
+        path: '/user/settings',
+        name: 'UserSettingsMobile',
+        component: () => import('../views/UserSettings.vue')
     },
     {
         path: '/settings/user/profile',
