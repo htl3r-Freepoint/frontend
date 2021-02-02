@@ -1,67 +1,60 @@
 <template>
-
   <form>
-    <div class="col input-group">
+    <div class="form-group input-group">
       <div class="input-group-prepend">
         <span class="input-group-text">
           <i class="fas fa-user"></i>
         </span>
       </div>
-      <input type="text" class="col form-control" id="inputRegisterUsername" v-model="name"
+      <input type="text" class="form-control" id="inputRegisterUsername" v-model="name"
              placeholder="Username..." autocomplete="username" required>
     </div>
-    <div class="col input-group">
-      <div class="input-group-prepend">
+    <div class="form-group">
+      <div class="input-group">
+        <div class="input-group-prepend">
         <span class="input-group-text">
           <i class="fas fa-at"></i>
         </span>
+        </div>
+        <input type="email" class="form-control" id="inputRegisterEmail" v-model="email"
+               placeholder="E-Mail..." required>
       </div>
-      <input type="email" class="col form-control" id="inputRegisterEmail" v-model="email"
-             placeholder="E-Mail..." required>
+      <small id="emailHelp" class="form-text text-muted">
+        We will never share your email with anyone else.
+      </small>
     </div>
-    <div class="col">
-      <small id="emailHelp" class="col form-text text-muted">We will never share your email with anyone else.</small>
-    </div>
-    <div class="col input-group">
-      <div class="input-group-prepend">
+    <div class="form-group">
+      <div class="input-group">
+        <div class="input-group-prepend">
         <span class="input-group-text">
           <i class="fas fa-key"></i>
         </span>
+        </div>
+        <input type="password" class="form-control" id="inputRegisterPassword" v-model="password"
+               placeholder="Password" autocomplete="new-password" required>
       </div>
-      <input type="password" class="col form-control" id="inputRegisterPassword" v-model="password"
-             placeholder="Password..." autocomplete="new-password" required>
-    </div>
-    <div class="col input-group">
-      <div class="input-group-prepend">
+      <div class="input-group">
+        <div class="input-group-prepend">
         <span class="input-group-text">
           <i class="fas fa-key"></i>
         </span>
-      </div>
-      <input type="password" class="col form-control" id="inputRegisterPasswordConfirm" v-model="passwordConfirm"
-             placeholder="Confirm Password..." autocomplete="new-password" required>
-    </div>
-    <div class="col form-check">
-      <div class="row">
-        <div class="col">
-          <input type="checkbox" class="form-check-input" id="inputRegisterTOS" v-model="TOS" required>
-          <label for="inputRegisterTOS">By checking this, you hereby agree to our
-            <router-link to="/terms-and-service">Terms and Services</router-link>
-          </label>
         </div>
+        <input type="password" class="form-control" id="inputRegisterPasswordConfirm" v-model="passwordConfirm"
+               placeholder="Confirm Password" autocomplete="new-password" required>
       </div>
     </div>
-    <div class="col form-group">
-      <div class="row">
-        <div class="col">
-          <button type="button" class="btn btn-primary"
-                  v-on:click="register()"
-                  :disabled="!TOS && !email && !password && !passwordConfirm">Register
-          </button>
-        </div>
-      </div>
+    <div class="form-group form-check">
+      <input type="checkbox" class="form-check-input" id="inputRegisterTOS" v-model="TOS" required>
+      <label for="inputRegisterTOS">
+        By checking this, you hereby agree to our
+        <router-link to="/terms-and-service">Terms and Services</router-link>
+      </label>
     </div>
+    <button type="submit" class="btn btn-primary"
+            v-on:click="register()"
+            :disabled="!TOS && !email && !password && !passwordConfirm">Register
+    </button>
   </form>
-
 </template>
 
 <script>
