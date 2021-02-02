@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="card container">
+    <div class="card container mobile">
       <div class="row settings-header">
         <h3 class="col text-left">Einstellungen</h3>
       </div>
@@ -34,23 +34,29 @@
       </div>
     </div>
 
-    <settings>
+    <settings-user>
       <router-view/>
-    </settings>
+    </settings-user>
   </div>
 
 </template>
 
 <script>
-import Settings from "@/components/Settings";
+import SettingsUser from "@/components/SettingsUser";
 
 export default {
   name: "UserSettings",
-  components: {Settings}
+  components: {SettingsUser}
 }
 </script>
 
 <style scoped>
+@media (min-width: 560px) {
+  .mobile{
+    display: none;
+  }
+}
+
 
 .router-link {
   text-decoration: none;

@@ -1,46 +1,40 @@
 <template>
   <div class="card container everything">
-
     <div class="row">
       <h3 class="col-3 text-left settings-main-header">Einstellungen</h3>
-      <h4 class="col settings-sub-header">{{ title }}</h4>
     </div>
     <div class="row h-100">
       <div class="col-3 settings-links">
-        <router-link class="router-link" to="/settings/user/profile">
+        <router-link class="router-link" to="/user/settings/profile">
           <div class="row settings-row">
             <div class="col-1"><i class="far fa-user-circle settings-icon"></i></div>
             <div class="col text-left">Profil bearbeiten</div>
           </div>
         </router-link>
 
-        <router-link class="router-link" to="/settings/user/info">
+        <router-link class="router-link" to="/user/settings/info">
           <div class="row settings-row">
             <div class="col-1"><i class="fas fa-info-circle settings-icon"></i></div>
             <div class="col text-left">Info</div>
           </div>
         </router-link>
-        <router-link class="router-link" to="/settings/user/help">
+        <router-link class="router-link" to="/user/settings/help">
           <div class="row settings-row">
             <div class="col-1"><i class="far fa-question-circle settings-icon"></i></div>
             <div class="col text-left">Hilfe</div>
           </div>
         </router-link>
-        <router-link class="router-link" to="/settings/user/feedback">
+        <router-link class="router-link" to="/user/settings/feedback">
           <div class="row settings-row">
             <div class="col-1"><i class="far fa-comment-dots settings-icon"></i></div>
             <div class="col text-left">Feedback</div>
           </div>
         </router-link>
       </div>
-
-
-
       <div class="col container">
-        <slot name="body"></slot>
+        <router-view></router-view>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -52,12 +46,9 @@ export default {
 </script>
 
 <style scoped>
-
 .everything{
   height: 50em;
 }
-
-
 
 .settings-icon {
   font-size: 1.5em;

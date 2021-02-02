@@ -1,38 +1,50 @@
 <template>
   <div>
     <form>
-      <div class="form-group row input">
-        <label class="col-md-3 label" for="nameInput">Benutzername</label>
-        <input class="form-control col-md-7 text-left" id="nameInput"
-               v-model="username">
-      </div>
-      <div class="form-group row input">
-        <label class="col-md-3 label" for="nameInput">Vorname</label>
-        <input class="form-control col-md-7 text-left" id="firstNameInput"
-               v-model="firstName">
-      </div>
-      <div class="form-group row input">
-        <label class="col-md-3 label" for="nameInput">Nachname</label>
-        <input class="form-control col-md-7 text-left" id="lastNameInput"
-               v-model="lastName">
-      </div>
-      <div class="form-group row input">
-        <label class="col-md-3 label" for="mailInput">E-Mail-Adresse</label>
-        <input type="email" class="form-control col-md-7" id="mailInput"
-               v-model="email">
-      </div>
-      <div class="form-group input">
-        <div class="row">
-          <label class="col-md-3 label" for="oldPasswordInput">Altes Passwort</label>
-          <input type="password" class="form-control col-md-7" id="oldPasswordInput"
+
+      <settings-group label="Benutzername" description="Ihr Firmenname ">
+        <div slot="input" class="col-md-7">
+          <input class="form-control"
+                 v-model="username">
+        </div>
+      </settings-group>
+
+      <settings-group label="Vorname" description="Ihr Firmenname ">
+        <div slot="input" class="col-md-7">
+          <input class="form-control"
+                 v-model="firstName">
+        </div>
+      </settings-group>
+
+      <settings-group label="Nachname" description="Ihr Firmenname ">
+        <div slot="input" class="col-md-7">
+          <input class="form-control"
+                 v-model="lastName">
+        </div>
+      </settings-group>
+
+      <settings-group label="E-Mail-Adresse" description="Ihr Firmenname ">
+        <div slot="input" class="col-md-7">
+          <input type="email" class="form-control"
+                 v-model="email">
+        </div>
+      </settings-group>
+
+      <settings-group label="Altes Passwort" description="Ihr Firmenname ">
+        <div slot="input" class="col-md-7">
+          <input type="password" class="form-control"
                  v-model="oldPassword">
         </div>
-        <div class="row">
-          <label class="col-md-3 label" for="newPasswordInput">Neues Passwort</label>
-          <input type="password" class="form-control col-md-7" id="newPasswordInput"
+      </settings-group>
+
+      <settings-group label="Neues Passwort" description="Ihr Firmenname ">
+        <div slot="input" class="col-md-7">
+          <input type="password" class="form-control"
                  v-model="newPassword">
         </div>
-      </div>
+      </settings-group>
+
+
       <button type="button" class="btn btn-primary"
               v-on:click="updateData">Speichern
       </button>
@@ -43,10 +55,11 @@
 
 <script>
 import Axios from "axios";
+import SettingsGroup from "@/components/SettingsGroup";
 
 export default {
   name: "Profile",
-  components: {},
+  components: {SettingsGroup},
   data() {
     return {
       username: '',

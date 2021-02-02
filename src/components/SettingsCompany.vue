@@ -2,7 +2,6 @@
   <div class="card container everything">
     <div class="row">
       <h3 class="col-3 text-left settings-main-header">Einstellungen</h3>
-      <h4 class="col settings-sub-header">{{ title }}</h4>
     </div>
     <div class="row h-100">
       <div class="col-3 settings-links">
