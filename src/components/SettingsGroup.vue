@@ -1,7 +1,7 @@
 <template>
   <div class="settings-group">
     <div class="row input">
-      <label class="col-md-3 label settings-label text-right">{{ label }}</label>
+      <label class="col-md-3 label settings-label">{{ label }}</label>
       <slot name="input"></slot>
     </div>
     <div class="row">
@@ -19,6 +19,18 @@ export default {
 </script>
 
 <style scoped>
+@media (max-width: 561px) {
+  .settings-label {
+    text-align: left;
+  }
+}
+
+@media (min-width: 561px) {
+  .settings-label {
+    text-align: right;
+  }
+}
+
 .settings-group {
   padding-bottom: 1.5em;
 }

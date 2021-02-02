@@ -1,10 +1,10 @@
 <template>
-  <div class="card container">
+  <div class="card container everything">
     <div class="row">
       <h3 class="col-3 text-left settings-main-header">Einstellungen</h3>
       <h4 class="col settings-sub-header">{{ title }}</h4>
     </div>
-    <div class="row">
+    <div class="row h-100">
       <div class="col-3 settings-links">
         <router-link class="router-link" to="/settings/company/profile">
           <div class="row settings-row">
@@ -47,7 +47,6 @@
         <slot name="body"></slot>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -59,6 +58,20 @@ export default {
 </script>
 
 <style scoped>
+.everything{
+  height: 50em;
+}
+
+
+@media (max-width: 561px) {
+  .settings-links {
+    display: none;
+  }
+  .settings-main-header{
+    display: none;
+  }
+}
+
 .settings-icon {
   font-size: 1.5em;
 }

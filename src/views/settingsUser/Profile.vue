@@ -1,11 +1,11 @@
 <template>
   <div>
-    <settings title="Profil bearbeiten">
+    <settings-user title="Profil bearbeiten">
       <div slot="body">
         <form>
           <div class="form-group row input">
             <label class="col-md-3 label" for="nameInput">Benutzername</label>
-            <input class="form-control col-md-7 text-left" id="nameInput">
+            <input class="form-control col-md-7" id="nameInput">
           </div>
           <div class="form-group row input">
             <label class="col-md-3 label" for="mailInput">E-Mail-Adresse</label>
@@ -24,18 +24,18 @@
           <button type="submit" class="btn btn-primary">Ändern</button>
         </form>
       </div>
-    </settings>
+    </settings-user>
   </div>
 
 
 </template>
 
 <script>
-import Settings from "@/components/Settings";
+import SettingsUser from "@/components/SettingsUser";
 
 export default {
   name: "Profile",
-  components: {Settings}
+  components: {SettingsUser}
 }
 </script>
 

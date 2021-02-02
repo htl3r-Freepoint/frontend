@@ -51,28 +51,33 @@ const routes = [
     },
     {
         path: '/settings/user',
-        name: 'UserSettings',
-        component: () => import('../views/UserSettings.vue')
+        name: 'UserSettingsMobile',
+        component: () => import('../views/UserSettingsMobile.vue')
+    },
+    {
+        path: '/settings/company',
+        name: 'CompanySettingsMobile',
+        component: () => import('../views/CompanySettingsMobile.vue')
     },
     {
         path: '/settings/user/profile',
         name: 'Profile',
-        component: () => import('../views/Profile.vue')
+        component: () => import('../views/settingsUser/Profile.vue')
     },
     {
         path: '/settings/user/info',
         name: 'Info',
-        component: () => import('../views/Info.vue')
+        component: () => import('../views/settingsUser/Info.vue')
     },
     {
         path: '/settings/user/help',
         name: 'Help',
-        component: () => import('../views/Help.vue')
+        component: () => import('../views/settingsUser/Help.vue')
     },
     {
         path: '/settings/user/feedback',
         name: 'Feedback',
-        component: () => import('../views/Feedback.vue')
+        component: () => import('../views/settingsUser/Feedback.vue')
     }
     ,
     {

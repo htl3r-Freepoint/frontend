@@ -1,19 +1,19 @@
 <template>
   <div>
-    <settings title="Feedback">
+    <settings-user title="Feedback">
       <div slot="body">
       </div>
-    </settings>
+    </settings-user>
   </div>
 
 </template>
 
 <script>
-import Settings from "@/components/Settings";
+import SettingsUser from "@/components/SettingsUser";
 
 export default {
   name: "Feedback",
-  components: {Settings}
+  components: {SettingsUser}
 }
 </script>
 

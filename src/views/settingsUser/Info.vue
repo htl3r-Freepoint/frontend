@@ -1,49 +1,61 @@
 <template>
   <div>
-    <settings title="Hilfe">
+    <settings-user title="Info">
       <div slot="body">
         <div class="text-left faq">
-          <div class="help-headline">
+          <h5>FAQ:</h5>
+          <div class="faq-headline">
             Wie funktioniert die App?
           </div>
-          <div class="help-text">
+          <div class="faq-text">
             Die Applikation "Name der Geschäftsapp" wurde mithilfe von FreePoint erstellt. FreePoint übernimmt sowohl
             die
             Funktionalität als auch die Wartung dieser App. Das Geschäft "Name des Geschäftes" hat freie
             Entscheidungsmacht
             über die Rabatte und das Design.
           </div>
-          <div class="help-headline">
+          <div class="faq-headline">
             Wie entstand FreePoint?
           </div>
-          <div class="help-text">
+          <div class="faq-text">
             Freepoint entstand aus der Ideenschmiede vier junger Männer der HTL Rennweg Wien. Diese haben dieses Projekt
             im
             Rahmen ihrer Diplomarbeit umgesetzt. Nähere Informationen finden Sie unter diesem
             <a href="https://diplomarbeit.freepoint.at/">Link</a>.
           </div>
         </div>
+        <div class="text-left terms">
+          <router-link to="/terms-and-service">Nutzungsbedingungen</router-link>
+        </div>
       </div>
-    </settings>
+    </settings-user>
   </div>
 </template>
 
 <script>
-import Settings from "@/components/Settings";
+import SettingsUser from "@/components/SettingsUser";
 
 export default {
-name: "Help",
-  components: {Settings}
+  name: "Info",
+  components: {SettingsUser}
 }
 </script>
 
 <style scoped>
-.help-headline {
+.terms {
+  margin-bottom: 2em;
+}
+
+.faq {
+  margin-bottom: 3em;
+}
+
+.faq-headline {
   font-weight: bold;
   margin-top: 1em;
 }
 
-.help-text {
+.faq-text {
   margin-bottom: 1em;
 }
 

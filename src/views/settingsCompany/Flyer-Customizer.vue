@@ -15,9 +15,8 @@
           </div>
         </settings-group>
 
-        <settings-group label="Layout" description="Wählen Sie das Layout aus, in dem der Flyer gedruckt werden soll.">
+        <settings-group label="Layout" description="Wählen Sie das Layout aus, in dem der Flyer erstellt werden soll.">
           <div slot="input" class="col-md-7 text-left">
-
             <input type="radio" name="gender" class="sr-only" id="male">
             <label for="male">
               <img src="http://findicons.com/files/icons/1688/web_blog/48/user_male_white_red_brown.png" alt="male">
@@ -27,7 +26,6 @@
               <img src="http://findicons.com/files/icons/1688/web_blog/48/user_female_white_pink_black.png"
                    alt="female">
             </label>
-
           </div>
         </settings-group>
 

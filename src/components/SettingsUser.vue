@@ -1,10 +1,11 @@
 <template>
-  <div class="card container">
+  <div class="card container everything">
+
     <div class="row">
       <h3 class="col-3 text-left settings-main-header">Einstellungen</h3>
       <h4 class="col settings-sub-header">{{ title }}</h4>
     </div>
-    <div class="row">
+    <div class="row h-100">
       <div class="col-3 settings-links">
         <router-link class="router-link" to="/settings/user/profile">
           <div class="row settings-row">
@@ -32,7 +33,10 @@
           </div>
         </router-link>
       </div>
-      <div class="col">
+
+
+
+      <div class="col container">
         <slot name="body"></slot>
       </div>
     </div>
@@ -42,12 +46,18 @@
 
 <script>
 export default {
-  name: "Settings",
+  name: "SettingsUser",
   props: ['title']
 }
 </script>
 
 <style scoped>
+
+.everything{
+  height: 50em;
+}
+
+
 
 .settings-icon {
   font-size: 1.5em;
