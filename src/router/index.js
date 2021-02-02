@@ -61,6 +61,7 @@ const routes = [
         children: [
             {
                 path: 'profile',
+                name: "Profile",
                 component: () => import('../views/userSettings/Profile.vue')
             },
             {

@@ -33,10 +33,9 @@
         </router-link>
       </div>
       <div class="col">
-        <slot name="body"></slot>
+        <slot></slot>
       </div>
     </div>
-
   </div>
 </template>
 
