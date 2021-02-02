@@ -1,32 +1,44 @@
 <template>
 
-  <form class="col">
-    <div class="col form-group">
-      <div class="row">
-        <input type="text" class="col form-control" id="inputRegisterUsername" v-model="name"
-               placeholder="Username..." autocomplete="username" required>
+  <form>
+    <div class="col input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">
+          <i class="fas fa-user"></i>
+        </span>
       </div>
+      <input type="text" class="col form-control" id="inputRegisterUsername" v-model="name"
+             placeholder="Username..." autocomplete="username" required>
     </div>
-    <div class="col form-group">
-      <div class="row">
-        <input type="email" class="col form-control" id="inputRegisterEmail" v-model="email"
-               placeholder="E-Mail..." required>
+    <div class="col input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">
+          <i class="fas fa-at"></i>
+        </span>
       </div>
-      <div class="row">
-        <small id="emailHelp" class="col form-text text-muted">We will never share your email with anyone else.</small>
-      </div>
+      <input type="email" class="col form-control" id="inputRegisterEmail" v-model="email"
+             placeholder="E-Mail..." required>
     </div>
-    <div class="col form-group">
-      <div class="row">
-        <input type="password" class="col form-control" id="inputRegisterPassword" v-model="password"
-               placeholder="Password..." autocomplete="new-password" required>
-      </div>
+    <div class="col">
+      <small id="emailHelp" class="col form-text text-muted">We will never share your email with anyone else.</small>
     </div>
-    <div class="col form-group">
-      <div class="row">
-        <input type="password" class="col form-control" id="inputRegisterPasswordConfirm" v-model="passwordConfirm"
-               placeholder="Confirm Password..." autocomplete="new-password" required>
+    <div class="col input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">
+          <i class="fas fa-key"></i>
+        </span>
       </div>
+      <input type="password" class="col form-control" id="inputRegisterPassword" v-model="password"
+             placeholder="Password..." autocomplete="new-password" required>
+    </div>
+    <div class="col input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">
+          <i class="fas fa-key"></i>
+        </span>
+      </div>
+      <input type="password" class="col form-control" id="inputRegisterPasswordConfirm" v-model="passwordConfirm"
+             placeholder="Confirm Password..." autocomplete="new-password" required>
     </div>
     <div class="col form-check">
       <div class="row">
@@ -43,7 +55,8 @@
         <div class="col">
           <button type="button" class="btn btn-primary"
                   v-on:click="register()"
-                  :disabled="!TOS && !email && !password && !passwordConfirm">Register</button>
+                  :disabled="!TOS && !email && !password && !passwordConfirm">Register
+          </button>
         </div>
       </div>
     </div>

@@ -1,11 +1,21 @@
 <template>
   <form class="col">
-    <div class="form-group">
+    <div class="input-group">
       <!--<label for="inputLoginEmail" class="col-form-label">Enter Email:</label>-->
+      <div class="input-group-prepend">
+        <span class="input-group-text">
+          <i class="fas fa-user"></i>
+        </span>
+      </div>
       <input type="email" class="col form-control" id="inputLoginEmail" v-model="email"
              placeholder="E-Mail..." required>
     </div>
-    <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">
+          <i class="fas fa-key"></i>
+        </span>
+      </div>
       <!--<label for="inputLoginPassword" class="col-form-label">Enter Password:</label>-->
       <input type="password" class="col form-control" id="inputLoginPassword" v-model="password"
              placeholder="Password...">
