@@ -21,7 +21,7 @@ export default {
 
 <style lang="scss">
 
-*{
+:root{
   --store-primary: #10cdb7;
   --text-color: #2c3e50;
 }

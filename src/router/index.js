@@ -35,11 +35,6 @@ const routes = [
         component: () => import('../views/RegisterCompany.vue')
     },
     {
-        path: '/flyer',
-        name: 'FlyerCustomizer',
-        component: () => import('../views/FlyerCustomizer.vue')
-    },
-    {
         path: '/scan',
         name: 'QrCodeScanner',
         component: () => import('../views/QrCodeScanner.vue')
@@ -55,29 +50,68 @@ const routes = [
         component: () => import('../views/RabattInventar.vue')
     },
     {
-        path: '/settings/user',
+        path: '/user/settings',
         name: 'UserSettings',
-        component: () => import('../views/UserSettings.vue')
+        component: () => import('../views/UserSettings.vue'),
+        children: [
+            {
+                path: 'profile',
+                name: "Profile",
+                component: () => import('../views/userSettings/Profile.vue')
+            },
+            {
+                path: 'info',
+                name: 'Info',
+                component: () => import('../views/userSettings/Info.vue')
+            },
+            {
+                path: 'help',
+                name: 'Help',
+                component: () => import('../views/userSettings/Help.vue')
+            },
+            {
+                path: 'feedback',
+                name: 'Feedback',
+                component: () => import('../views/userSettings/Feedback.vue')
+            }
+        ]
     },
     {
-        path: '/settings/user/profile',
-        name: 'Profile',
-        component: () => import('../views/Profile.vue')
-    },
-    {
-        path: '/settings/user/info',
-        name: 'Info',
-        component: () => import('../views/Info.vue')
-    },
-    {
-        path: '/settings/user/help',
-        name: 'Help',
-        component: () => import('../views/Help.vue')
-    },
-    {
-        path: '/settings/user/feedback',
-        name: 'Feedback',
-        component: () => import('../views/Feedback.vue')
+        path: '/company/settings',
+        name: 'CompanySettingsMobile',
+        component: () => import('../views/CompanySettings.vue'),
+        children: [
+            {
+                path: 'profile',
+                name: 'CompanyProfile',
+                component: () => import('../views/settingsCompany/CompanyProfile.vue')
+            },
+            {
+                path: 'design',
+                name: 'Design',
+                component: () => import('../views/settingsCompany/Design')
+            },
+            {
+                path: 'flyer',
+                name: 'Flyer',
+                component: () => import('../views/settingsCompany/Flyer-Customizer.vue')
+            },
+            {
+                path: 'location',
+                name: 'Location',
+                component: () => import('../views/settingsCompany/Location.vue')
+            },
+            {
+                path: 'staff',
+                name: 'Staff',
+                component: () => import('../views/settingsCompany/Staff.vue')
+            },
+            {
+                path: 'statistics',
+                name: 'Statistics',
+                component: () => import('../views/settingsCompany/Statistics.vue')
+            }
+        ]
     }
 ]
 
