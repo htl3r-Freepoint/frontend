@@ -1,32 +1,49 @@
 <template>
   <div>
-    <settings-company title="Profil">
+    <settings-company title="Profil bearbeiten">
       <div slot="body">
 
-        <form>
-          <div class="form-group row input">
-            <label class="col-md-3 label" for="beschreibung">Logo</label>
-            <input type="file" class="form-control-file, col-md-7" id="beschreibung">
-          </div>
-          <div class="form-group row input">
-            <label class="col-md-3 label" for="nameInput">Benutzername</label>
-            <input class="form-control col-md-7 text-left" id="nameInput">
-          </div>
-          <div class="form-group row input">
-            <label class="col-md-3 label" for="mailInput">E-Mail-Adresse</label>
-            <input type="email" class="form-control col-md-7" id="mailInput">
-          </div>
-          <div class="form-group input">
-            <div class="row">
-              <label class="col-md-3 label" for="oldPasswordInput">Altes Passwort</label>
-              <input type="password" class="form-control col-md-7" id="oldPasswordInput">
+        <form class="">
+
+          <settings-group label="Logo" description="Mit dem Logo setzen Sie einen wichtigen Schritt in die Richtung, ihre App zu individualisieren.">
+            <div slot="input" class="col-md-7">
+              <input type="file" class="form-control-file">
             </div>
-            <div class="row">
-              <label class="col-md-3 label" for="newPasswordInput">Neues Passwort</label>
-              <input type="password" class="form-control col-md-7" id="newPasswordInput">
+          </settings-group>
+
+          <settings-group label="Firmenname" description="Ihr Firmenname ">
+            <div slot="input" class="col-md-7">
+              <input class="form-control">
             </div>
-          </div>
+          </settings-group>
+
+          <settings-group label="Benutzername" description="">
+            <div slot="input" class="col-md-7">
+              <input class="form-control">
+            </div>
+          </settings-group>
+
+          <settings-group label="E-Mail-Adresse" description="Die E-Mail-Adresse Ihres Accounts wird nicht veröffentlicht.">
+            <div slot="input" class="col-md-7">
+              <input type="email" class="form-control">
+            </div>
+          </settings-group>
+
+          <settings-group label="Altes Passwort" description="Falls Sie Ihr Passwort ändern möchten, geben Sie zuerst Ihr altes Passwort ein.">
+            <div slot="input" class="col-md-7">
+              <input type="password" class="form-control">
+            </div>
+          </settings-group>
+
+          <settings-group label="Neues Passwort" description="Geben Sie Ihr neues Passwort ein.">
+            <div slot="input" class="col-md-7">
+              <input type="password" class="form-control">
+            </div>
+          </settings-group>
+
           <button type="submit" class="btn btn-primary">Ändern</button>
+
+
         </form>
       </div>
     </settings-company>
@@ -35,12 +52,24 @@
 
 <script>
 import SettingsCompany from "@/components/SettingsCompany";
+import SettingsGroup from "@/components/SettingsGroup";
 export default {
 name: "CompanyProfile",
-  components: {SettingsCompany}
+  components: {SettingsGroup, SettingsCompany}
 }
 </script>
 
 <style scoped>
+.settings-group{
+  padding-bottom: 1.5em;
+}
 
+.settings-label{
+  font-weight: bold;
+}
+
+.settings-small{
+  font-size: small;
+  color: grey;
+}
 </style>

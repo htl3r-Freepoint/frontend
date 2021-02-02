@@ -2,14 +2,22 @@
   <div>
     <settings-company title="Flyer-Customizer">
       <div slot="body">
-        <div class="container">
-          <input @change="processFile($event)" type="file" class="form-control-file, row" id="beschreibung">
-          <label for="color-picker">Select your favorite color:</label>
-          <input type="color" id="color-picker" value="#ff0000"><br><br>
-          <fieldset>
-            <legend>
-              Please select gender
-            </legend>
+
+        <settings-group label="Logo auswählen" description="Ihr Firmenname">
+          <div slot="input" class="col-md-7">
+            <input @change="processFile($event)" type="file" class="form-control-file">
+          </div>
+        </settings-group>
+
+        <settings-group label="Hauptfarbe" description="Die Hauptfarbe sollte dem Farbschema Ihres Logos entsprechen.">
+          <div slot="input" class="col-md-7 text-left">
+            <input type="color" value="#ff0000">
+          </div>
+        </settings-group>
+
+        <settings-group label="Layout" description="Wählen Sie das Layout aus, in dem der Flyer gedruckt werden soll.">
+          <div slot="input" class="col-md-7 text-left">
+
             <input type="radio" name="gender" class="sr-only" id="male">
             <label for="male">
               <img src="http://findicons.com/files/icons/1688/web_blog/48/user_male_white_red_brown.png" alt="male">
@@ -19,12 +27,18 @@
               <img src="http://findicons.com/files/icons/1688/web_blog/48/user_female_white_pink_black.png"
                    alt="female">
             </label>
-          </fieldset>
-          <label>
-            <input v-model="title">
-          </label>
-          <button @click="createPDF">create PDF</button>
-        </div>
+
+          </div>
+        </settings-group>
+
+        <settings-group label="Text" description="Schreiben Sie einen kurzen Text mit dem Sie Ihre App bewerben wollen.">
+          <div slot="input" class="col-md-7 text-left">
+            <input v-model="text">
+          </div>
+        </settings-group>
+
+        <button @click="createPDF" class="btn btn-primary">PDF erstellen</button>
+
       </div>
     </settings-company>
   </div>
@@ -34,11 +48,12 @@
 import JsPDF from 'jspdf'
 import qrcode from 'qrcode-generator'
 import SettingsCompany from "@/components/SettingsCompany"
+import SettingsGroup from "@/components/SettingsGroup";
 
 
 export default {
   name: "Flyer",
-  components: {SettingsCompany},
+  components: {SettingsGroup, SettingsCompany},
   data: function () {
     return {
       company: "",
@@ -60,7 +75,7 @@ export default {
       qr.addData(this.qrCodeURL)
       qr.make()
       doc.addImage(qr.createDataURL(), 15, 40, 80, 80)
-      doc.text("hallo", 100, 100)
+      doc.text(this.text, 100, 100)
 
       doc.save(documentName + '.pdf')
     }

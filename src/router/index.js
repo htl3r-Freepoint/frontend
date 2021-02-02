@@ -94,6 +94,16 @@ const routes = [
         path: '/settings/company/flyer',
         name: 'Flyer-Customizer',
         component: () => import('../views/settingsCompany/Flyer-Customizer.vue')
+    },
+    {
+        path: '/settings/company/location',
+        name: 'Location',
+        component: () => import('../views/settingsCompany/Location.vue')
+    },
+    {
+        path: '/settings/company/staff',
+        name: 'Staff',
+        component: () => import('../views/settingsCompany/Staff.vue')
     }
 ]
 
