@@ -5,6 +5,7 @@
       <input id="edit-mode" type="checkbox" class="custom-control-input" v-model="editRights">
       <label class="custom-control-label" for="edit-mode">Edit Mode</label>
     </div>
+    <router-link class="btn btn-primary" to="/company/settings">Settings</router-link>
 
     <div id="coupon-container" class="row justify-content-center">
       <coupon v-for="(coupon, id) in coupons" v-bind:key="id"
@@ -20,14 +21,6 @@
         </button>
       </div>
     </div>
-
-
-    <!-- Button trigger modal -->
-    <!--<div>
-      <button class="btn" data-toggle="modal" data-target="#exampleModalCenter">
-        <img class="icon" src="../assets/plus-circle.svg" width="25">
-      </button>
-    </div>-->
 
     <modal id="modalCreateNewCoupon" :title="'Neuer Coupon'">
       <form-new-coupon></form-new-coupon>

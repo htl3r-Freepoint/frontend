@@ -61,10 +61,9 @@ import Axios from "axios";
 export default {
   name: "FormEditCoupon",
   components: {},
-  props: ['store', 'coupon'],
+  props: ['coupon'],
   data() {
     return {
-      url: 'http://freepoint.at/api',
       isPercent: true,
       title: "",
       text: "",
@@ -80,9 +79,8 @@ export default {
   },
   methods: {
     postNewCoupon() {
-      Axios.post(this.url + '/coupon.js', {
+      Axios.post(this.$store.state.url + '/coupon', {
         params: {
-          store: this.store,
           id: this.coupon.id,
           coupon: {
             isPercent: this.isPercent,

@@ -6,26 +6,34 @@
         <input @change="myColor($event)" type="color" id="color-picker" value="#ff0000">
       </div>
     </settings-group>
-
+    <fp-input description="Die Primärfarbe bestimmt das Grundlegende aussehen ihrer Seite.">
+      <i slot="prepend" class="fas fa-palette"/>
+      <input @change="myColor" type="color" :value="color.toString()">
+    </fp-input>
   </div>
 </template>
 
 <script>
 import SettingsGroup from "@/components/SettingsGroup";
+import FpInput from "@/components/Form Components/FpInput";
 
 export default {
   name: "Design",
-  components: {SettingsGroup},
+  components: {FpInput, SettingsGroup},
   data: function () {
     return {
-      color: String
+      color: ''
     }
   },
+  created() {
+    this.color = getComputedStyle(document.querySelector(':root')).getPropertyValue('--store-primary').toString()
+    console.debug(this.color)
+  },
   methods: {
-    myColor(e) {
-      console.log(e.target.value)
-      this.color = e.target.value
-      document.querySelector(':root').style.setProperty('--store-primary', e.target.value.toString())
+    myColor(event) {
+      console.log(event.target.value)
+      this.color = event.target.value
+      document.querySelector(':root').style.setProperty('--store-primary', event.target.value.toString())
     }
   }
 }

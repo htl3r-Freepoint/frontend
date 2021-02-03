@@ -57,7 +57,7 @@ const routes = [
             {
                 path: 'profile',
                 name: 'CompanyProfile',
-                component: () => import('../views/settingsCompany/CompanyProfile.vue')
+                component: () => import('../views/settingsCompany/Profile.vue')
             },
             {
                 path: 'design',
@@ -110,37 +110,6 @@ const routes = [
         path: '/settings/user/feedback',
         name: 'Feedback',
         component: () => import('../views/settingsUser/Feedback.vue')
-    }
-    ,
-    {
-        path: '/settings/company/profile',
-        name: 'CompanyProfile',
-        component: () => import('../views/settingsCompany/CompanyProfile.vue')
-    },
-    {
-        path: '/settings/company/design',
-        name: 'Design',
-        component: () => import('../views/settingsCompany/Design.vue')
-    },
-    {
-        path: '/settings/company/statistics',
-        name: 'Statistics',
-        component: () => import('../views/settingsCompany/Statistics.vue')
-    },
-    {
-        path: '/settings/company/flyer',
-        name: 'Flyer-Customizer',
-        component: () => import('../views/settingsCompany/Flyer-Customizer.vue')
-    },
-    {
-        path: '/settings/company/location',
-        name: 'Location',
-        component: () => import('../views/settingsCompany/Location.vue')
-    },
-    {
-        path: '/settings/company/staff',
-        name: 'Staff',
-        component: () => import('../views/settingsCompany/Staff.vue')
     }
 ]
 
