@@ -1,12 +1,12 @@
 <template>
-  <div class="settings-group">
-    <div class="row input">
+  <div class="settings-group form-group form-group">
+    <div class="input-group">
       <label class="col-md-3 label settings-label">{{ label }}</label>
-      <slot name="input"></slot>
+      <slot name="input" class="col-md"></slot>
     </div>
     <div class="row">
       <div class="col-md-3"></div>
-      <div class="col-md-7 text-left settings-small">{{ description }}</div>
+      <div class="col-md text-left settings-small">{{ description }}</div>
     </div>
   </div>
 </template>

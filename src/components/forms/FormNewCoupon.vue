@@ -60,7 +60,7 @@ import Axios from "axios";
 
 export default {
   name: "FormNewCoupon",
-  props: ['store', 'coupon'],
+  props: ['store'],
   data() {
     return {
       url: 'http://freepoint.at/api',

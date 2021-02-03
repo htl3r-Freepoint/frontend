@@ -84,7 +84,7 @@ const routes = [
             {
                 path: 'profile',
                 name: 'CompanyProfile',
-                component: () => import('../views/settingsCompany/CompanyProfile.vue')
+                component: () => import('../views/settingsCompany/Profile.vue')
             },
             {
                 path: 'design',
