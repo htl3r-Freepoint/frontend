@@ -1,22 +1,28 @@
 <template>
-  <form class="col">
-    <div class="form-group">
-      <!--<label for="inputLoginEmail" class="col-form-label">Enter Email:</label>-->
-      <input type="email" class="col form-control" id="inputLoginEmail" v-model="email"
-             placeholder="E-Mail..." required>
+  <form>
+    <div class="form-group input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">
+          <i class="fas fa-user"></i>
+        </span>
+      </div>
+      <input type="email" class="form-control" id="inputLoginEmail" v-model="email"
+             placeholder="E-Mail" required>
     </div>
-    <div class="form-group">
-      <!--<label for="inputLoginPassword" class="col-form-label">Enter Password:</label>-->
-      <input type="password" class="col form-control" id="inputLoginPassword" v-model="password"
-             placeholder="Password...">
+    <div class="form-group input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">
+          <i class="fas fa-key"></i>
+        </span>
+      </div>
+      <input type="password" class="form-control" id="inputLoginPassword" v-model="password"
+             placeholder="Password">
     </div>
-    <div class="form-check">
+    <div class="form-group form-check">
       <input type="checkbox" class="form-check-input" id="inputLoginRemember" v-model="remember">
       <label for="inputLoginRemember">Remember me</label>
     </div>
-    <div class="form-group">
-      <button type="button" class="btn btn-primary" @click="login()">Login</button>
-    </div>
+    <button type="submit" class="btn btn-primary" @click="login()">Login</button>
   </form>
 </template>
 

@@ -1,20 +1,30 @@
 <template>
   <div id="app">
     <navigationsleiste></navigationsleiste>
+    <div v-if="this.$store.state.token && !this.$store.state.verification">
+      Bitte verifizieren sie ihre Email Addresse.
+      <a :href="sendVerificationEmail">Email erneut senden</a>
+    </div>
     <router-view class="router-view"/>
   </div>
 </template>
 
 <script>
 import Navigationsleiste from "@/components/Navigationsleiste";
+import Axios from "axios";
 
 export default {
   name: "App",
   components: {Navigationsleiste},
   created() {
-    this.$store.commit('setToken', JSON.parse(sessionStorage.getItem('user')).token)
+    if (JSON.parse(sessionStorage.getItem('user')).token) this.$store.commit('setToken', JSON.parse(sessionStorage.getItem('user')).token)
   },
-  methods:{
+  methods: {
+    sendVerificationEmail() {
+      Axios.post(this.$store.state.url + "/sendEmail", {
+        hash: this.$store.state.token
+      }).catch(error => console.error(error))
+    }
   }
 }
 </script>
@@ -26,11 +36,11 @@ export default {
   --text-color: #2c3e50;
 }
 
-p{
+p {
   color: var(--text-color);
 }
 
-.primary-text{
+.primary-text {
   color: var(--store-primary);
 }
 
@@ -48,14 +58,14 @@ p{
   padding: 30px;
 }
 
-.router-view{
+.router-view {
 }
 
-.btn-primary{
+.btn-primary {
   background: var(--store-primary);
 }
 
-.container{
+.container {
   margin: 16px auto;
 }
 
