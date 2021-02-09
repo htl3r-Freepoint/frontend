@@ -17,7 +17,13 @@ export default {
   name: "App",
   components: {Navigationsleiste},
   created() {
-    if (JSON.parse(sessionStorage.getItem('user')).token) this.$store.commit('setToken', JSON.parse(sessionStorage.getItem('user')).token)
+    if (JSON.parse(sessionStorage.getItem('user')).token) {
+      this.$store.commit('setToken', JSON.parse(sessionStorage.getItem('user')).token)
+    }
+    document.querySelector(':root').style.setProperty(
+        '--store-primary',
+        this.$store.state.design.colorMain
+    )
   },
   methods: {
     sendVerificationEmail() {
@@ -31,7 +37,7 @@ export default {
 
 <style lang="scss">
 
-:root{
+:root {
   --store-primary: #10cdb7;
   --text-color: #2c3e50;
 }

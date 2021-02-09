@@ -73,6 +73,9 @@ export default {
           store: this.store
         }
       }).then(r => this.coupons = r)
+    },
+    saveCoupon(){
+
     }
   }
 }
@@ -85,13 +88,12 @@ export default {
 }
 
 #coupon-container {
-  padding: 0.2rem 1.2rem
+  padding: 0.2rem 1.2rem;
 }
 
 .add-coupon {
-  margin: var(--card-margin) 0 var(--card-margin);
+  margin: 1rem 0 1rem;
   width: 100%;
-  display: block;
 
   button {
     border: .2rem dashed var(--store-primary);

@@ -18,7 +18,10 @@ const store = new Vuex.Store({
         url: 'https://freepoint.htl3r.com/api',
         token: '',
         verification: false,
-        points: 0
+        points: 0,
+        design:{
+            colorMain: "#10cdb7"
+        }
     },
     mutations: {
         setToken(state, token) {
@@ -35,6 +38,9 @@ const store = new Vuex.Store({
         },
         setPoints(state, number) {
             state.points = number
+        },
+        setColorMain(state, color){
+            state.design.colorMain = color
         }
     }
 })

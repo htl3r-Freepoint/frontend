@@ -8,7 +8,7 @@
         <p>{{ this.coupon.text }}</p>
 
         <div class="row">
-          <div class="col-6 text-left">
+          <div class="col-6">
             <h4 class="font-weight-bold">{{
                 coupon.isPercent ?
                     !(this.coupon.percentage > 0) || this.coupon.percentage >= 100 ?
@@ -20,7 +20,7 @@
           </div>
 
           <div class="col-6 text-right">
-            <h4 class="primary-text font-weight-bold">{{ this.coupon.value + " FP" }}</h4>
+            <h4 class="primary-text font-weight-bold text-nowrap">{{ this.coupon.value + " FP" }}</h4>
           </div>
         </div>
 
@@ -56,7 +56,7 @@ export default {
 <style scoped lang="scss">
 
 .coupon {
-  margin: var(--card-margin) 0 var(--card-margin);
+  margin: 1rem 0 1rem;
 
   .edit-buttons {
     display: flex;
@@ -69,7 +69,7 @@ export default {
 
   .card {
     transition: 0.3s;
-    min-height: var(--card-height);
+    height: 100%;
 
     &:hover {
       box-shadow: 12px 12px 20px 0 rgba(70, 70, 70, 0.15);
