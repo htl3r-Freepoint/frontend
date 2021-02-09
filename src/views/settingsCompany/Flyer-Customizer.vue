@@ -1,41 +1,48 @@
 <template>
   <div>
 
-        <settings-group label="Logo auswählen" description="Ihr Firmenname">
-          <div slot="input" class="col-md-7">
-            <input @change="processFile($event)" type="file" class="form-control-file">
-          </div>
-        </settings-group>
+    <settings-group label="Logo auswählen" description="Ihr Firmenname">
+      <div slot="input" class="col-md-7">
+        <input @change="processFile($event)" type="file" class="form-control-file">
+      </div>
+    </settings-group>
 
-        <settings-group label="Hauptfarbe" description="Die Hauptfarbe sollte dem Farbschema Ihres Logos entsprechen.">
-          <div slot="input" class="col-md-7 text-left">
-            <input type="color" value="#ff0000">
-          </div>
-        </settings-group>
+    <settings-group label="Hauptfarbe" description="Die Hauptfarbe sollte dem Farbschema Ihres Logos entsprechen.">
+      <div slot="input" class="col-md-7 text-left">
+        <input @change="setColor($event)" type="color" :value="color.toString()">
+      </div>
+    </settings-group>
 
-        <settings-group label="Layout" description="Wählen Sie das Layout aus, in dem der Flyer erstellt werden soll.">
-          <div slot="input" class="col-md-7 text-left">
-            <input type="radio" name="gender" class="sr-only" id="male">
-            <label for="male">
-              <img src="http://findicons.com/files/icons/1688/web_blog/48/user_male_white_red_brown.png" alt="male">
-            </label>
-            <input type="radio" name="gender" class="sr-only" id="female">
-            <label for="female">
-              <img src="http://findicons.com/files/icons/1688/web_blog/48/user_female_white_pink_black.png"
-                   alt="female">
-            </label>
-          </div>
-        </settings-group>
+    <settings-group label="Layout" description="Wählen Sie das Layout aus, in dem der Flyer erstellt werden soll.">
+      <div slot="input" class="col-md-7 text-left row">
 
-        <settings-group label="Text" description="Schreiben Sie einen kurzen Text mit dem Sie Ihre App bewerben wollen.">
-          <div slot="input" class="col-md-7 text-left">
-            <input v-model="text">
-          </div>
-        </settings-group>
+        <div class="col">
+          <input type="radio" class="sr-only" name="layout" id="layout1">
+          <label for="layout1">
+            <img src="../../assets/flyer_layout_preview/Flyer-Layout-1-Vorschau-Color.png" class="w-50">
+          </label>
+        </div>
 
-        <button @click="createPDF" class="btn btn-primary">PDF erstellen</button>
+        <div class="col">
+          <input type="radio" class="sr-only" name="layout" id="layout2">
+          <label for="layout2">
+            <img src="../../assets/flyer_layout_preview/Flyer_Layout_1_-_Vorschau.svg" class="w-50">
+          </label>
+        </div>
+
 
       </div>
+    </settings-group>
+
+    <settings-group label="Text" description="Schreiben Sie einen kurzen Text mit dem Sie Ihre App bewerben wollen.">
+      <div slot="input" class="col-md-7 text-left">
+        <input v-model="text" maxlength="300">
+      </div>
+    </settings-group>
+
+    <button @click="createPDF" class="btn btn-primary">PDF erstellen</button>
+
+  </div>
 </template>
 
 <script>
@@ -52,13 +59,24 @@ export default {
       company: "",
       text: "",
       qrCodeURL: "diplomarbeit.freepoint.at",
-      someData: undefined
+      img: undefined,
+      layout: undefined,
+      color: ''
     };
   },
   methods: {
+    setColor(event) {
+      console.log(event.target.value)
+      this.color = event.target.value
+      this.$store.commit('setColorMain', this.color)
+      document.querySelector(':root').style.setProperty(
+          '--flyer-color',
+          this.$store.state.design.colorMain
+      )
+    },
     processFile(event) {
-      this.someData = event.target.files[0]
-      console.log(this.someData)
+      this.img = event.target.files[0]
+      console.log(this.img)
     },
 
     createPDF: function () {
@@ -67,7 +85,9 @@ export default {
       let qr = qrcode(4, 'L')
       qr.addData(this.qrCodeURL)
       qr.make()
-      doc.addImage(qr.createDataURL(), 15, 40, 80, 80)
+      doc.addImage(qr.createDataURL(), 0, 0, 80, 80)
+      doc.addImage("", 0, 0, 210, 297)
+
       doc.text(this.text, 100, 100)
 
       doc.save(documentName + '.pdf')
@@ -77,6 +97,10 @@ export default {
 </script>
 
 <style scoped>
+.cls-1{
+  color: var(--flyer-color);
+}
+
 label {
   cursor: pointer;
   filter: grayscale(100%);
