@@ -1,15 +1,10 @@
 <template>
   <div>
-    <fp-input>
-      <i slot="prepend" class="fas fa-plus"/>
-      <input type="email" class="form-control" v-on:keydown.enter="addStaff" v-model="user" placeholder="User Email">
-    </fp-input>
-
     <div class="table-responsive">
       <table class="table text-left table-hover">
         <thead class="thead-light">
         <tr>
-          <th>Mitarbeiter</th>
+          <th>Member</th>
           <th>Rolle</th>
           <th>Email</th>
           <th></th>
@@ -19,7 +14,13 @@
         <tr v-for="(staffMember, id) in staff" :key="id">
           <td>{{ staffMember.name }}</td>
           <td>{{ staffMember.email }}</td>
-          <td>{{ staffMember.role }}</td>
+          <td>
+            <select class="form-control table-role" v-model="staffMember.role">
+            <option>Member</option>
+            <option>Verwalter</option>
+            <option>Owner</option>
+          </select>
+          </td>
           <td v-if="staffMember.role !== 'Owner'">
             <button class="btn btn-danger" @click="removestaff(staffMember)">
               <i class="fas fa-trash"></i>
@@ -31,6 +32,27 @@
         </tbody>
       </table>
     </div>
+
+
+    <div class="row add-staff">
+      <fp-input class="col-md">
+        <i slot="prepend" class="fas fa-plus"/>
+        <input type="email" class="form-control" v-on:keydown.enter="addStaff" v-model="user" placeholder="User Email">
+      </fp-input>
+
+      <fp-input class="col-md"
+                description="Mit den Rollen vergeben Sie den Mitarbeitern Rechte. Ein Member darf nur Rabatte
+                scannen, ein Verwalter darf Rabatte scannen, löschen und bearbeiten und der Owner darf zusätzlich das
+                Geschäft löschen.">
+        <select class="form-control">
+          <option>Mitarbeiter</option>
+          <option>Verwalter</option>
+          <option>Owner</option>
+        </select>
+      </fp-input>
+
+    </div>
+
 
   </div>
 </template>
@@ -110,5 +132,19 @@ export default {
 </script>
 
 <style scoped>
+.table-role{
+  min-width: 6em;
+}
+
+.add-staff {
+  margin-top: 3em;
+}
+
+@media (min-width: 561px) {
+  .add-staff {
+    margin: 3em 2em 0em;
+  }
+}
+
 
 </style>
