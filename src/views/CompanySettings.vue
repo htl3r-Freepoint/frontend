@@ -1,28 +1,27 @@
 <template>
 
   <div>
-  <div class="card container mobile">
-    <div class="row settings-header">
-      <div class="col-1"></div>
-      <h3 class="col text-left">Einstellungen</h3>
-    </div>
-    <div class="row">
-      <div class="col">
 
+    <nav class="navbar navbar-expand-lg navbar-light mobile">
+      <h3 class="settings-header">Einstellungen</h3>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse show navbar-collapse" id="navbarSupportedContent">
         <router-link class="router-link" to="/company/settings/profile">
           <div class="row settings-row">
             <div class="col-1"><i class="far fa-user-circle settings-icon"></i></div>
             <div class="col text-left">Profil bearbeiten</div>
           </div>
         </router-link>
-
         <router-link class="router-link" to="/company/settings/design">
           <div class="row settings-row">
             <div class="col-1"><i class="fas fa-palette settings-icon"></i></div>
             <div class="col text-left">Design</div>
           </div>
         </router-link>
-
         <router-link class="router-link" to="/company/settings/statistics">
           <div class="row settings-row">
             <div class="col-1"><i class="fas fa-chart-bar settings-icon"></i></div>
@@ -51,9 +50,7 @@
           </div>
         </router-link>
       </div>
-    </div>
-
-  </div>
+    </nav>
 
     <settings-company class="desktop">
     </settings-company>
@@ -64,8 +61,9 @@
 
 <script>
 import SettingsCompany from "@/components/SettingsCompany";
+
 export default {
-name: "CompanySettings",
+  name: "CompanySettings",
   components: {SettingsCompany}
 }
 </script>
@@ -73,7 +71,7 @@ name: "CompanySettings",
 <style scoped>
 
 @media (min-width: 560px) {
-  .mobile{
+  .mobile {
     display: none;
   }
 }
@@ -82,6 +80,11 @@ name: "CompanySettings",
 .router-link {
   text-decoration: none;
   color: inherit;
+}
+
+.router-link-active {
+  font-weight: bold;
+  color: var(--store-primary);
 }
 
 .settings-icon {

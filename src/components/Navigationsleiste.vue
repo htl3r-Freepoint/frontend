@@ -14,7 +14,7 @@
           <i class="fas fa-qrcode"></i>
         </router-link>
 
-        <router-link class="router-link icon-mobile" to="/user/settings/profile">
+        <router-link class="router-link icon-mobile" to="/user/settings">
           <i class="fas fa-cog"></i>
         </router-link>
 
@@ -52,7 +52,7 @@
             <i class="fas fa-qrcode"></i>
           </router-link>
 
-          <router-link class="router-link icon" to="/user/settings/profile">
+          <router-link class="router-link icon" to="/user/settings">
             <i class="fas fa-cog"></i>
           </router-link>
 
