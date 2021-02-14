@@ -2,31 +2,24 @@
   <nav id="navbar" class="sticky-top">
     <div class="navbar-mobile container">
       <footer class="footer row justify-content-between">
-        <router-link to="/menu">
-          <img v-if="!homeActive" v-on:click="homeActive=true; plusActive=false; gearActive=false ; qrActive=false"
-               class="icon-mobile" src="../assets/icons/house.svg" width="30">
-          <img v-if="homeActive" class="icon-mobile" src="../assets/icons/house-fill.svg" width="30">
+        <router-link class="router-link icon-mobile" to="/menu">
+          <i class="fas fa-home"></i>
         </router-link>
 
-        <div>
-          <img class="icon-mobile" src="../assets/icons/plus-circle.svg" width="30" type="button" data-toggle="modal"
-               data-target="#exampleModalCenter">
-        </div>
-
-        <router-link to="/scan">
-          <img v-if="!qrActive" v-on:click="qrActive=true; plusActive=false; gearActive=false; homeActive=false"
-               class="icon-mobile" src="../assets/icons/upc.svg" width="30">
-          <img v-if="qrActive" class="icon-mobile" src="../assets/icons/upc-scan.svg" width="30">
+        <router-link class="router-link icon-mobile" to="/inventar">
+          <i class="fas fa-shopping-cart"></i>
         </router-link>
 
-        <router-link to="/user/settings">
-          <img v-if="!gearActive" v-on:click="gearActive=true; plusActive=false; homeActive=false; qrActive=false"
-               class="icon-mobile" src="../assets/icons/gear.svg" width="30">
-          <img v-if="gearActive" class="icon-mobile" src="../assets/icons/gear-fill.svg" width="30">
+        <router-link class="router-link icon-mobile" to="/scan">
+          <i class="fas fa-qrcode"></i>
         </router-link>
 
-        <router-link to="/login" class="font-weight-bold">
-          <i class="icon-mobile fas fa-user"></i>
+        <router-link class="router-link icon-mobile" to="/user/settings/profile">
+          <i class="fas fa-cog"></i>
+        </router-link>
+
+        <router-link class="router-link icon-mobile" to="/login">
+          <i class="fas fa-user"></i>
         </router-link>
 
       </footer>
@@ -47,26 +40,24 @@
 
         <div id="icons-header" class="col-4">
 
-          <router-link to="/menu">
-            <img v-if="!homeActive" v-on:click="homeActive=true; gearActive=false; qrActive=false"
-                 class="icon" src="../assets/icons/house.svg" width="25">
-            <img v-if="homeActive" class="icon" src="../assets/icons/house-fill.svg" width="25">
+          <router-link class="router-link icon" to="/menu">
+            <i class="fas fa-home"></i>
           </router-link>
 
-          <router-link to="/scan">
-            <img v-if="!qrActive" v-on:click="qrActive=true; gearActive=false; homeActive=false"
-                 class="icon" src="../assets/icons/upc.svg" width="25">
-            <img v-if="qrActive" class="icon" src="../assets/icons/upc-scan.svg" width="25">
+          <router-link class="router-link icon" to="/inventar">
+            <i class="fas fa-shopping-cart"></i>
           </router-link>
 
-          <router-link to="/user/settings/profile">
-            <img v-if="!gearActive" v-on:click="gearActive=true; homeActive=false; qrActive=false"
-                 class="icon" src="../assets/icons/gear.svg" width="25">
-            <img v-if="gearActive" class="icon" src="../assets/icons/gear-fill.svg" width="25">
+          <router-link class="router-link icon" to="/scan">
+            <i class="fas fa-qrcode"></i>
           </router-link>
 
-          <router-link to="/login" class="font-weight-bold">
-            <i class="icon fas fa-user"></i>
+          <router-link class="router-link icon" to="/user/settings/profile">
+            <i class="fas fa-cog"></i>
+          </router-link>
+
+          <router-link class="router-link icon" to="/login">
+            <i class="fas fa-user"></i>
           </router-link>
         </div>
 
@@ -79,40 +70,36 @@
 
 export default {
   name: "Navigationsleiste",
-  components: {},
-  data() {
-    return {
-      homeActive: false,
-      qrActive: false,
-      gearActive: false
-    }
-  }
+  components: {}
 }
 </script>
 
 <style scoped lang="scss">
 
-.container{
-  margin: 0 auto;
-}
+.router-link {
+  text-decoration: none;
+  color: inherit;
 
-#navbar {
-  a {
-    color: var(--text-color);
-    font-size: 2.5vh;
-  }
 }
 
 .router-link-active {
   color: var(--store-primary);
 }
 
+
+.container{
+  margin: 0 auto;
+}
+
+
 .icon {
-  margin-left: 20px;
+  margin-left: 1em;
+  font-size: 2.5vh;
 }
 
 .icon-mobile {
   margin: 10px;
+  font-size: 3vh;
 }
 
 .navbar {
