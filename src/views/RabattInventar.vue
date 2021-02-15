@@ -7,6 +7,10 @@
               :edit-rights="false"></coupon>
     </div>
 
+    <modal id="CouponDetail">
+      <coupon-detail></coupon-detail>
+    </modal>
+
 
   </div>
 </template>
@@ -15,11 +19,12 @@
 import Coupon from "@/components/Coupon";
 import CouponDetail from "@/components/CouponDetail";
 import Axios from "axios";
+import Modal from "@/components/Modal";
 
 export default {
   name: "RabattInventar",
   // eslint-disable-next-line vue/no-unused-components
-  components: {CouponDetail, Coupon},
+  components: {Modal, CouponDetail, Coupon},
   data() {
     return {
       coupons: [
