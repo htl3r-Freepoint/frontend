@@ -1,15 +1,4 @@
 <template>
-  <div class="modal fade" id="CouponDetail" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-       aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title" id="exampleModalLongTitle">Cheeseburger</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
           <div class="container">
             <div class="row">
               <h5 class="text-left">Genieße den saftigen Cheeseburger mit Gurken, Salat und geschmolzenen
@@ -30,10 +19,6 @@
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </template>
 
 <script>
