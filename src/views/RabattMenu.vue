@@ -5,7 +5,7 @@
       <input id="edit-mode" type="checkbox" class="custom-control-input" v-model="editRights">
       <label class="custom-control-label" for="edit-mode">Edit Mode</label>
     </div>
-    <router-link class="btn btn-primary" to="/company/settings">Settings</router-link>
+    <router-link class="btn btn-primary" to="/user/settings">Settings</router-link>
 
     <div id="coupon-container" class="row justify-content-center">
       <coupon v-for="(coupon, id) in coupons" v-bind:key="id"
