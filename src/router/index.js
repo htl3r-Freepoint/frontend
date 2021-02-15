@@ -40,6 +40,11 @@ const routes = [
         component: () => import('../views/QrCodeScanner.vue')
     },
     {
+        path: '/cashier',
+        name: 'CashierQrCode',
+        component: () => import('../views/CashierQrCode.vue')
+    },
+    {
         path: '/menu',
         name: 'RabattMenu',
         component: () => import('../views/RabattMenu.vue')
