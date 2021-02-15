@@ -49,6 +49,12 @@
             <div class="col text-left">Mitarbeiter</div>
           </div>
         </router-link>
+        <router-link class="router-link" to="/company/settings/info">
+          <div class="row settings-row">
+            <div class="col-1"><i class="fas fa-info-circle settings-icon"></i></div>
+            <div class="col text-left">Info</div>
+          </div>
+        </router-link>
       </div>
     </nav>
 

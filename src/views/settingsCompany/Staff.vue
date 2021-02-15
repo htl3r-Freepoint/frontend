@@ -4,9 +4,9 @@
       <table class="table text-left table-hover">
         <thead class="thead-light">
         <tr>
-          <th>Member</th>
-          <th>Rolle</th>
+          <th>Mitarbeiter</th>
           <th>Email</th>
+          <th>Rolle</th>
           <th></th>
         </tr>
         </thead>
