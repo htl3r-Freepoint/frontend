@@ -2,7 +2,7 @@
   <div>
     <fp-input description="Die Primärfarbe bestimmt das Grundlegende aussehen ihrer Seite.">
       <i slot="prepend" class="fas fa-palette"/>
-      <input @change="setColor" type="color" :value="color.toString()">
+      <input @change="setColor" type="color" :value="color.toString()" class="form-control">
     </fp-input>
   </div>
 </template>
