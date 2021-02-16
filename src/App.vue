@@ -1,26 +1,78 @@
 <template>
-  <router-view/>
+  <div id="app">
+    <navigationsleiste></navigationsleiste>
+    <div v-if="this.$store.state.token && !this.$store.state.verification">
+      Bitte verifizieren sie ihre Email Addresse.
+      <a :href="sendVerificationEmail">Email erneut senden</a>
+    </div>
+    <router-view class="router-view"/>
+  </div>
 </template>
 
-<style>
+<script>
+import Navigationsleiste from "@/components/Navigationsleiste";
+import Axios from "axios";
+
+export default {
+  name: "App",
+  components: {Navigationsleiste},
+  created() {
+    if (JSON.parse(sessionStorage.getItem('user')).token) {
+      this.$store.commit('setToken', JSON.parse(sessionStorage.getItem('user')).token)
+    }
+    document.querySelector(':root').style.setProperty(
+        '--store-primary',
+        this.$store.state.design.colorMain
+    )
+  },
+  methods: {
+    sendVerificationEmail() {
+      Axios.post(this.$store.state.url + "/sendEmail", {
+        hash: this.$store.state.token
+      }).catch(error => console.error(error))
+    }
+  }
+}
+</script>
+
+<style lang="scss">
+
+:root {
+  --store-primary: #10cdb7;
+  --text-color: #2c3e50;
+}
+
+p {
+  color: var(--text-color);
+}
+
+.primary-text {
+  color: var(--store-primary);
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #153E73;
+  background: #FAFAFA;
+  min-height: 100vh;
 }
 
 #nav {
   padding: 30px;
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+.router-view {
 }
 
-#nav a.router-link-exact-active {
-  color: #42b983;
+.btn-primary {
+  background: var(--store-primary);
 }
+
+.container {
+  margin: 16px auto;
+}
+
 </style>
