@@ -17,16 +17,23 @@
       <div slot="input" class="col-md-7 text-left row">
 
         <div class="col">
-          <input type="radio" class="sr-only" name="layout" id="layout1">
+          <input type="radio" class="sr-only" name="layout" id="layout1" v-model="layout" value="0">
           <label for="layout1">
-            <img src="../../assets/flyer_layout_preview/Flyer-Layout-1-Vorschau-Color.png" class="w-50">
+            <img src="../../assets/flyer_layout_preview/Flyer_Layout_1_Vorschau_Border.png" class="w-50">
           </label>
         </div>
 
         <div class="col">
-          <input type="radio" class="sr-only" name="layout" id="layout2">
+          <input type="radio" class="sr-only" name="layout" id="layout2" v-model="layout" value="1">
           <label for="layout2">
-            <img src="../../assets/flyer_layout_preview/Flyer_Layout_1_-_Vorschau.svg" class="w-50">
+            <img src="../../assets/flyer_layout_preview/Flyer_Layout_2_Vorschau.png" class="w-50">
+          </label>
+        </div>
+
+        <div class="col">
+          <input type="radio" class="sr-only" name="layout" id="layout3" v-model="layout" value="2">
+          <label for="layout3">
+            <img src="../../assets/flyer_layout_preview/Flyer-Layout-1-Vorschau-Color.png" class="w-50">
           </label>
         </div>
 
@@ -60,6 +67,7 @@ export default {
       text: "",
       qrCodeURL: "diplomarbeit.freepoint.at",
       img: undefined,
+      base64: undefined,
       layout: undefined,
       color: ''
     };
@@ -74,30 +82,69 @@ export default {
           this.$store.state.design.colorMain
       )
     },
-    processFile(event) {
-      this.img = event.target.files[0]
-      console.log(this.img)
+    toBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+      });
+    },
+    async processFile(event) {
+      this.img = new Image()
+      this.img.src = window.URL.createObjectURL(event.target.files[0])
+      this.base64 = await this.toBase64(event.target.files[0])
     },
 
     createPDF: function () {
       let documentName = 'Flyer'
-      let doc = new JsPDF
+      let doc = new JsPDF('p', 'mm', [297, 210]);
       let qr = qrcode(4, 'L')
       qr.addData(this.qrCodeURL)
       qr.make()
-      doc.addImage(qr.createDataURL(), 0, 0, 80, 80)
-      doc.addImage("", 0, 0, 210, 297)
 
-      doc.text(this.text, 100, 100)
+      if (this.layout == 0) {
+        doc.setFillColor(this.color)
+        doc.rect(0, 0, 210, 297, 'F')
 
-      doc.save(documentName + '.pdf')
+        doc.addImage(this.base64, 46.2, 17.3, 117.6, ((117.6/this.img.width)*this.img.height))
+        doc.addImage(qr.createDataURL(), 27.7, 223.5, 54.8, 54.8)
+        doc.text(this.text, 11.4, 83.9)
+
+        doc.save(documentName + '.pdf')
+      }
+
+      if (this.layout == 1) {
+        doc.setFillColor(this.color)
+        doc.rect(0, 0, 210, 297, 'F')
+        console.log(parseInt(this.img.width))
+
+        doc.addImage(this.base64, 46.2, 17.3, 117.6, ((117.6/this.img.width)*this.img.height))
+        doc.addImage(qr.createDataURL(), 27.7, 223.5, 54.8, 54.8)
+        doc.text(this.text, 11.4, 83.9)
+
+        doc.save(documentName + '.pdf')
+      }
+
+      if (this.layout == 2) {
+        doc.setFillColor(this.color)
+        doc.rect(0, 0, 210, 297, 'F')
+        console.log(parseInt(this.img.width))
+
+        doc.addImage(this.base64, 46.2, 17.3, 117.6, ((117.6/this.img.width)*this.img.height))
+        doc.addImage(qr.createDataURL(), 27.7, 223.5, 54.8, 54.8)
+        doc.text(this.text, 11.4, 83.9)
+
+        doc.save(documentName + '.pdf')
+      }
+
     }
   }
 }
 </script>
 
 <style scoped>
-.cls-1{
+.cls-1 {
   color: var(--flyer-color);
 }
 
