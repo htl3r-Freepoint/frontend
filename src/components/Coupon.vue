@@ -12,7 +12,7 @@
             <h4 class="font-weight-bold">{{
                 coupon.isPercent ?
                     !(this.coupon.percentage > 0) || this.coupon.percentage >= 100 ?
-                        'Gratis' : this.coupon.percentage + '%'
+                        'Gratis' : '-' + this.coupon.percentage + '%'
                     :
                     !(this.coupon.price > 0) || this.coupon.price >= 100 ?
                         'Gratis' : '-' + this.coupon.price + '€'

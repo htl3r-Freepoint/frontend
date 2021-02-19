@@ -35,7 +35,7 @@
         </div>
 
         <div id="nav-points" class="col-4 font-weight-bold">
-          <h4>{{ this.$store.state.points }}</h4>
+          <h4>{{ this.$store.state.points }} FP</h4>
         </div>
 
         <div id="icons-header" class="col-4">
@@ -125,6 +125,7 @@ export default {
 
   #nav-points {
     border-top-left-radius: 90px;
+    border-top-right-radius: 90px;
   }
 
 }
