@@ -38,7 +38,7 @@
 
       <div v-else class="buy-buttons btn-toolbar">
         <button class="btn-buy btn-primary" data-toggle="modal"
-                :data-target="'#modalBuyCoupon'">
+                :data-target="'#modalBuyCoupon' + coupon.id">
           <i class="fas fa-shopping-cart"></i>
         </button>
       </div>
@@ -48,16 +48,21 @@
       <form-edit-coupon :coupon="coupon"></form-edit-coupon>
     </modal>
 
+    <modal :id="'modalBuyCoupon' + coupon.id">
+      <coupon-detail :coupon="coupon"></coupon-detail>
+    </modal>
+
   </div>
 </template>
 
 <script>
 import Modal from "@/components/Modal";
 import FormEditCoupon from "@/components/forms/FormEditCoupon";
+import CouponDetail from "@/components/CouponDetail";
 
 export default {
   name: "Coupon",
-  components: {FormEditCoupon, Modal},
+  components: {CouponDetail, FormEditCoupon, Modal},
   props: ['coupon', 'editRights'],
 }
 </script>
