@@ -2,15 +2,10 @@
   <div class="container">
     <div id="coupon-container" class="row justify-content-center">
       <coupon v-for="(coupon, id) in coupons" :key="id"
-              class="col-12 col-md-4 col-sm-6" data-toggle="modal" data-target="#CouponDetail"
+              class="col-12 col-md-4 col-sm-6"
               :coupon="coupon"
               :edit-rights="false"></coupon>
     </div>
-
-    <modal id="CouponDetail">
-      <coupon-detail></coupon-detail>
-    </modal>
-
 
   </div>
 </template>
