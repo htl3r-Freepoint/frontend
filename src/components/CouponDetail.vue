@@ -1,11 +1,17 @@
 <template>
           <div class="container">
             <div class="row">
-              <h5 class="text-left">Genieße den saftigen Cheeseburger mit Gurken, Salat und geschmolzenen
-                Ementaler.</h5>
+              <h2 class="col">{{title}}</h2>
             </div>
             <div class="row">
-              <h3 class="col font-weight-bold">gratis</h3>
+              <h3 class="col font-weight-bold">{{
+                isPercent ?
+                    !(this.coupon.percentage > 0) || this.coupon.percentage >= 100 ?
+                        'Gratis' : '-' + this.coupon.percentage + '%'
+                    :
+                    !(this.coupon.price > 0) || this.coupon.price >= 100 ?
+                        'Gratis' : '-' + this.coupon.price + '€'
+              }}</h3>
             </div>
             <div class="row">
               <div class="col">
@@ -22,11 +28,34 @@
 </template>
 
 <script>
+
 export default {
   name: "CouponDetail",
+  props: ['coupon'],
   data() {
     return {
-      show: false
+      show: false,
+      isPercent: true,
+      title: "",
+      text: "",
+      price: 0,
+      percentage: 0,
+      value: 0
+    }
+  },
+  created() {
+    if (this.coupon) {
+      this.resetData()
+    }
+  },
+  methods: {
+    resetData() {
+      this.isPercent = this.coupon.isPercent
+      this.title = this.coupon.title
+      this.text = this.coupon.text
+      this.price = this.coupon.price
+      this.percentage = this.coupon.percentage
+      this.value = this.coupon.value
     }
   }
 }
