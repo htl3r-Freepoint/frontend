@@ -64,6 +64,14 @@ export default {
 </script>
 
 <style scoped>
+* {
+  --card-margin: 1rem
+}
+
+#coupon-container {
+  padding: 0.2rem 1.2rem;
+}
+
 .container {
   margin-bottom: 60px;
 }

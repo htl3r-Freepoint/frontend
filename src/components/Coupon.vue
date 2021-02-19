@@ -35,10 +35,19 @@
           <i class="fas fa-trash"></i>
         </button>
       </div>
+
+      <div v-else class="buy-buttons btn-toolbar">
+        <button class="btn-buy btn-primary" data-toggle="modal"
+                :data-target="'#modalBuyCoupon'">
+          <i class="fas fa-shopping-cart"></i>
+        </button>
+      </div>
+
     </div>
     <modal :id="'modalEditCoupon' + coupon.id">
       <form-edit-coupon :coupon="coupon"></form-edit-coupon>
     </modal>
+
   </div>
 </template>
 
@@ -58,11 +67,19 @@ export default {
 .coupon {
   margin: 1rem 0 1rem;
 
-  .edit-buttons {
+  .buy-buttons{
     display: flex;
     flex-direction: column;
     position: absolute;
     width: fit-content;
+    right: -20px;
+    top: -20px;
+  }
+
+  .edit-buttons {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
     right: -20px;
     top: -20px;
   }
@@ -79,6 +96,29 @@ export default {
   .card-image-overlay span {
     display: inline-block;
   }
+}
+
+.btn-buy {
+  background: var(--store-primary);
+  width: 50px;
+  height: 50px;
+  border-radius: 30px;
+  transition: .2s;
+  border: solid;
+  border-color: var(--store-primary);
+
+  &:hover {
+    border-radius: 15px;
+  }
+}
+
+.btn-buy:focus{
+  box-shadow:0 0 0 0 !important;
+}
+
+.btn-buy:active{
+  background:  var(--store-primary) !important;
+  border-color:  var(--store-primary) !important;
 }
 
 .btn {
