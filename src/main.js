@@ -16,6 +16,7 @@ Vue.config.productionTip = false
 const store = new Vuex.Store({
     state: {
         url: 'https://freepoint.htl3r.com/api',
+        user: undefined,
         token: '',
         verification: false,
         points: 0,
@@ -29,6 +30,9 @@ const store = new Vuex.Store({
         },
         setVerfification(state, verified) {
             state.verification = verified
+        },
+        setUser(state, user){
+            state.user = user
         },
         increment(state) {
             state.points++

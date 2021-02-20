@@ -18,8 +18,11 @@
           <i class="fas fa-cog"></i>
         </router-link>
 
-        <router-link class="router-link icon-mobile" to="/login">
+        <router-link class="router-link icon-mobile" to="/login" v-if="!this.$store.state.user">
           <i class="fas fa-user"></i>
+        </router-link>
+        <router-link class="router-link icon-mobile" to="/user/settings/profile" v-else>
+          {{this.$store.state.user.username}}
         </router-link>
 
       </footer>
@@ -52,13 +55,14 @@
             <i class="fas fa-qrcode"></i>
           </router-link>
 
-          <router-link class="router-link icon" to="/company/settings">
+          <router-link class="router-link icon" to="/user/settings/profile" v-if="this.$store.state.user">
             <i class="fas fa-cog"></i>
           </router-link>
 
-          <router-link class="router-link icon" to="/login">
-            <i class="fas fa-user"></i>
+          <router-link class="router-link icon-mobile" to="/login" v-if="!this.$store.state.user">
+            <h5>Login</h5>
           </router-link>
+          <h5 v-else>{{ this.$store.state.user.username }}</h5>
         </div>
 
       </header>
