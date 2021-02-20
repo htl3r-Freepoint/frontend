@@ -17,7 +17,8 @@ export default {
   name: "App",
   components: {Navigationsleiste},
   created() {
-    if (JSON.parse(sessionStorage.getItem('user')).token) {
+    // eslint-disable-next-line no-constant-condition
+    if (sessionStorage.getItem('user')) {
       this.$store.commit('setToken', JSON.parse(sessionStorage.getItem('user')).token)
     }
     document.querySelector(':root').style.setProperty(

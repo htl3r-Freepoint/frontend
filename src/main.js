@@ -47,14 +47,14 @@ const store = new Vuex.Store({
 
 router.beforeEach((to, from, next) => {
     if (store.state.token) {
-        Axios.post(this.$store.state.url + '/checkLogin', {
+        Axios.post(store.state.url + '/checkLogin', {
             hash: this.$store.state.token
         }).then(response => {
-            if (!response.data.valid) this.$store.commit("setToken", '')
-            else this.$store.commit("setVerfification", response.data.isVerified)
+            if (!response.data.valid) store.commit("setToken", '')
+            else store.commit("setVerfification", response.data.verified)
         }).catch(error => {
             console.error(error)
-            this.$store.commit("setToken", '')
+            store.commit("setToken", '')
         })
     }
     next()
