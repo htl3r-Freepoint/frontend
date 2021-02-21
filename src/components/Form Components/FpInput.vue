@@ -1,20 +1,16 @@
 <template>
   <div class="form-group">
-    <div class="input-group">
-      <label v-if="label">{{label}}</label>
-      <div v-if="$slots.prepend" class="input-group-prepend">
-        <span class="input-group-text">
-            <slot name="prepend"></slot>
-          </span>
-      </div>
-      <slot></slot>
-      <div v-if="$slots.append" class="input-group-append">
-          <span class="input-group-text">
-            <slot name="append"></slot>
-          </span>
-      </div>
+    <label class="text-left" v-if="label">{{ label }}</label>
+    <div class="input-group mb-2">
+      <span class="input-group-prepend input-group-text" v-if="$slots.prepend">
+        <slot name="prepend"></slot>
+      </span>
+      <slot><input class="form-control danger"></slot>
+      <span class="input-group-append input-group-text" v-if="$slots.append">
+        <slot name="append"></slot>
+      </span>
+      <small class="form-text text-muted text-left">{{ description }}</small>
     </div>
-    <small class="form-text text-muted text-left">{{description}}</small>
   </div>
 </template>
 

@@ -45,6 +45,16 @@ const routes = [
         component: () => import('../views/RabattInventar.vue')
     },
     {
+        path: '/user',
+        component: () => import('../views/User.vue'),
+        children: [
+            {
+                path: 'profile',
+                component: () => import('../views/user/Profile.vue')
+            }
+        ]
+    },
+    {
         path: '/user/settings',
         component: () => import('../views/UserSettings.vue'),
         children: [
