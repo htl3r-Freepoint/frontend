@@ -108,30 +108,12 @@ export default {
         doc.rect(0, 0, 210, 297, 'F')
 
         doc.addImage(this.base64, 46.2, 17.3, 117.6, ((117.6/this.img.width)*this.img.height))
-        doc.addImage(qr.createDataURL(), 27.7, 223.5, 54.8, 54.8)
-        doc.text(this.text, 11.4, 83.9)
 
-        doc.save(documentName + '.pdf')
-      }
 
-      if (this.layout == 1) {
-        doc.setFillColor(this.color)
-        doc.rect(0, 0, 210, 297, 'F')
-        console.log(parseInt(this.img.width))
+        //Element wird hier eingesetzt
+        doc.addImage(this.base64, 0, 202.6, 210, 94.4)
 
-        doc.addImage(this.base64, 46.2, 17.3, 117.6, ((117.6/this.img.width)*this.img.height))
-        doc.addImage(qr.createDataURL(), 27.7, 223.5, 54.8, 54.8)
-        doc.text(this.text, 11.4, 83.9)
 
-        doc.save(documentName + '.pdf')
-      }
-
-      if (this.layout == 2) {
-        doc.setFillColor(this.color)
-        doc.rect(0, 0, 210, 297, 'F')
-        console.log(parseInt(this.img.width))
-
-        doc.addImage(this.base64, 46.2, 17.3, 117.6, ((117.6/this.img.width)*this.img.height))
         doc.addImage(qr.createDataURL(), 27.7, 223.5, 54.8, 54.8)
         doc.text(this.text, 11.4, 83.9)
 
@@ -144,9 +126,6 @@ export default {
 </script>
 
 <style scoped>
-.cls-1 {
-  color: var(--flyer-color);
-}
 
 label {
   cursor: pointer;
