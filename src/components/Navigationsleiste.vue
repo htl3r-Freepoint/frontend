@@ -1,109 +1,48 @@
 <template>
   <nav id="navbar" class="sticky-top">
-    <div class="navbar-mobile container">
-      <footer class="footer row justify-content-between">
-        <router-link class="router-link icon-mobile" to="/menu">
-          <i class="fas fa-home"></i>
-        </router-link>
 
-        <router-link class="router-link icon-mobile" to="/inventar">
-          <i class="fas fa-shopping-cart"></i>
-        </router-link>
-
-        <router-link class="router-link icon-mobile" to="/scan">
-          <i class="fas fa-qrcode"></i>
-        </router-link>
-
-        <router-link class="router-link icon-mobile" to="/company/settings">
-          <i class="fas fa-cog"></i>
-        </router-link>
-
-        <router-link class="router-link icon-mobile" to="/login" v-if="!this.$store.state.user">
-          <i class="fas fa-user"></i>
-        </router-link>
-        <router-link class="router-link icon-mobile" to="/user/settings/profile" v-else>
-          {{this.$store.state.user.username}}
-        </router-link>
-
-      </footer>
-    </div>
-
-
+    <!--Desktop-->
     <div class="navbar border">
       <header id="header" class="container row">
-        <div class="col-4">
-          <a class="" href="/">
+        <div class="col">
+          <a href="/">
             <img src="../assets/icons/Schriftzug.svg" width="150">
           </a>
         </div>
 
-        <div id="nav-points" class="col-4 font-weight-bold">
-          <h4>{{ this.$store.state.points }} FP</h4>
+        <div id="nav-points" class="mx-2 col font-weight-bold">
+          {{ this.$store.state.points }} FP
         </div>
 
-        <div id="icons-header" class="col-4">
-
-          <router-link class="router-link icon" to="/menu">
-            <i class="fas fa-home"></i>
-          </router-link>
-
-          <router-link class="router-link icon" to="/inventar">
-            <i class="fas fa-shopping-cart"></i>
-          </router-link>
-
-          <router-link class="router-link icon" to="/scan">
-            <i class="fas fa-qrcode"></i>
-          </router-link>
-
-          <router-link class="router-link icon" to="/user/settings/profile" v-if="this.$store.state.user">
-            <i class="fas fa-cog"></i>
-          </router-link>
-
-          <router-link class="router-link icon-mobile" to="/login" v-if="!this.$store.state.user">
-            <h5>Login</h5>
-          </router-link>
-          <h5 v-else>{{ this.$store.state.user.username }}</h5>
-        </div>
-
+        <navigation-links id="icons-header" class="col"></navigation-links>
       </header>
     </div>
+
+    <!--Mobile-->
+    <div id="navbar-mobile" class="">
+      <footer class="footer container">
+        <navigation-links></navigation-links>
+      </footer>
+    </div>
+
   </nav>
 </template>
 
 <script>
 
+import NavigationLinks from "@/components/NavigationLinks";
+
 export default {
   name: "Navigationsleiste",
-  components: {}
+  components: {NavigationLinks}
 }
 </script>
 
 <style scoped lang="scss">
 
-.router-link {
-  text-decoration: none;
-  color: inherit;
 
-}
-
-.router-link-active {
-  color: var(--store-primary);
-}
-
-
-.container{
+.container {
   margin: 0 auto;
-}
-
-
-.icon {
-  margin-left: 1em;
-  font-size: 2.5vh;
-}
-
-.icon-mobile {
-  margin: 10px;
-  font-size: 3vh;
 }
 
 .navbar {
@@ -114,12 +53,10 @@ export default {
 #nav-points {
   background: var(--store-primary);
   color: white;
+  font-size: 1.4em;
   padding: 2px;
-  width: 100px;
   border-bottom-right-radius: 90px;
   border-bottom-left-radius: 90px;
-  justify-content: center;
-  margin-bottom: 0;
 }
 
 @media (max-width: 560px) {
@@ -135,7 +72,7 @@ export default {
 }
 
 @media (min-width: 561px) {
-  .navbar-mobile {
+  #navbar-mobile {
     display: none;
   }
 }

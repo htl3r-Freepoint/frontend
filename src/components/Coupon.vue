@@ -92,15 +92,22 @@ export default {
   .card {
     transition: 0.3s;
     height: 100%;
+    border-bottom: var(--store-primary) solid 4px;
 
     &:hover {
       box-shadow: 12px 12px 20px 0 rgba(70, 70, 70, 0.15);
+      border-bottom: rgba(0, 0, 0, .3) solid 4px;
+      transform: translateY(-4px);
     }
   }
 
   .card-image-overlay span {
     display: inline-block;
   }
+}
+@keyframes couponHover {
+  from {box-shadow: none}
+  to {box-shadow: 12px 12px 20px 0 rgba(70, 70, 70, 0.15);}
 }
 
 .btn-buy {
