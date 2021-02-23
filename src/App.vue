@@ -61,15 +61,14 @@ p {
   min-height: 100vh;
 }
 
-.btn-primary
-
-
-
 .router-view {
+
 }
 
-.btn-primary {
-  background: var(--store-primary);
+.btn{
+  & .btn-primary {
+    background: var(--store-primary);
+  }
 }
 
 .container {

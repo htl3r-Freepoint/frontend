@@ -14,7 +14,7 @@ const routes = [
         path: '/terms-and-service-company', component: () => import('../views/TermsAndServiceCompany.vue')
     },
     {
-        path: '/login', component: () => import('../views/LoginUser.vue')
+        path: '/login', component: () => import('../views/Login.vue')
     },
     {
         path: '/register', component: () => import('../views/RegisterUser.vue')
@@ -36,23 +36,15 @@ const routes = [
         children: [
             {
                 path: 'profile', component: () => import('../views/user/Profile.vue')
-            }
-        ]
-    },
-    {
-        path: '/user/settings', component: () => import('../views/UserSettings.vue'),
-        children: [
-            {
-                path: 'profile', component: () => import('../views/userSettings/Profile.vue')
             },
             {
-                path: 'info', component: () => import('../views/userSettings/Info.vue')
+                path: 'info', component: () => import('../views/user/Info.vue')
             },
             {
-                path: 'help', component: () => import('../views/userSettings/Help.vue')
+                path: 'help', component: () => import('../views/user/Help.vue')
             },
             {
-                path: 'feedback', component: () => import('../views/userSettings/Feedback.vue')
+                path: 'feedback', component: () => import('../views/user/Feedback.vue')
             }
         ]
     },
@@ -60,31 +52,31 @@ const routes = [
         path: '/company/:company', component: () => import('../views/Company'),
         children: [
             {
-                path: 'coupons', component: () => import('../views/RabattMenu.vue'),
+                path: 'coupons', component: () => import('../views/company/RabattMenu.vue'),
             },
             {
-                path: 'settings', component: () => import('../views/CompanySettings.vue'),
+                path: 'settings', component: () => import('../views/company/Settings.vue'),
                 children: [
                     {
-                        path: 'profile', component: () => import('../views/settingsCompany/Profile.vue')
+                        path: 'profile', component: () => import('../views/company/settings/Profile.vue')
                     },
                     {
-                        path: 'design', component: () => import('../views/settingsCompany/Design')
+                        path: 'design', component: () => import('../views/company/settings/Design')
                     },
                     {
-                        path: 'flyer', component: () => import('../views/settingsCompany/Flyer-Customizer.vue')
+                        path: 'flyer', component: () => import('../views/company/settings/FlyerCustomizer.vue')
                     },
                     {
-                        path: 'location', component: () => import('../views/settingsCompany/Location.vue')
+                        path: 'location', component: () => import('../views/company/settings/Location.vue')
                     },
                     {
-                        path: 'staff', component: () => import('../views/settingsCompany/Staff.vue')
+                        path: 'staff', component: () => import('../views/company/settings/Staff.vue')
                     },
                     {
-                        path: 'statistics', component: () => import('../views/settingsCompany/Statistics.vue')
+                        path: 'statistics', component: () => import('../views/company/settings/Statistics.vue')
                     },
                     {
-                        path: 'info', component: () => import('../views/settingsCompany/Info.vue')
+                        path: 'info', component: () => import('../views/company/settings/Info.vue')
                     }
                 ]
             }
