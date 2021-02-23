@@ -1,31 +1,36 @@
 <template>
   <div id="navLinks" class="mx-2 row justify-content-between flex-nowrap">
-    <router-link class="col router-link icon" to="/menu">
-      <i class="fas fa-home"></i>
+    <router-link class="col router-link icon" :to="'/company/' + this.$store.state.companyName + '/coupons'">
+      <font-awesome-icon icon="home"/>
     </router-link>
 
     <router-link class="col router-link icon" to="/inventar">
-      <i class="fas fa-shopping-cart"></i>
+      <font-awesome-icon icon="shopping-cart"/>
     </router-link>
 
     <router-link class="col router-link icon" to="/scan">
-      <i class="fas fa-qrcode"></i>
+      <font-awesome-icon icon="qrcode"/>
     </router-link>
 
     <router-link class="col router-link icon" to="/user/settings/profile" v-if="this.$store.state.user">
-      <i class="fas fa-cog"></i>
+      <font-awesome-icon icon="cog"/>
     </router-link>
 
     <router-link class="col router-link icon" to="/login" v-if="!this.$store.state.user">
-      <i class="fas fa-sign-in-alt"></i>
+      <font-awesome-icon icon="sign-in-alt"/>
     </router-link>
     <router-link v-else class="col router-link icon" to="/user/settings/profile">
-      <i class="fas fa-user"></i>
+      <font-awesome-icon icon="user"/>
     </router-link>
   </div>
 </template>
 
 <script>
+import {library} from "@fortawesome/fontawesome-svg-core";
+import {faHome, faShoppingCart, faQrcode, faCog, faSignInAlt, faUser} from "@fortawesome/free-solid-svg-icons";
+
+library.add(faHome, faShoppingCart, faQrcode, faCog, faSignInAlt, faUser)
+
 export default {
   name: "NavigationLinks"
 }

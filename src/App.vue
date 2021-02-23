@@ -61,9 +61,9 @@ p {
   min-height: 100vh;
 }
 
-#nav {
-  padding: 30px;
-}
+.btn-primary
+
+
 
 .router-view {
 }

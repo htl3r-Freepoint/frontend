@@ -5,8 +5,13 @@ import router from './router'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap.js'
-import '@fortawesome/fontawesome-free/css/all.css'
-import '@fortawesome/fontawesome-free/js/all.js'
+
+import { FontAwesomeIcon, FontAwesomeLayers, FontAwesomeLayersText } from '@fortawesome/vue-fontawesome'
+
+Vue.component('font-awesome-icon', FontAwesomeIcon)
+Vue.component('font-awesome-layers', FontAwesomeLayers)
+Vue.component('font-awesome-layers-text', FontAwesomeLayersText)
+
 import Axios from "axios";
 
 Vue.use(Vuex)
@@ -17,6 +22,7 @@ const store = new Vuex.Store({
     state: {
         url: 'https://freepoint.htl3r.com/api',
         user: undefined,
+        companyName: '[insertCompanyName]',
         token: '',
         verification: false,
         points: 0,

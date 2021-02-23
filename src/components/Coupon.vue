@@ -25,29 +25,28 @@
         </div>
 
       </div>
-      <div v-if="editRights" class="edit-buttons btn-toolbar">
-        <button class="btn btn-primary mb-1" data-toggle="modal"
-                :data-target="'#modalEditCoupon' + coupon.id" v-on:click="edit = true">
-          <i class="fas fa-pen"></i>
-        </button>
 
-        <button class="btn btn-danger mt-1">
-          <i class="fas fa-trash"></i>
-        </button>
-      </div>
-
-      <div v-else class="buy-buttons btn-toolbar">
-        <button class="btn-buy btn-primary" data-toggle="modal"
+      <div class="control-buttons">
+        <button v-if="!editRights" class="btn btn-primary btn-buy" data-toggle="modal"
                 :data-target="'#modalBuyCoupon' + coupon.id">
-          <i class="fas fa-shopping-cart"></i>
+          <font-awesome-icon icon="shopping-cart"/>
+        </button>
+
+        <button v-if="editRights" class="btn btn-primary mb-1" data-toggle="modal"
+                :data-target="'#modalEditCoupon' + coupon.id" v-on:click="edit = true">
+          <font-awesome-icon icon="pen"/>
+        </button>
+
+        <button v-if="editRights" class="btn btn-danger mt-1">
+          <font-awesome-icon icon="trash"/>
         </button>
       </div>
 
     </div>
+
     <modal :id="'modalEditCoupon' + coupon.id">
       <form-edit-coupon :coupon="coupon"></form-edit-coupon>
     </modal>
-
     <modal :id="'modalBuyCoupon' + coupon.id">
       <coupon-detail :coupon="coupon"></coupon-detail>
     </modal>
@@ -59,6 +58,11 @@
 import Modal from "@/components/Modal";
 import FormEditCoupon from "@/components/forms/FormEditCoupon";
 import CouponDetail from "@/components/CouponDetail";
+
+import {library} from "@fortawesome/fontawesome-svg-core";
+import {faShoppingCart, faPen, faTrash} from "@fortawesome/free-solid-svg-icons";
+
+library.add(faShoppingCart, faPen, faTrash)
 
 export default {
   name: "Coupon",
@@ -72,16 +76,7 @@ export default {
 .coupon {
   margin: 1rem 0 1rem;
 
-  .buy-buttons{
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    width: fit-content;
-    right: -20px;
-    top: -20px;
-  }
-
-  .edit-buttons {
+  .control-buttons {
     display: flex;
     flex-direction: column;
     position: absolute;
@@ -105,9 +100,14 @@ export default {
     display: inline-block;
   }
 }
+
 @keyframes couponHover {
-  from {box-shadow: none}
-  to {box-shadow: 12px 12px 20px 0 rgba(70, 70, 70, 0.15);}
+  from {
+    box-shadow: none
+  }
+  to {
+    box-shadow: 12px 12px 20px 0 rgba(70, 70, 70, 0.15);
+  }
 }
 
 .btn-buy {
@@ -115,22 +115,15 @@ export default {
   width: 50px;
   height: 50px;
   border-radius: 30px;
-  transition: .2s;
-  border: solid;
-  border-color: var(--store-primary);
 
-  &:hover {
-    border-radius: 15px;
+  &:focus {
+    box-shadow: 0 0 0 0 !important;
   }
-}
 
-.btn-buy:focus{
-  box-shadow:0 0 0 0 !important;
-}
-
-.btn-buy:active{
-  background:  var(--store-primary) !important;
-  border-color:  var(--store-primary) !important;
+  &:active {
+    background: var(--store-primary) !important;
+    border-color: var(--store-primary) !important;
+  }
 }
 
 .btn {
@@ -138,10 +131,15 @@ export default {
   height: 40px;
   border-radius: 20px;
   transition: .2s;
+  border: none;
 
   &:hover {
     border-radius: 8px;
   }
+}
+
+.btn-primary:focus {
+  box-shadow: 0 0 0 0 !important;
 }
 
 </style>
