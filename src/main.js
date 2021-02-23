@@ -56,6 +56,7 @@ const store = new Vuex.Store({
 })
 
 router.beforeEach((to, from, next) => {
+
     if (store.state.token) {
         Axios.post(store.state.url + '/checkLogin', {
             hash: this.$store.state.token
@@ -66,6 +67,12 @@ router.beforeEach((to, from, next) => {
             console.error(error)
             store.commit("setToken", '')
         })
+    }
+
+    let subdir = window.location.host.split('.')[0]
+    let domain = 'localhost'
+    if (subdir !== domain) {
+        store.state.companyName = subdir
     }
     next()
 })

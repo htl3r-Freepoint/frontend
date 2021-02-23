@@ -23,7 +23,7 @@
           </td>
           <td v-if="staffMember.role !== 'Owner'">
             <button class="btn btn-danger" @click="removestaff(staffMember)">
-              <i class="fas fa-trash"></i>
+              <font-awesome-icon icon="trash"/>
             </button>
           </td>
           <td v-else>
@@ -58,9 +58,13 @@
 </template>
 
 <script>
-
 import FpInput from "@/components/Form Components/FpInput";
 import Axios from "axios";
+
+import {library} from "@fortawesome/fontawesome-svg-core";
+import {faTrash} from "@fortawesome/free-solid-svg-icons";
+
+library.add(faTrash)
 
 export default {
   name: "Staff",

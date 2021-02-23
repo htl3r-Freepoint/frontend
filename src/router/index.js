@@ -49,7 +49,7 @@ const routes = [
         ]
     },
     {
-        path: '/company/:company', component: () => import('../views/Company'),
+        path: '/company', component: () => import('../views/Company'),
         children: [
             {
                 path: 'coupons', component: () => import('../views/company/RabattMenu.vue'),

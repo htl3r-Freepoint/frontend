@@ -6,7 +6,7 @@
       <label class="custom-control-label" for="edit-mode">Edit Mode</label>
     </div>
 
-    <router-link class="btn btn-primary" :to="'/company/' + $route.params.company + '/settings/profile'">Settings</router-link>
+    <router-link class="btn btn-primary" to="/company/settings/profile">Settings</router-link>
 
     <div id="coupon-container" class="row justify-content-center py-2">
       <coupon v-for="(coupon, id) in coupons" v-bind:key="id"

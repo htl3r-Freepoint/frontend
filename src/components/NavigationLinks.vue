@@ -1,6 +1,6 @@
 <template>
   <div id="navLinks" class="mx-2 row justify-content-between flex-nowrap">
-    <router-link class="col router-link icon" :to="'/company/' + this.$store.state.companyName + '/coupons'">
+    <router-link class="col router-link icon" :to="'/company/coupons'">
       <font-awesome-icon icon="home"/>
     </router-link>
 
@@ -48,9 +48,7 @@ export default {
   height: 100%;
 }
 
-.router-link-active {
-  color: var(--store-primary);
-}
+
 
 .icon {
   font-size: 3vh;
