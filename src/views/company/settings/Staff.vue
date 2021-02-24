@@ -4,9 +4,9 @@
       <table class="table text-left table-hover">
         <thead class="thead-light">
         <tr>
-          <th>Mitarbeiter</th>
-          <th>Email</th>
-          <th>Rolle</th>
+          <th><font-awesome-icon icon="user"/> Mitarbeiter</th>
+          <th><font-awesome-icon icon="envelope"/> Email</th>
+          <th><font-awesome-icon icon="scroll"/> Rolle</th>
           <th></th>
         </tr>
         </thead>
@@ -36,22 +36,24 @@
 
     <div class="row add-staff">
       <fp-input class="col-md">
-        <i slot="prepend" class="fas fa-plus"/>
-        <input type="email" class="form-control" v-on:keydown.enter="addStaff" v-model="user" placeholder="User Email">
+        <font-awesome-icon slot="prepend" icon="envelope"/>
+        <input type="email" class="form-control" v-on:keydown.enter="addStaff" v-model="newUserEmail" placeholder="User Email">
       </fp-input>
 
       <fp-input class="col-md"
                 description="Mit den Rollen vergeben Sie den Mitarbeitern Rechte. Ein Member darf nur Rabatte
                 scannen, ein Verwalter darf Rabatte scannen, löschen und bearbeiten und der Owner darf zusätzlich das
                 Geschäft löschen.">
-        <select class="form-control">
-          <option>Mitarbeiter</option>
-          <option>Verwalter</option>
-          <option>Owner</option>
+        <font-awesome-icon slot="append" icon="scroll"/>
+        <select class="form-control" v-model="newUserRole">
+          <option disabled value="">Rolle auswählen</option>
+          <option value="0">Mitarbeiter</option>
+          <option value="1">Verwalter</option>
+          <option value="3">Owner</option>
         </select>
       </fp-input>
-
     </div>
+    <button class="btn btn-info" @click="addStaff"><font-awesome-icon icon="user-plus"/> Mitarbeiter Hinzufügen</button>
 
 
   </div>
@@ -62,9 +64,9 @@ import FpInput from "@/components/Form Components/FpInput";
 import Axios from "axios";
 
 import {library} from "@fortawesome/fontawesome-svg-core";
-import {faTrash} from "@fortawesome/free-solid-svg-icons";
+import {faTrash, faEnvelope, faUser, faScroll, faUserPlus} from "@fortawesome/free-solid-svg-icons";
 
-library.add(faTrash)
+library.add(faTrash, faEnvelope, faUser, faScroll, faUserPlus)
 
 export default {
   name: "Staff",
@@ -91,7 +93,8 @@ export default {
           role: 'Member'
         }
       ],
-      user: ''
+      newUserEmail: '',
+      newUserRole: ''
     }
   },
   created() {
@@ -108,13 +111,14 @@ export default {
       Axios.post(this.$store.state.url + "/staff", {
         token: this.$store.state.token,
         companyName: this.companyName,
-        email: this.user
+        email: this.newUserEmail,
+        role: this.newUserRole
       }).then(response => {
         console.debug(response)
       }).catch(error => {
         console.error(error)
       })
-      this.user = ''
+      this.newUserEmail = ''
     },
     removestaff(member) {
       Axios.delete(this.$store.state.url + "/staff", {
