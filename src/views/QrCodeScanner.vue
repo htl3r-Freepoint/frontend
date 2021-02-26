@@ -1,9 +1,9 @@
 <template>
   <div>
     <div v-if="error">
-
+      {{this.error}}
     </div>
-    <qrcode-stream v-else @decode="onDecode" @init="checkCamera"></qrcode-stream>
+    <qrcode-stream id="QRScanner" class="my-5" v-else @decode="onDecode" @init="checkCamera"/>
   </div>
 </template>
 
@@ -53,5 +53,16 @@ export default {
 </script>
 
 <style scoped>
+
+#QRScanner{
+  max-width: 500px;
+  margin: auto;
+}
+
+@media (max-width: 560px) {
+  #QRScanner{
+    max-width: 300px;
+  }
+}
 
 </style>

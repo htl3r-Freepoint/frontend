@@ -3,25 +3,27 @@
   <form>
     <fp-input label="Logo"
         description="Laden Sie hier ihr eigenes Logo hoch. Alternativ wird einfach ihr Firmenname Angezeigt.">
-      <i slot="prepend" class="fas fa-image"></i>
+      <font-awesome-icon slot="prepend" icon="image"/>
       <input type="file" @change="onFileChange" accept="image/*">
     </fp-input>
 
-    <fp-input
+    <fp-input label="Firmenname"
         description="Ihr Firmenname ist dafür da, ihr Unternehmen zu finden, wir empfehlen nicht diesen zu ändern, außer es ist absolut nötig.">
-      <i slot="prepend" class="fas fa-user"/>
+      <font-awesome-icon slot="prepend" icon="sign"/>
       <input type="text" class="form-control" v-model="companyName" placeholder="Firmenname">
     </fp-input>
 
-    <fp-input description="Ihre Kontakt-Email ist für alle Kunden sichtbar">
-      <i slot="prepend" class="fas fa-at"/>
-      <input type="email" class="form-control" v-model="email" placeholder="Kontact Email">
+    <fp-input label="Kontakt Email"
+        description="Ihre Kontakt-Email ist für alle Kunden sichtbar">
+      <font-awesome-icon slot="prepend" icon="envelope"/>
+      <input type="email" class="form-control" v-model="email" placeholder="Kontakt Email">
     </fp-input>
 
-    <fp-input description="Dieser Wert bestimmt, wie viel € einen Punkt wert ist.">
-      <span slot="prepend">1 FP</span>
-      <input type="number" min="1" class="form-control" v-model="exchangeRate">
-      <i slot="append" class="fas fa-euro-sign"/>
+    <fp-input label="Tauschrate"
+        description="Dieser Wert bestimmt, wie viel € einen Punkt wert ist.">
+      <span slot="prepend">1 FP =</span>
+      <input type="number" min="1" class="form-control text-right" v-model="exchangeRate">
+      <font-awesome-icon slot="append" icon="euro-sign"/>
     </fp-input>
 
     <button type="submit" class="btn btn-primary">Speichern</button>
@@ -32,6 +34,11 @@
 <script>
 import FpInput from "@/components/Form Components/FpInput";
 import Axios from "axios";
+
+import {library} from "@fortawesome/fontawesome-svg-core";
+import {faImage, faSign, faEnvelope, faEuroSign} from "@fortawesome/free-solid-svg-icons";
+
+library.add(faImage, faSign, faEnvelope, faEuroSign)
 
 export default {
   name: "Profile",

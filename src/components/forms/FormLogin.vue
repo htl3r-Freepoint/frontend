@@ -22,7 +22,7 @@
       <input type="checkbox" class="form-check-input" id="inputLoginRemember" v-model="remember">
       <label for="inputLoginRemember">Remember me</label>
     </div>
-    <button type="submit" class="btn btn-primary" @click="login()">Login</button>
+    <button type="button" class="btn btn-primary" @click="login()">Login</button>
   </form>
 </template>
 
@@ -53,9 +53,10 @@ export default {
             localStorage.setItem('user', JSON.stringify({}))
           }
           sessionStorage.setItem('user', JSON.stringify(response.data))
-          this.$store.commit('setToken', JSON.parse(sessionStorage.getItem('user')).token)
-          console.debug("Token:", this.$store.state.token)
-          this.$router.push({path: 'menu'})
+          this.$store.commit('setUser', JSON.parse(sessionStorage.getItem('user')))
+          console.debug("User:", this.$store.state.user)
+          console.debug("Saving Complete. Moving User to new Path")
+          window.history.length > 1 ? this.$router.go(-1) : this.$router.push({path: '/menu'})
         }).catch(error => {
           if (error.response) {
             console.debug("Data:", error.response.data);

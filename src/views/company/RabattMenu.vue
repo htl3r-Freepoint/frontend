@@ -1,13 +1,14 @@
 <template>
   <div class="container">
-
+    <h2>{{$route.params.company}}</h2>
     <div class="col custom-control custom-switch align-self-end">
       <input id="edit-mode" type="checkbox" class="custom-control-input" v-model="editRights">
       <label class="custom-control-label" for="edit-mode">Edit Mode</label>
     </div>
-    <router-link class="btn btn-primary" to="/company/settings">Settings</router-link>
 
-    <div id="coupon-container" class="row justify-content-center">
+    <router-link class="btn btn-primary" to="/company/settings/profile">Settings</router-link>
+
+    <div id="coupon-container" class="row justify-content-center py-2">
       <coupon v-for="(coupon, id) in coupons" v-bind:key="id"
               class="col-12 col-md-4 col-sm-6"
               :coupon="coupon"
@@ -42,7 +43,7 @@ export default {
     return {
       user: '1',
       store: '1',
-      editRights: true,
+      editRights: false,
       coupons: [
         {
           id: 0,
@@ -67,10 +68,10 @@ export default {
   },
   methods: {
     getData() {
-      Axios.get(this.$store.state.url + "/", {
+      Axios.get(this.$store.state.url + "/Rabatte", {
         params: {
           user: this.user,
-          store: this.store
+          store: this.$route.params.company
         }
       }).then(r => this.coupons = r)
     },
