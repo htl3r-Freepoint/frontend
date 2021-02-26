@@ -1,6 +1,10 @@
 <template>
   <div>
-    <div id="container" class="col" style="height: 400px"/>
+    <div class="d-block">
+      <div v-tooltip.hover:top="'Gescannte Rechnungen'">{{ data.scanned }}</div>
+      <div v-tooltip.hover:top="'Gescannte Rechnungen'">{{  }}</div>
+    </div>
+    <div id="UserAction" class="col mt-1 mb-1" style="height: 400px"/>
   </div>
 </template>
 
@@ -11,14 +15,18 @@ export default {
   name: "Statistics",
   components: {},
   data() {
-    return {}
+    return {
+      data:{
+        scanned: 43
+      }
+    }
   },
   mounted() {
     this.basicChart()
   },
   methods: {
     basicChart() {
-      this.Chart = Highchart.chart('container', {
+      this.Chart = Highchart.chart('UserAction', {
         chart: {
           type: 'areaspline'
         },
@@ -73,10 +81,7 @@ export default {
             [Date.UTC(2021, 1, 4), 6],
             [Date.UTC(2021, 1, 5), 9],
             [Date.UTC(2021, 1, 6), 3],
-            [Date.UTC(2021, 1, 7), 1],
-            [Date.UTC(2021, 1, 8), 6],
-            [Date.UTC(2021, 1, 9), 20],
-            [Date.UTC(2021, 1, 10), 1]
+            [Date.UTC(2021, 1, 7), 1]
           ]
         }, {
           name: 'Rabatte gekauft',
@@ -87,10 +92,7 @@ export default {
             [Date.UTC(2021, 1, 4), 30],
             [Date.UTC(2021, 1, 5), 12],
             [Date.UTC(2021, 1, 6), 6],
-            [Date.UTC(2021, 1, 7), 8],
-            [Date.UTC(2021, 1, 8), 31],
-            [Date.UTC(2021, 1, 9), 15],
-            [Date.UTC(2021, 1, 10), 7]
+            [Date.UTC(2021, 1, 7), 8]
           ]
         }, {
           name: 'Rabatte eingelöst',
@@ -101,10 +103,7 @@ export default {
             [Date.UTC(2021, 1, 4), 8],
             [Date.UTC(2021, 1, 5), 3],
             [Date.UTC(2021, 1, 6), 5],
-            [Date.UTC(2021, 1, 7), 1],
-            [Date.UTC(2021, 1, 8), 1],
-            [Date.UTC(2021, 1, 9), 5],
-            [Date.UTC(2021, 1, 10), 10]
+            [Date.UTC(2021, 1, 7), 1]
           ]
         }]
       })
@@ -113,6 +112,8 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+
+
 
 </style>

@@ -8,10 +8,35 @@ import 'bootstrap/dist/js/bootstrap.js'
 import '@fortawesome/fontawesome-free/css/all.css'
 import '@fortawesome/fontawesome-free/js/all.js'
 import Axios from "axios";
+import $ from 'jquery'
 
 Vue.use(Vuex)
 
 Vue.config.productionTip = false
+
+const bsTooltip = (el, binding) => {
+    const t = []
+
+    if (binding.modifiers.focus) t.push('focus')
+    if (binding.modifiers.hover) t.push('hover')
+    if (binding.modifiers.click) t.push('click')
+    if (!t.length) t.push('hover')
+
+    $(el).tooltip({
+        title: binding.value,
+        placement: binding.arg || 'top',
+        trigger: t.join(' '),
+        html: !!binding.modifiers.html,
+    });
+}
+
+Vue.directive('tooltip', {
+    bind: bsTooltip,
+    update: bsTooltip,
+    unbind (el) {
+        $(el).tooltip('dispose')
+    }
+});
 
 const store = new Vuex.Store({
     state: {
