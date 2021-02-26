@@ -41,6 +41,7 @@ export default {
 :root {
   --store-primary: #10cdb7;
   --text-color: #2c3e50;
+  --flyer-color: #aaa;
 }
 
 p {
