@@ -19,21 +19,21 @@
         <div class="col">
           <input type="radio" class="sr-only" name="layout" id="layout1" v-model="layout" value="0">
           <label for="layout1">
-            <img src="../../assets/flyer_layout_preview/Flyer_Layout_1_Vorschau_Border.png" class="w-50">
+            <img src="../../../assets/flyer_layout_preview/Flyer_Layout_1_Vorschau_Border.png" class="w-50">
           </label>
         </div>
 
         <div class="col">
           <input type="radio" class="sr-only" name="layout" id="layout2" v-model="layout" value="1">
           <label for="layout2">
-            <img src="../../assets/flyer_layout_preview/Flyer_Layout_2_Vorschau.png" class="w-50">
+            <img src="../../../assets/flyer_layout_preview/Flyer_Layout_2_Vorschau.png" class="w-50">
           </label>
         </div>
 
         <div class="col">
           <input type="radio" class="sr-only" name="layout" id="layout3" v-model="layout" value="2">
           <label for="layout3">
-            <img src="../../assets/flyer_layout_preview/Flyer-Layout-1-Vorschau-Color.png" class="w-50">
+            <img src="../../../assets/flyer_layout_preview/Flyer-Layout-1-Vorschau-Color.png" class="w-50">
           </label>
         </div>
 
