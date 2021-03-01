@@ -10,7 +10,7 @@
     </table>
     <button class="btn btn-primary btn-block"
             data-toggle="modal" data-target="#modalCreateNewStore">
-      <i class="fas fa-plus-circle align-self-center"></i>
+      <font-awesome-icon icon="plus-circle"></font-awesome-icon>
     </button>
     <modal id="modalCreateNewStore" :title="'Neuer Store'">
       <form-new-store></form-new-store>
@@ -24,6 +24,11 @@ import Axios from "axios";
 import Store from "@/components/Store";
 import FormNewStore from "@/components/forms/FormNewStore";
 import Modal from "@/components/Modal";
+
+import {library} from "@fortawesome/fontawesome-svg-core";
+import {faPlusCircle} from "@fortawesome/free-solid-svg-icons";
+
+library.add(faPlusCircle)
 
 export default {
   name: "Location",
