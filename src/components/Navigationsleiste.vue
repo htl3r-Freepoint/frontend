@@ -2,18 +2,18 @@
   <nav id="navbar" class="sticky-top">
 
     <!--Desktop-->
-    <header id="nav-header" class="border">
-      <div class="col">
+    <header id="nav-header" class="border justify-content-center">
+      <div class="col-6 col-sm-3">
         <a href="/">
-          <img src="../assets/icons/Schriftzug.svg" width="150">
+          <img src="../assets/icons/Schriftzug.svg" width="200">
         </a>
       </div>
 
-      <div id="nav-points" class="mx-2 col font-weight-bold text-nowrap">
+      <div id="nav-points" class="col-6 col-sm-3 font-weight-bold text-nowrap">
         {{ this.$store.state.points }} FP
       </div>
 
-      <navigation-links id="icons-header" class="col"></navigation-links>
+      <navigation-links id="icons-header" class="col-sm-3"></navigation-links>
     </header>
 
     <!--Mobile-->
@@ -42,7 +42,6 @@ nav {
 
   & header {
     display: flex;
-    flex-direction: row;
   }
 
   & footer {

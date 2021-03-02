@@ -18,7 +18,7 @@
       <div v-if="editRights" class="add-coupon col-12 col-md-4 col-sm-6">
         <button class="btn-block"
                 data-toggle="modal" data-target="#modalCreateNewCoupon">
-          <i class="fas fa-plus-circle align-self-center"></i>
+          <font-awesome-icon icon="plus-circle"/>
         </button>
       </div>
     </div>
@@ -35,6 +35,11 @@ import Axios from 'axios'
 import Coupon from "@/components/Coupon";
 import FormNewCoupon from "@/components/forms/FormNewCoupon";
 import Modal from "@/components/Modal";
+
+import {library} from "@fortawesome/fontawesome-svg-core";
+import {faPlusCircle} from "@fortawesome/free-solid-svg-icons";
+
+library.add(faPlusCircle)
 
 export default {
   name: "RabattMenu",

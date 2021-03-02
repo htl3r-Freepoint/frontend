@@ -48,6 +48,10 @@ export default {
   height: 100%;
 }
 
+.router-link-active{
+  color: var(--store-primary);
+}
+
 
 
 .icon {
