@@ -17,8 +17,9 @@ export default {
   name: "App",
   components: {Navigationsleiste},
   created() {
-    if (JSON.parse(sessionStorage.getItem('user')).token) {
-      this.$store.commit('setToken', JSON.parse(sessionStorage.getItem('user')).token)
+    // eslint-disable-next-line no-constant-condition
+    if (sessionStorage.getItem('user')) {
+      this.$store.commit('setUser', JSON.parse(sessionStorage.getItem('user')))
     }
     document.querySelector(':root').style.setProperty(
         '--store-primary',
@@ -28,7 +29,7 @@ export default {
   methods: {
     sendVerificationEmail() {
       Axios.post(this.$store.state.url + "/sendEmail", {
-        hash: this.$store.state.token
+        hash: this.$store.state.user.token
       }).catch(error => console.error(error))
     }
   }
@@ -40,6 +41,7 @@ export default {
 :root {
   --store-primary: #10cdb7;
   --text-color: #2c3e50;
+  --flyer-color: #aaa;
 }
 
 p {
@@ -60,15 +62,14 @@ p {
   min-height: 100vh;
 }
 
-#nav {
-  padding: 30px;
-}
-
 .router-view {
+
 }
 
-.btn-primary {
-  background: var(--store-primary);
+.btn{
+  & .btn-primary {
+    background: var(--store-primary);
+  }
 }
 
 .container {

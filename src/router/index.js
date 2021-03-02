@@ -4,119 +4,46 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter);
 
 const routes = [
+    {path: '/reset-password', component: () => import('../views/ResetPassword.vue')},
+    {path: '/terms-and-service', component: () => import('../views/TermsAndService.vue')},
+    {path: '/terms-and-service-company', component: () => import('../views/TermsAndServiceCompany.vue')},
+    {path: '/login', component: () => import('../views/Login.vue')},
+    {path: '/register', component: () => import('../views/RegisterUser.vue')},
+    {path: '/register/company', component: () => import('../views/RegisterCompany.vue')},
+    {path: '/scan', component: () => import('../views/QrCodeScanner.vue')},
+    {path: '/cashier', component: () => import('../views/CashierQrCode.vue')},
+    {path: '/inventar', component: () => import('../views/RabattInventar.vue')},
     {
-        path: '/reset-password',
-        name: 'ResetPassword',
-        component: () => import('../views/ResetPassword.vue')
-    },
-    {
-        path: '/terms-and-service',
-        name: 'TermsAndService',
-        component: () => import('../views/TermsAndService.vue')
-    },
-    {
-        path: '/terms-and-service-company',
-        name: 'TermsAndServiceCompany',
-        component: () => import('../views/TermsAndServiceCompany.vue')
-    },
-    {
-        path: '/login',
-        name: 'LoginUser',
-        component: () => import('../views/LoginUser.vue')
-    },
-    {
-        path: '/register',
-        name: 'RegisterUser',
-        component: () => import('../views/RegisterUser.vue')
-    },
-    {
-        path: '/register/company',
-        name: 'RegisterCompany',
-        component: () => import('../views/RegisterCompany.vue')
-    },
-    {
-        path: '/scan',
-        name: 'QrCodeScanner',
-        component: () => import('../views/QrCodeScanner.vue')
-    },
-    {
-        path: '/menu',
-        name: 'RabattMenu',
-        component: () => import('../views/RabattMenu.vue')
-    },
-    {
-        path: '/inventar',
-        name: 'RabattInventar',
-        component: () => import('../views/RabattInventar.vue')
-    },
-    {
-        path: '/user/settings',
-        name: 'UserSettings',
-        component: () => import('../views/UserSettings.vue'),
+        path: '/user', component: () => import('../views/User.vue'),
         children: [
-            {
-                path: 'profile',
-                name: "Profile",
-                component: () => import('../views/userSettings/Profile.vue')
-            },
-            {
-                path: 'info',
-                name: 'Info',
-                component: () => import('../views/userSettings/Info.vue')
-            },
-            {
-                path: 'help',
-                name: 'Help',
-                component: () => import('../views/userSettings/Help.vue')
-            },
-            {
-                path: 'feedback',
-                name: 'Feedback',
-                component: () => import('../views/userSettings/Feedback.vue')
-            }
+            {path: 'profile', component: () => import('../views/user/Profile.vue')},
+            {path: 'info', component: () => import('../views/user/Info.vue')},
+            {path: 'help', component: () => import('../views/user/Help.vue')},
+            {path: 'feedback', component: () => import('../views/user/Feedback.vue')}
         ]
     },
     {
-        path: '/company/settings',
-        name: 'CompanySettingsMobile',
-        component: () => import('../views/CompanySettings.vue'),
+        path: '/company', component: () => import('../views/Company'),
         children: [
+            {path: 'coupons', component: () => import('../views/company/RabattMenu.vue'),},
             {
-                path: 'profile',
-                name: 'CompanyProfile',
-                component: () => import('../views/settingsCompany/Profile.vue')
-            },
-            {
-                path: 'design',
-                name: 'Design',
-                component: () => import('../views/settingsCompany/Design')
-            },
-            {
-                path: 'flyer',
-                name: 'Flyer',
-                component: () => import('../views/settingsCompany/Flyer-Customizer.vue')
-            },
-            {
-                path: 'location',
-                name: 'Location',
-                component: () => import('../views/settingsCompany/Location.vue')
-            },
-            {
-                path: 'staff',
-                name: 'Staff',
-                component: () => import('../views/settingsCompany/Staff.vue')
-            },
-            {
-                path: 'statistics',
-                name: 'Statistics',
-                component: () => import('../views/settingsCompany/Statistics.vue')
+                path: 'settings', component: () => import('../views/company/Settings.vue'),
+                children: [
+                    {path: 'profile', component: () => import('../views/company/settings/Profile.vue')},
+                    {path: 'design', component: () => import('../views/company/settings/Design')},
+                    {path: 'flyer', component: () => import('../views/company/settings/FlyerCustomizer.vue')},
+                    {path: 'location', component: () => import('../views/company/settings/Location.vue')},
+                    {path: 'staff', component: () => import('../views/company/settings/Staff.vue')},
+                    {path: 'statistics', component: () => import('../views/company/settings/Statistics.vue')},
+                    {path: 'info', component: () => import('../views/company/settings/Info.vue')}
+                ]
             }
         ]
-    }
+    },
+    {path: '/nearby', component: () => import('../views/NearbyStores.vue')}
 ]
 
-const router = new VueRouter({
+export default new VueRouter({
+    mode: 'history',
     routes
 })
-
-export default router

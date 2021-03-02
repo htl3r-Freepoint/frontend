@@ -1,22 +1,17 @@
 <template>
-  <div class="modal fade" id="CouponDetail" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-       aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title" id="exampleModalLongTitle">Cheeseburger</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
           <div class="container">
             <div class="row">
-              <h5 class="text-left">Genieße den saftigen Cheeseburger mit Gurken, Salat und geschmolzenen
-                Ementaler.</h5>
+              <h2 class="col">{{title}}</h2>
             </div>
             <div class="row">
-              <h3 class="col font-weight-bold">gratis</h3>
+              <h3 class="col font-weight-bold">{{
+                isPercent ?
+                    !(this.coupon.percentage > 0) || this.coupon.percentage >= 100 ?
+                        'Gratis' : '-' + this.coupon.percentage + '%'
+                    :
+                    !(this.coupon.price > 0) || this.coupon.price >= 100 ?
+                        'Gratis' : '-' + this.coupon.price + '€'
+              }}</h3>
             </div>
             <div class="row">
               <div class="col">
@@ -25,23 +20,42 @@
             </div>
             <div class="row">
               <div class="col">
-                <h7  @click="show=true" v-if="!show">mehr anzeigen</h7>
-                <h7  v-if="show">_R1-AT2_haude-registrierkasse-67_9464_2017-01-01......</h7>
+                <h6  @click="show=true" v-if="!show">mehr anzeigen</h6>
+                <h6  v-if="show">_R1-AT2_haude-registrierkasse-67_9464_2017-01-01......</h6>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </template>
 
 <script>
+
 export default {
   name: "CouponDetail",
+  props: ['coupon'],
   data() {
     return {
-      show: false
+      show: false,
+      isPercent: true,
+      title: "",
+      text: "",
+      price: 0,
+      percentage: 0,
+      value: 0
+    }
+  },
+  created() {
+    if (this.coupon) {
+      this.resetData()
+    }
+  },
+  methods: {
+    resetData() {
+      this.isPercent = this.coupon.isPercent
+      this.title = this.coupon.title
+      this.text = this.coupon.text
+      this.price = this.coupon.price
+      this.percentage = this.coupon.percentage
+      this.value = this.coupon.value
     }
   }
 }

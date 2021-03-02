@@ -5,8 +5,13 @@ import router from './router'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap.js'
-import '@fortawesome/fontawesome-free/css/all.css'
-import '@fortawesome/fontawesome-free/js/all.js'
+
+import { FontAwesomeIcon, FontAwesomeLayers, FontAwesomeLayersText } from '@fortawesome/vue-fontawesome'
+
+Vue.component('font-awesome-icon', FontAwesomeIcon)
+Vue.component('font-awesome-layers', FontAwesomeLayers)
+Vue.component('font-awesome-layers-text', FontAwesomeLayersText)
+
 import Axios from "axios";
 
 Vue.use(Vuex)
@@ -16,6 +21,8 @@ Vue.config.productionTip = false
 const store = new Vuex.Store({
     state: {
         url: 'https://freepoint.htl3r.com/api',
+        user: undefined,
+        companyName: '[insertCompanyName]',
         token: '',
         verification: false,
         points: 0,
@@ -29,6 +36,9 @@ const store = new Vuex.Store({
         },
         setVerfification(state, verified) {
             state.verification = verified
+        },
+        setUser(state, user){
+            state.user = user
         },
         increment(state) {
             state.points++
@@ -46,16 +56,23 @@ const store = new Vuex.Store({
 })
 
 router.beforeEach((to, from, next) => {
+
     if (store.state.token) {
-        Axios.post(this.$store.state.url + '/checkLogin', {
+        Axios.post(store.state.url + '/checkLogin', {
             hash: this.$store.state.token
         }).then(response => {
-            if (!response.data.valid) this.$store.commit("setToken", '')
-            else this.$store.commit("setVerfification", response.data.isVerified)
+            if (!response.data.valid) store.commit("setToken", '')
+            else store.commit("setVerfification", response.data.verified)
         }).catch(error => {
             console.error(error)
-            this.$store.commit("setToken", '')
+            store.commit("setToken", '')
         })
+    }
+
+    let subdir = window.location.host.split('.')[0]
+    let domain = 'localhost'
+    if (subdir !== domain) {
+        store.state.companyName = subdir
     }
     next()
 })
