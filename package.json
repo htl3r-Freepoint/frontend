@@ -5,6 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "serve-https": "vue-cli-service serve --https",
+    "server-dist": "serve -s dist",
     "build": "vue-cli-service build",
     "reinstall": "npm ci",
     "lint": "vue-cli-service lint"

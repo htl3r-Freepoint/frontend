@@ -20,8 +20,8 @@
             </div>
             <div class="row">
               <div class="col">
-                <h7  @click="show=true" v-if="!show">mehr anzeigen</h7>
-                <h7  v-if="show">_R1-AT2_haude-registrierkasse-67_9464_2017-01-01......</h7>
+                <h6  @click="show=true" v-if="!show">mehr anzeigen</h6>
+                <h6  v-if="show">_R1-AT2_haude-registrierkasse-67_9464_2017-01-01......</h6>
               </div>
             </div>
           </div>
