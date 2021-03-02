@@ -1,7 +1,6 @@
 <template>
   <div>
-    <fp-input description="Die Primärfarbe bestimmt das Grundlegende aussehen ihrer Seite.">
-      <i slot="prepend" class="fas fa-palette"/>
+    <fp-input label="Primärfarbe" description="Die Primärfarbe bestimmt das Grundlegende aussehen ihrer Seite.">
       <input @change="setColor" type="color" :value="color.toString()" class="form-control">
     </fp-input>
   </div>
