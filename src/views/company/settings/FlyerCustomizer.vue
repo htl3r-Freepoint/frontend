@@ -110,9 +110,7 @@ export default {
       base64 = dataURL.replace(/^data:image\/png;base64,/, "");
       console.log(base64)
       return base64;
-    }
-    ,
-
+    },
     async createPDF() {
       let documentName = 'Flyer'
       let doc = new JsPDF('p', 'mm', [297, 210])
@@ -126,16 +124,17 @@ export default {
         doc.setFillColor(this.color)
         doc.rect(0, 0, 210, 297, 'F')
 
-      if (this.layout == 1) {
-        //doc.addImage(this.processLocalFile("../../assets/flyer/Flyer-Layout-1-Element.png"), 0, 202.6, 210, 94.4)
-        doc.addImage(qr.createDataURL(), 27.7, 223.5, 54.8, 54.8)
-        doc.save(documentName + '.pdf')
-      }
+        if (this.layout == 1) {
+          //doc.addImage(this.processLocalFile("../../assets/flyer/Flyer-Layout-1-Element.png"), 0, 202.6, 210, 94.4)
+          doc.addImage(qr.createDataURL(), 27.7, 223.5, 54.8, 54.8)
+          doc.save(documentName + '.pdf')
+        }
 
-      if (this.layout == 2) {
-        //doc.addImage(this.processLocalFile("../../assets/flyer/Flyer-Layout-1-Element.png"), 0, 202.6, 210, 94.4)
-        doc.addImage(qr.createDataURL(), 27.7, 223.5, 54.8, 54.8)
-        doc.save(documentName + '.pdf')
+        if (this.layout == 2) {
+          //doc.addImage(this.processLocalFile("../../assets/flyer/Flyer-Layout-1-Element.png"), 0, 202.6, 210, 94.4)
+          doc.addImage(qr.createDataURL(), 27.7, 223.5, 54.8, 54.8)
+          doc.save(documentName + '.pdf')
+        }
       }
     }
   }
