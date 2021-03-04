@@ -67,9 +67,18 @@ p {
 }
 
 .btn{
+  border-right: inherit;
   &.btn-primary {
     background: var(--store-primary) !important;
     border: none;
+  }
+  &:hover{
+    border-radius: 10px;
+    transition: .3s;
+  }
+  &:active{
+    border-radius: 20px;
+    transition: .3s;
   }
   &:focus{
     box-shadow: 0 0 0 0 !important;

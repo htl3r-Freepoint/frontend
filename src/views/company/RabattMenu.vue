@@ -10,13 +10,13 @@
 
     <div id="coupon-container" class="row justify-content-center py-2">
       <coupon v-for="(coupon, id) in coupons" v-bind:key="id"
-              class="col-xl-3 col-md-4 col-sm-6"
+              class="col-sm-6 col-md-4 col-xl-3"
               :coupon="coupon"
               :edit-rights="editRights">
         <font-awesome-icon slot="actionIcon" icon="shopping-cart"/>
       </coupon>
 
-      <div v-if="editRights" class="add-coupon col-xl-3 col-md-4 col-sm-6">
+      <div v-if="editRights" class="add-coupon col-sm-6 col-md-4 col-xl-3">
         <button class="btn-block"
                 data-toggle="modal" data-target="#modalCreateNewCoupon">
           <font-awesome-icon icon="plus-circle"/>

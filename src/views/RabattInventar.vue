@@ -2,7 +2,7 @@
   <div class="container">
     <div id="coupon-container" class="row justify-content-center">
       <coupon v-for="(coupon, id) in coupons" :key="id"
-              class="col-12 col-md-4 col-sm-6"
+              class="col-sm-6 col-md-4 col-xl-3"
               :coupon="coupon">
         <font-awesome-icon slot="actionIcon" icon="qrcode"/>
       </coupon>

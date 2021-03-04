@@ -1,9 +1,9 @@
 <template>
   <div class="coupon">
-    <div class="card">
+    <button class="card" data-toggle="modal" :data-target="'#modalActionCoupon' + coupon.id">
       <div class="card-body text-left d-flex flex-column justify-content-between pb-1">
         <div>
-          <h4 class="card-title font-weight-bold">{{ this.coupon.title }}</h4>
+          <h4 class="font-weight-bold">{{ this.coupon.title }}</h4>
           <p>{{ this.coupon.text }}</p>
         </div>
 
@@ -27,7 +27,7 @@
 
       <div class="control-buttons" v-if="editRights || $slots.actionIcon">
         <button v-if="!editRights && $slots.actionIcon" class="btn btn-primary btn-action" data-toggle="modal"
-                :data-target="'#modalBuyCoupon' + coupon.id">
+                :data-target="'#modalActionCoupon' + coupon.id">
           <slot name="actionIcon"></slot>
         </button>
 
@@ -41,13 +41,15 @@
         </button>
       </div>
 
-    </div>
+    </button>
 
     <modal :id="'modalEditCoupon' + coupon.id">
       <form-edit-coupon :coupon="coupon"></form-edit-coupon>
     </modal>
-    <modal :id="'modalBuyCoupon' + coupon.id">
-      <coupon-detail :coupon="coupon"></coupon-detail>
+    <modal :id="'modalActionCoupon' + coupon.id">
+      <slot name="modal">
+        <coupon-detail :coupon="coupon"></coupon-detail>
+      </slot>
     </modal>
 
   </div>
@@ -81,17 +83,47 @@ export default {
     position: absolute;
     right: -20px;
     top: -20px;
+
+    .btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      transition: .2s;
+      border: none;
+
+      & .btn-action {
+        width: 50px;
+        height: 50px;
+        border-radius: 30px;
+      }
+
+      &:hover {
+        border-radius: 8px;
+      }
+    }
   }
 
   .card {
     transition: 0.3s;
     height: 100%;
+    width: 100%;
     border-bottom: var(--store-primary) solid 4px;
+    border-radius: 5px 5px 2px 2px;
+
+    .card-body{
+      padding: .5em;
+    }
 
     &:hover {
       box-shadow: 12px 12px 20px 0 rgba(70, 70, 70, 0.15);
       border-bottom: rgba(0, 0, 0, .3) solid 4px;
       transform: translateY(-4px);
+    }
+    &:active{
+      outline: none;
+    }
+    &:focus{
+      outline: none;
     }
   }
 
@@ -107,33 +139,6 @@ export default {
   to {
     box-shadow: 12px 12px 20px 0 rgba(70, 70, 70, 0.15);
   }
-}
-
-.btn-action {
-  width: 50px;
-  height: 50px;
-  border-radius: 30px;
-
-  &:active {
-    background: var(--store-primary) !important;
-    border-color: var(--store-primary) !important;
-  }
-}
-
-.btn {
-  width: 40px;
-  height: 40px;
-  border-radius: 20px;
-  transition: .2s;
-  border: none;
-
-  &:hover {
-    border-radius: 8px;
-  }
-}
-
-.btn-primary:focus {
-  box-shadow: 0 0 0 0 !important;
 }
 
 </style>
