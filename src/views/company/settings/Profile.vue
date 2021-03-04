@@ -1,11 +1,16 @@
 <template>
 
   <form>
+    <div id="preview">
+      <img v-if="url" :src="url" />
+    </div>
+
     <fp-input label="Logo"
         description="Laden Sie hier ihr eigenes Logo hoch. Alternativ wird einfach ihr Firmenname Angezeigt.">
       <font-awesome-icon slot="prepend" icon="image"/>
       <input type="file" @change="onFileChange" accept="image/*">
     </fp-input>
+
 
     <fp-input label="Firmenname"
         description="Ihr Firmenname ist dafür da, ihr Unternehmen zu finden, wir empfehlen nicht diesen zu ändern, außer es ist absolut nötig.">
@@ -46,6 +51,7 @@ export default {
   data() {
     return {
       logo: '',
+      url: '',
       companyName: '',
       email: '',
       exchangeRate: 1
@@ -60,6 +66,7 @@ export default {
   methods: {
     onFileChange(event) {
       this.logo = event.target.files[0]
+      this.url = URL.createObjectURL(this.logo)
     },
     saveChanges() {
       Axios.post(this.$store.state.url + "/changeFirma", {
@@ -79,16 +86,13 @@ export default {
 </script>
 
 <style scoped>
-.settings-group {
-  padding-bottom: 1.5em;
+#preview {
+  display: flex;
+  justify-content: left;
+  align-items: center;
 }
 
-.settings-label {
-  font-weight: bold;
-}
-
-.settings-small {
-  font-size: small;
-  color: grey;
+#preview img {
+  max-width: 200px;
 }
 </style>
