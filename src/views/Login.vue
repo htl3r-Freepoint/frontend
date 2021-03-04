@@ -2,7 +2,7 @@
   <div id="login" class="container">
     <form-login/>
     <p class="col">
-      <router-link to="/resetPassword">Forgot Password</router-link>
+      <router-link to="/forgot-password">Forgot Password</router-link>
     </p>
     <p class="col">
       Not yet a member?

@@ -1,35 +1,34 @@
 <template>
   <div class="coupon">
     <div class="card">
-      <div class="card-body text-left col">
+      <div class="card-body text-left d-flex flex-column justify-content-between pb-1">
+        <div>
+          <h4 class="card-title font-weight-bold">{{ this.coupon.title }}</h4>
+          <p>{{ this.coupon.text }}</p>
+        </div>
 
-        <h4 class="card-title font-weight-bold">{{ this.coupon.title }}</h4>
-
-        <p>{{ this.coupon.text }}</p>
-
-        <div class="row">
-          <div class="col-6">
-            <h4 class="font-weight-bold">{{
+        <footer class="d-flex flex-row justify-content-between">
+          <div>
+            <h4 class="font-weight-bold text-nowrap">
+              {{
                 coupon.isPercent ?
                     !(this.coupon.percentage > 0) || this.coupon.percentage >= 100 ?
                         'Gratis' : '-' + this.coupon.percentage + '%'
                     :
                     !(this.coupon.price > 0) || this.coupon.price >= 100 ?
                         'Gratis' : '-' + this.coupon.price + '€'
-              }}</h4>
+              }}
+            </h4>
           </div>
-
-          <div class="col-6 text-right">
-            <h4 class="primary-text font-weight-bold text-nowrap">{{ this.coupon.value + " FP" }}</h4>
-          </div>
-        </div>
+          <h4 class="primary-text font-weight-bold text-nowrap">{{ this.coupon.value + " FP" }}</h4>
+        </footer>
 
       </div>
 
-      <div class="control-buttons">
-        <button v-if="!editRights" class="btn btn-primary btn-buy" data-toggle="modal"
+      <div class="control-buttons" v-if="editRights || $slots.actionIcon">
+        <button v-if="!editRights && $slots.actionIcon" class="btn btn-primary btn-action" data-toggle="modal"
                 :data-target="'#modalBuyCoupon' + coupon.id">
-          <font-awesome-icon icon="shopping-cart"/>
+          <slot name="actionIcon"></slot>
         </button>
 
         <button v-if="editRights" class="btn btn-primary mb-1" data-toggle="modal"
@@ -60,9 +59,9 @@ import FormEditCoupon from "@/components/forms/FormEditCoupon";
 import CouponDetail from "@/components/CouponDetail";
 
 import {library} from "@fortawesome/fontawesome-svg-core";
-import {faShoppingCart, faPen, faTrash} from "@fortawesome/free-solid-svg-icons";
+import {faPen, faTrash} from "@fortawesome/free-solid-svg-icons";
 
-library.add(faShoppingCart, faPen, faTrash)
+library.add(faPen, faTrash)
 
 export default {
   name: "Coupon",
@@ -110,15 +109,10 @@ export default {
   }
 }
 
-.btn-buy {
-  background: var(--store-primary);
+.btn-action {
   width: 50px;
   height: 50px;
   border-radius: 30px;
-
-  &:focus {
-    box-shadow: 0 0 0 0 !important;
-  }
 
   &:active {
     background: var(--store-primary) !important;

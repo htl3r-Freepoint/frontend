@@ -1,5 +1,5 @@
 <template>
-  <submenu>
+  <submenu title="Einstellungen">
 
     <nav slot="links">
       <router-link to="/company/settings/profile">

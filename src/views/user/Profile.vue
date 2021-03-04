@@ -2,13 +2,13 @@
   <div>
     <form>
       <fp-input label="Username">
-        <i slot="prepend" class="fas fa-user"/>
+        <font-awesome-icon slot="prepend" icon="user"/>
         <input type="text" class="form-control"
                v-model="username"
                placeholder="Username">
       </fp-input>
       <fp-input>
-        <i slot="prepend" class="fas fa-at"/>
+        <font-awesome-icon slot="prepend" icon="at"/>
         <input type="email" class="form-control"
                v-model="email"
                placeholder="Email">
@@ -26,19 +26,20 @@
       </fp-input>
     </form>
     <form>
-      <div class="form-group">
-        <fp-input>
-          <i slot="prepend" class="fas fa-key"/>
-          <input type="password" class="form-control"
-                 v-model="oldPassword"
-                 placeholder="Altes Passwort"
-                 autocomplete="old-password">
-        </fp-input>
-        <fp-input>
-          <i slot="prepend" class="fas fa-key"/>
-
-        </fp-input>
-      </div>
+      <fp-input title="Altes Passwort">
+        <font-awesome-icon slot="prepend" icon="key"/>
+        <input type="password" class="form-control"
+               v-model="oldPassword"
+               placeholder="Altes Passwort"
+               autocomplete="password">
+      </fp-input>
+      <fp-input title="Neues Passwort">
+        <font-awesome-icon slot="prepend" icon="key"/>
+        <input type="password" class="form-control"
+               v-model="newPassword"
+               placeholder="Neues Passwort"
+               autocomplete="password">
+      </fp-input>
     </form>
   </div>
 </template>
@@ -46,6 +47,10 @@
 <script>
 import Axios from "axios";
 import FpInput from "../../components/Form Components/FpInput";
+import {library} from "@fortawesome/fontawesome-svg-core";
+import {faAt, faKey, faUser} from "@fortawesome/free-solid-svg-icons";
+
+library.add(faUser, faAt, faKey)
 
 export default {
   name: "Profile",

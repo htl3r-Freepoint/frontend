@@ -15,12 +15,12 @@
     </div>
 
     <div class="card">
-      <h3 class="text-left settings-main-header desktop" v-if="title">{{ title }}</h3>
-      <div class="row">
-        <div class="col-auto desktop container">
+      <h3 class="text-left desktop px-3" v-if="title">{{ title }}</h3>
+      <div class="col d-flex flex-row p-0">
+        <div class="col-auto desktop">
           <slot name="links"></slot>
         </div>
-        <div class="col container border-left">
+        <div class="col border-left">
           <slot></slot>
         </div>
       </div>
@@ -44,7 +44,6 @@ export default {
 
 .desktop {
   display: block;
-  padding-right: 0;
 }
 
 @media (max-width: 560px) {

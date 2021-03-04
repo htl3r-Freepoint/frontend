@@ -1,30 +1,20 @@
 <template>
-          <div class="container">
-            <div class="row">
-              <h2 class="col">{{title}}</h2>
-            </div>
-            <div class="row">
-              <h3 class="col font-weight-bold">{{
-                isPercent ?
-                    !(this.coupon.percentage > 0) || this.coupon.percentage >= 100 ?
-                        'Gratis' : '-' + this.coupon.percentage + '%'
-                    :
-                    !(this.coupon.price > 0) || this.coupon.price >= 100 ?
-                        'Gratis' : '-' + this.coupon.price + '€'
-              }}</h3>
-            </div>
-            <div class="row">
-              <div class="col">
-                <i id="qr-code" class="fas fa-qrcode fa-10x rounded-circle"></i>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col">
-                <h6  @click="show=true" v-if="!show">mehr anzeigen</h6>
-                <h6  v-if="show">_R1-AT2_haude-registrierkasse-67_9464_2017-01-01......</h6>
-              </div>
-            </div>
-          </div>
+  <div class="container">
+    <h2>{{ coupon.title }}</h2>
+    <h3 class="font-weight-bold">
+      {{
+        isPercent ?
+            !(this.coupon.percentage > 0) || this.coupon.percentage >= 100 ?
+                'Gratis' : '-' + this.coupon.percentage + '%'
+            :
+            !(this.coupon.price > 0) || this.coupon.price >= 100 ?
+                'Gratis' : '-' + this.coupon.price + '€'
+      }}
+    </h3>
+    <i id="qr-code" class="fas fa-qrcode fa-10x rounded-circle"></i>
+    <h6 @click="show=true" v-if="!show">mehr anzeigen</h6>
+    <h6 v-if="show">_R1-AT2_haude-registrierkasse-67_9464_2017-01-01......</h6>
+  </div>
 </template>
 
 <script>
@@ -65,12 +55,12 @@ export default {
 #qr-code {
   border-style: solid;
   border-width: 3px;
-  width:150px;
-  height:150px;
+  width: 150px;
+  height: 150px;
   padding: 20px;
 }
 
-.col{
+.col {
   margin: 20px;
 }
 </style>

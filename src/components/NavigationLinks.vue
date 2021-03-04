@@ -5,7 +5,7 @@
     </router-link>
 
     <router-link class="col router-link icon" to="/inventar">
-      <font-awesome-icon icon="shopping-cart"/>
+      <font-awesome-icon icon="cubes"/>
     </router-link>
 
     <router-link class="col router-link icon" to="/scan">
@@ -27,9 +27,9 @@
 
 <script>
 import {library} from "@fortawesome/fontawesome-svg-core";
-import {faHome, faShoppingCart, faQrcode, faCog, faSignInAlt, faUser} from "@fortawesome/free-solid-svg-icons";
+import {faHome, faQrcode, faCog, faSignInAlt, faUser, faCubes} from "@fortawesome/free-solid-svg-icons";
 
-library.add(faHome, faShoppingCart, faQrcode, faCog, faSignInAlt, faUser)
+library.add(faHome, faCubes, faQrcode, faCog, faSignInAlt, faUser)
 
 export default {
   name: "NavigationLinks"

@@ -67,8 +67,12 @@ p {
 }
 
 .btn{
-  & .btn-primary {
-    background: var(--store-primary);
+  &.btn-primary {
+    background: var(--store-primary) !important;
+    border: none;
+  }
+  &:focus{
+    box-shadow: 0 0 0 0 !important;
   }
 }
 

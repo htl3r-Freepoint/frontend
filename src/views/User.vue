@@ -6,15 +6,15 @@
         <font-awesome-icon icon="user-circle"/>
         <div>Profil bearbeiten</div>
       </router-link>
-      <router-link to="/user/settings/info">
+      <router-link to="/user/info">
         <font-awesome-icon icon="info-circle"/>
         <div>Info</div>
       </router-link>
-      <router-link to="/user/settings/help">
+      <router-link to="/user/help">
         <font-awesome-icon icon="question-circle"/>
         <div>Hilfe</div>
       </router-link>
-      <router-link to="/user/settings/feedback">
+      <router-link to="/user/feedback">
         <font-awesome-icon icon="comment-dots"/>
         <div>Feedback</div>
       </router-link>

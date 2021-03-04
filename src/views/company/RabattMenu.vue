@@ -10,12 +10,13 @@
 
     <div id="coupon-container" class="row justify-content-center py-2">
       <coupon v-for="(coupon, id) in coupons" v-bind:key="id"
-              class="col-12 col-md-4 col-sm-6"
+              class="col-xl-3 col-md-4 col-sm-6"
               :coupon="coupon"
               :edit-rights="editRights">
+        <font-awesome-icon slot="actionIcon" icon="shopping-cart"/>
       </coupon>
 
-      <div v-if="editRights" class="add-coupon col-12 col-md-4 col-sm-6">
+      <div v-if="editRights" class="add-coupon col-xl-3 col-md-4 col-sm-6">
         <button class="btn-block"
                 data-toggle="modal" data-target="#modalCreateNewCoupon">
           <font-awesome-icon icon="plus-circle"/>
@@ -37,9 +38,9 @@ import FormNewCoupon from "@/components/forms/FormNewCoupon";
 import Modal from "@/components/Modal";
 
 import {library} from "@fortawesome/fontawesome-svg-core";
-import {faPlusCircle} from "@fortawesome/free-solid-svg-icons";
+import {faPlusCircle, faShoppingCart} from "@fortawesome/free-solid-svg-icons";
 
-library.add(faPlusCircle)
+library.add(faPlusCircle, faShoppingCart)
 
 export default {
   name: "RabattMenu",
@@ -50,6 +51,60 @@ export default {
       store: '1',
       editRights: false,
       coupons: [
+        {
+          id: 0,
+          title: 'Hamburger',
+          text: 'Genieße den saftigen Hamburger mit Gurken und Salat, um -20%',
+          isPercent: true,
+          price: 0.00,
+          percentage: 20,
+          value: 15
+        },
+        {
+          id: 1,
+          title: 'Cheeseburger',
+          text: 'Genieße den saftigen Cheeseburger mit Gurken, Salat und geschmolzenem Ementaler, um -1€',
+          isPercent: false,
+          price: 1.00,
+          percentage: 0,
+          value: 25
+        },
+        {
+          id: 0,
+          title: 'Hamburger',
+          text: 'Genieße den saftigen Hamburger mit Gurken und Salat, um -20%',
+          isPercent: true,
+          price: 0.00,
+          percentage: 20,
+          value: 15
+        },
+        {
+          id: 1,
+          title: 'Cheeseburger',
+          text: 'Genieße den saftigen Cheeseburger mit Gurken, Salat und geschmolzenem Ementaler, um -1€',
+          isPercent: false,
+          price: 1.00,
+          percentage: 0,
+          value: 25
+        },
+        {
+          id: 0,
+          title: 'Hamburger',
+          text: 'Genieße den saftigen Hamburger mit Gurken und Salat, um -20%',
+          isPercent: true,
+          price: 0.00,
+          percentage: 20,
+          value: 15
+        },
+        {
+          id: 1,
+          title: 'Cheeseburger',
+          text: 'Genieße den saftigen Cheeseburger mit Gurken, Salat und geschmolzenem Ementaler, um -1€',
+          isPercent: false,
+          price: 1.00,
+          percentage: 0,
+          value: 25
+        },
         {
           id: 0,
           title: 'Hamburger',

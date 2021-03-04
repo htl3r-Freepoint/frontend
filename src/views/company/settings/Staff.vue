@@ -4,9 +4,18 @@
       <table class="table text-left table-hover">
         <thead class="thead-light">
         <tr>
-          <th><font-awesome-icon icon="user"/> Mitarbeiter</th>
-          <th><font-awesome-icon icon="envelope"/> Email</th>
-          <th><font-awesome-icon icon="scroll"/> Rolle</th>
+          <th>
+            <font-awesome-icon icon="user"/>
+            Mitarbeiter
+          </th>
+          <th>
+            <font-awesome-icon icon="envelope"/>
+            Email
+          </th>
+          <th>
+            <font-awesome-icon icon="scroll"/>
+            Rolle
+          </th>
           <th></th>
         </tr>
         </thead>
@@ -15,13 +24,13 @@
           <td>{{ staffMember.name }}</td>
           <td>{{ staffMember.email }}</td>
           <td>
-            <select class="form-control table-role" v-model="staffMember.role">
-            <option>Member</option>
-            <option>Verwalter</option>
-            <option>Owner</option>
-          </select>
+            <select class="form-control table-role" :disabled="staffMember.role === 2" v-model="staffMember.role">
+              <option value="0">Member</option>
+              <option value="1">Verwalter</option>
+              <option value="2">Owner</option>
+            </select>
           </td>
-          <td v-if="staffMember.role !== 'Owner'">
+          <td v-if="staffMember.role !== 2">
             <button class="btn btn-danger" @click="removestaff(staffMember)">
               <font-awesome-icon icon="trash"/>
             </button>
@@ -37,7 +46,8 @@
     <div class="row add-staff">
       <fp-input class="col-md">
         <font-awesome-icon slot="prepend" icon="envelope"/>
-        <input type="email" class="form-control" v-on:keydown.enter="addStaff" v-model="newUserEmail" placeholder="User Email">
+        <input type="email" class="form-control" v-on:keydown.enter="addStaff" v-model="newUserEmail"
+               placeholder="User Email">
       </fp-input>
 
       <fp-input class="col-md"
@@ -49,11 +59,14 @@
           <option disabled value="">Rolle auswählen</option>
           <option value="0">Mitarbeiter</option>
           <option value="1">Verwalter</option>
-          <option value="3">Owner</option>
+          <option value="2">Owner</option>
         </select>
       </fp-input>
     </div>
-    <button class="btn btn-info" @click="addStaff"><font-awesome-icon icon="user-plus"/> Mitarbeiter Hinzufügen</button>
+    <button class="btn btn-info" @click="addStaff">
+      <font-awesome-icon icon="user-plus"/>
+      Mitarbeiter Hinzufügen
+    </button>
 
 
   </div>
@@ -64,7 +77,7 @@ import FpInput from "@/components/Form Components/FpInput";
 import Axios from "axios";
 
 import {library} from "@fortawesome/fontawesome-svg-core";
-import {faTrash, faEnvelope, faUser, faScroll, faUserPlus} from "@fortawesome/free-solid-svg-icons";
+import {faEnvelope, faScroll, faTrash, faUser, faUserPlus} from "@fortawesome/free-solid-svg-icons";
 
 library.add(faTrash, faEnvelope, faUser, faScroll, faUserPlus)
 
@@ -78,19 +91,19 @@ export default {
           id: 0,
           name: 'Mario Seidl',
           email: 'seidl.mario@outlook.at',
-          role: 'Owner'
+          role: 2
         },
         {
           id: 1,
           name: 'Kristian Kraljevic',
           email: 'kraljevic.kristian@gmail.com',
-          role: 'Member'
+          role: 0
         },
         {
           id: 1,
           name: 'Kristian Kraljevic',
           email: 'kraljevic.kristian@hotmail.com',
-          role: 'Member'
+          role: 0
         }
       ],
       newUserEmail: '',
@@ -140,7 +153,7 @@ export default {
 </script>
 
 <style scoped>
-.table-role{
+.table-role {
   min-width: 6em;
 }
 

@@ -1,6 +1,7 @@
 <template>
   <div>
     <fp-input label="Primärfarbe" description="Die Primärfarbe bestimmt das Grundlegende aussehen ihrer Seite.">
+      <font-awesome-icon slot="prepend" icon="palette"/>
       <input @change="setColor" type="color" :value="color.toString()" class="form-control">
     </fp-input>
   </div>
@@ -8,6 +9,10 @@
 
 <script>
 import FpInput from "@/components/Form Components/FpInput";
+import {library} from "@fortawesome/fontawesome-svg-core";
+import {faPalette} from "@fortawesome/free-solid-svg-icons";
+
+library.add(faPalette)
 
 export default {
   name: "Design",
