@@ -37,7 +37,7 @@ export default {
 <style scoped lang="scss">
 
 nav {
-  background: white;
+  background: var(--banner-color);
   padding-top: 0;
 
   & header {

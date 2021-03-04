@@ -60,6 +60,7 @@ a, .router-link, .router-link-active {
   padding: .4em .5em;
   text-decoration: none;
   color: inherit;
+  color: var(--text-color);
   font-weight: bold;
   width: 100%;
   display: flex;

@@ -60,4 +60,8 @@ export default {
 
 <style scoped>
 
+.text-left{
+  padding-left: 1em;
+}
+
 </style>
