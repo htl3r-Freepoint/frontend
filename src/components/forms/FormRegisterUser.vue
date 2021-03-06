@@ -1,48 +1,32 @@
 <template>
   <form>
-    <div class="form-group input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text">
-          <i class="fas fa-user"></i>
-        </span>
-      </div>
+
+    <fp-input>
+      <font-awesome-icon icon="user" slot="prepend"/>
       <input type="text" class="form-control" id="inputRegisterUsername" v-model="name"
              placeholder="Username..." autocomplete="username" required>
-    </div>
-    <div class="form-group">
-      <div class="input-group">
-        <div class="input-group-prepend">
-        <span class="input-group-text">
-          <i class="fas fa-at"></i>
-        </span>
-        </div>
-        <input type="email" class="form-control" id="inputRegisterEmail" v-model="email"
-               placeholder="E-Mail..." required>
-      </div>
-      <small id="emailHelp" class="form-text text-muted">
-        We will never share your email with anyone else.
-      </small>
-    </div>
-    <div class="form-group">
-      <div class="input-group">
-        <div class="input-group-prepend">
-        <span class="input-group-text">
-          <i class="fas fa-key"></i>
-        </span>
-        </div>
+    </fp-input>
+
+
+    <fp-input description="We will never share your email with anyone else.">
+      <font-awesome-icon icon="at" slot="prepend"/>
+      <input type="email" class="form-control" id="inputRegisterEmail" v-model="email"
+             placeholder="E-Mail..." required>
+    </fp-input>
+
+      <fp-input>
+        <font-awesome-icon icon="key" slot="prepend"/>
         <input type="password" class="form-control" id="inputRegisterPassword" v-model="password"
                placeholder="Password" autocomplete="new-password" required>
-      </div>
-      <div class="input-group">
-        <div class="input-group-prepend">
-        <span class="input-group-text">
-          <i class="fas fa-key"></i>
-        </span>
-        </div>
+      </fp-input>
+
+      <fp-input>
+        <font-awesome-icon icon="key" slot="prepend"/>
         <input type="password" class="form-control" id="inputRegisterPasswordConfirm" v-model="passwordConfirm"
                placeholder="Confirm Password" autocomplete="new-password" required>
-      </div>
-    </div>
+      </fp-input>
+
+
     <div class="form-group form-check">
       <input type="checkbox" class="form-check-input" id="inputRegisterTOS" v-model="TOS" required>
       <label for="inputRegisterTOS">
@@ -50,18 +34,27 @@
         <router-link to="/terms-and-service">Terms and Services</router-link>
       </label>
     </div>
+    
     <button type="submit" class="btn btn-primary"
             v-on:click="register()"
             :disabled="!TOS && !email && !password && !passwordConfirm">Register
     </button>
+
   </form>
 </template>
 
 <script>
 import Axios from "axios";
+import FpInput from "@/components/Form Components/FpInput";
+
+import {library} from "@fortawesome/fontawesome-svg-core";
+import {faAt, faKey, faUser} from "@fortawesome/free-solid-svg-icons";
+
+library.add(faAt, faKey, faUser)
 
 export default {
   name: "FormRegisterUser",
+  components: {FpInput},
   data() {
     return {
       email: "",
@@ -109,5 +102,7 @@ export default {
 </script>
 
 <style scoped>
-
+.btn-primary {
+  width: 100%;
+}
 </style>

@@ -13,7 +13,7 @@
           here
         </p>
       </div>
-      <div class="col-md -pull-left text-left">
+      <div class="col-md text-left">
         <h2>Erstellen Sie Ihre eigene Gutschein-App!</h2>
         <p>Passen Sie mit FreePoint einfach und schnell Ihre eigene Gutschein-App an! <br>
           Durch Scannen des QR-Codes auf der Rechnung können Kunden ganz leicht Punkte = FreePoints sammeln. Diese
@@ -34,6 +34,6 @@ export default {
 
 <style scoped>
 #login{
-  padding: 3em;
+  padding: 2em;
 }
 </style>
