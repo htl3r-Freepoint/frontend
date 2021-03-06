@@ -77,5 +77,7 @@ export default {
 </script>
 
 <style scoped>
-
+.btn-primary{
+  width: 100%;
+}
 </style>

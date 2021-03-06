@@ -1,14 +1,25 @@
 <template>
   <div id="login" class="container">
-    <form-login/>
-    <p class="col">
-      <router-link to="/forgot-password">Forgot Password</router-link>
-    </p>
-    <p class="col">
-      Not yet a member?
-      <router-link to="/register">Register</router-link>
-      here
-    </p>
+    <div class="row">
+      <div id="login-form" class="col-md shadow-lg p-3 mb-5 bg-white rounded">
+        <h2>Anmelden</h2>
+        <form-login class="p-4"></form-login>
+        <p>
+          <router-link to="/forgot-password">Forgot Password</router-link>
+        </p>
+        <p>
+          Not yet a member?
+          <router-link to="/register">Register</router-link>
+          here
+        </p>
+      </div>
+      <div class="col-md -pull-left text-left">
+        <h2>Erstellen Sie Ihre eigene Gutschein-App!</h2>
+        <p>Passen Sie mit FreePoint einfach und schnell Ihre eigene Gutschein-App an! <br>
+          Durch Scannen des QR-Codes auf der Rechnung können Kunden ganz leicht Punkte = FreePoints sammeln. Diese
+          können dann gegen, von Ihnen definierten Rabatte eingelöst werden. Melden Sie sich hier als Nutzer und potentieller Unternehmer an.</p>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -22,5 +33,7 @@ export default {
 </script>
 
 <style scoped>
-
+#login{
+  padding: 3em;
+}
 </style>

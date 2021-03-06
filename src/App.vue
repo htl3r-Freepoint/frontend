@@ -73,6 +73,8 @@ p {
   &.btn-primary {
     background: var(--store-primary) !important;
     border: none;
+    font-size: 1.2em;
+    font-weight: bold;
   }
   &:hover{
     border-radius: 10px;
