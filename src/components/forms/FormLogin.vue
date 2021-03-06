@@ -8,7 +8,7 @@
     <fp-input title="Password">
       <font-awesome-icon icon="key" slot="prepend"/>
       <input type="password" class="form-control" v-model="password"
-             placeholder="Password">
+             placeholder="Passwort">
     </fp-input>
     <div class="form-group form-check">
       <label>
@@ -16,7 +16,7 @@
       Remember me
       </label>
     </div>
-    <button type="button" class="btn btn-primary" v-on:click="login()">Login</button>
+    <button type="button" class="btn btn-primary" v-on:click="login()">Anmelden</button>
   </form>
 </template>
 

@@ -4,40 +4,40 @@
     <fp-input>
       <font-awesome-icon icon="user" slot="prepend"/>
       <input type="text" class="form-control" id="inputRegisterUsername" v-model="name"
-             placeholder="Username..." autocomplete="username" required>
+             placeholder="Benutzername" autocomplete="username" required>
     </fp-input>
 
 
-    <fp-input description="We will never share your email with anyone else.">
+    <fp-input description="Wir werden Ihre E-Mail-Adresse nicht weiterleiten.">
       <font-awesome-icon icon="at" slot="prepend"/>
       <input type="email" class="form-control" id="inputRegisterEmail" v-model="email"
-             placeholder="E-Mail..." required>
+             placeholder="E-Mail-Adresse" required>
     </fp-input>
 
       <fp-input>
         <font-awesome-icon icon="key" slot="prepend"/>
         <input type="password" class="form-control" id="inputRegisterPassword" v-model="password"
-               placeholder="Password" autocomplete="new-password" required>
+               placeholder="Passwort" autocomplete="new-password" required>
       </fp-input>
 
       <fp-input>
         <font-awesome-icon icon="key" slot="prepend"/>
         <input type="password" class="form-control" id="inputRegisterPasswordConfirm" v-model="passwordConfirm"
-               placeholder="Confirm Password" autocomplete="new-password" required>
+               placeholder="Passwort bestätigen" autocomplete="new-password" required>
       </fp-input>
 
 
     <div class="form-group form-check">
       <input type="checkbox" class="form-check-input" id="inputRegisterTOS" v-model="TOS" required>
       <label for="inputRegisterTOS">
-        By checking this, you hereby agree to our
-        <router-link to="/terms-and-service">Terms and Services</router-link>
+        Durch Ankreuzen dieser Option akzeptieren Sie unsere
+        <router-link to="/terms-and-service">Nutzungsbedingungen.</router-link>
       </label>
     </div>
-    
+
     <button type="submit" class="btn btn-primary"
             v-on:click="register()"
-            :disabled="!TOS && !email && !password && !passwordConfirm">Register
+            :disabled="!TOS && !email && !password && !passwordConfirm">Registrieren
     </button>
 
   </form>

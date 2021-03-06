@@ -5,12 +5,11 @@
         <h2>Anmelden</h2>
         <form-login class="p-4"></form-login>
         <p>
-          <router-link to="/forgot-password">Forgot Password</router-link>
+          <router-link to="/forgot-password">Passwort vergessen</router-link>
         </p>
         <p>
-          Not yet a member?
-          <router-link to="/register">Register</router-link>
-          here
+          Sie haben noch keinen Account? Sie können sich hier
+          <router-link to="/register">registrieren.</router-link>
         </p>
       </div>
       <div class="col-md text-left">

@@ -6,9 +6,8 @@
         <h2>Registrieren</h2>
         <form-register-user class="p-4"></form-register-user>
         <p>
-          Already a member?
-          <router-link to="/login">Login</router-link>
-          instead
+          Sie haben bereits einen Account? Dann können Sie sich hier
+          <router-link to="/login">anmelden.</router-link>
         </p>
       </div>
       <div class="col-md text-left">
