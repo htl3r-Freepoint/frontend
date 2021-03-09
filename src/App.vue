@@ -40,7 +40,9 @@ export default {
 
 :root {
   --store-primary: #10cdb7;
-  --text-color: #2c3e50;
+  --text-color: #153E73;
+  --background-color: #FAFAFA;
+  --banner-color: #ffffff;
   --flyer-color: #aaa;
 }
 
@@ -58,7 +60,7 @@ p {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #153E73;
-  background: #FAFAFA;
+  background: var(--background-color);
   min-height: 100vh;
 }
 
@@ -67,8 +69,23 @@ p {
 }
 
 .btn{
-  & .btn-primary {
-    background: var(--store-primary);
+  border-right: inherit;
+  &.btn-primary {
+    background: var(--store-primary) !important;
+    border: none;
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+  &:hover{
+    border-radius: 10px;
+    transition: .3s;
+  }
+  &:active{
+    border-radius: 20px;
+    transition: .3s;
+  }
+  &:focus{
+    box-shadow: 0 0 0 0 !important;
   }
 }
 

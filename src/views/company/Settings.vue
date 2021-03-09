@@ -1,51 +1,67 @@
 <template>
+  <submenu title="Einstellungen">
 
-  <div class="container">
+    <nav slot="links">
+      <router-link to="/company/settings/profile">
+        <font-awesome-icon icon="user-circle"/>
+        <div class="text-left">Profil bearbeiten</div>
+      </router-link>
+      <router-link to="/company/settings/design">
+        <font-awesome-icon icon="palette"/>
+        <div class="text-left">Design</div>
+      </router-link>
+      <router-link to="/company/settings/statistics">
+        <font-awesome-icon icon="chart-bar"/>
+        <div class="text-left">Kundenstatistiken</div>
+      </router-link>
+      <router-link to="/company/settings/flyer">
+        <font-awesome-icon icon="book-open"/>
+        <div class="text-left">Flyer-Customizer</div>
+      </router-link>
+      <router-link to="/company/settings/location">
+        <font-awesome-icon icon="compass"/>
+        <div class="text-left">Standorte</div>
+      </router-link>
+      <router-link to="/company/settings/staff">
+        <font-awesome-icon icon="user-friends"/>
+        <div class="text-left">Mitarbeiter</div>
+      </router-link>
+      <router-link to="/company/settings/info">
+        <font-awesome-icon icon="info"/>
+        <div class="text-left">Info</div>
+      </router-link>
+    </nav>
 
-    <div class="navbar navbar-expand-lg navbar-light mobile">
-      <div class="row justify-content-between">
-        <h3>Einstellungen</h3>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Links"
-                aria-controls="navbarSupportedContent" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      </div>
-      <settings-links id="Links" class="collapse show navbar-collapse"/>
-    </div>
+    <router-view></router-view>
 
-    <div class="card">
-      <h3 class="text-left settings-main-header desktop">Einstellungen</h3>
-      <div class="row">
-        <settings-links class="col-auto desktop"/>
-        <div class="col container">
-          <router-view></router-view>
-        </div>
-      </div>
-    </div>
-  </div>
+  </submenu>
 </template>
 
 <script>
-import SettingsLinks from "@/components/company/settings/SettingsLinks"
+import Submenu from "@/components/Submenu";
+import {library} from "@fortawesome/fontawesome-svg-core";
+import {
+  faBookOpen,
+  faChartBar,
+  faCompass,
+  faInfo,
+  faPalette,
+  faUserCircle,
+  faUserFriends
+} from "@fortawesome/free-solid-svg-icons";
+
+library.add(faInfo, faUserFriends, faCompass, faBookOpen, faChartBar, faPalette, faUserCircle)
 
 export default {
   name: "Settings",
-  components: {SettingsLinks}
+  components: {Submenu}
 }
 </script>
 
 <style scoped>
-.mobile {
-  display: none;
+
+.text-left{
+  padding-left: 1em;
 }
 
-@media (max-width: 560px) {
-  .mobile {
-    display: block;
-  }
-
-  .desktop {
-    display: none;
-  }
-}
 </style>

@@ -2,9 +2,10 @@
   <div class="container">
     <div id="coupon-container" class="row justify-content-center">
       <coupon v-for="(coupon, id) in coupons" :key="id"
-              class="col-12 col-md-4 col-sm-6"
-              :coupon="coupon"
-              :edit-rights="false"></coupon>
+              class="col-sm-6 col-md-4 col-xl-3"
+              :coupon="coupon">
+        <font-awesome-icon slot="actionIcon" icon="qrcode"/>
+      </coupon>
     </div>
 
   </div>
@@ -12,14 +13,16 @@
 
 <script>
 import Coupon from "@/components/Coupon";
-import CouponDetail from "@/components/CouponDetail";
 import Axios from "axios";
-import Modal from "@/components/Modal";
+
+import {library} from "@fortawesome/fontawesome-svg-core";
+import {faQrcode} from "@fortawesome/free-solid-svg-icons";
+
+library.add(faQrcode)
 
 export default {
   name: "RabattInventar",
-  // eslint-disable-next-line vue/no-unused-components
-  components: {Modal, CouponDetail, Coupon},
+  components: {Coupon},
   data() {
     return {
       coupons: [

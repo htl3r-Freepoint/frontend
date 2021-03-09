@@ -52,7 +52,10 @@ const store = new Vuex.Store({
         verification: false,
         points: 0,
         design:{
-            colorMain: "#10cdb7"
+            colorMain: "#10cdb7",
+            colorText: "#2c3e50",
+            colorBackground: "#FAFAFA",
+            colorBanner: "#ffffff",
         }
     },
     mutations: {
@@ -65,6 +68,9 @@ const store = new Vuex.Store({
         setUser(state, user){
             state.user = user
         },
+        deleteUser(state){
+            state.user = undefined
+        },
         increment(state) {
             state.points++
         },
@@ -76,6 +82,15 @@ const store = new Vuex.Store({
         },
         setColorMain(state, color){
             state.design.colorMain = color
+        },
+        setColorText(state, color){
+            state.design.colorText = color
+        },
+        setColorBackground(state, color){
+            state.design.colorBackground = color
+        },
+        setColorBanner(state, color){
+            state.design.colorBanner = color
         }
     }
 })

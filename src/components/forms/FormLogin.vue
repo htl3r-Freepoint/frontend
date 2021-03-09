@@ -1,36 +1,37 @@
 <template>
   <form>
-    <div class="form-group input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text">
-          <i class="fas fa-user"></i>
-        </span>
-      </div>
+    <fp-input title="Email">
+      <font-awesome-icon icon="at" slot="prepend"/>
       <input type="email" class="form-control" id="inputLoginEmail" v-model="email"
-             placeholder="E-Mail" required>
-    </div>
-    <div class="form-group input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text">
-          <i class="fas fa-key"></i>
-        </span>
-      </div>
-      <input type="password" class="form-control" id="inputLoginPassword" v-model="password"
-             placeholder="Password">
-    </div>
+             placeholder="z.B. name@gmail.com" required>
+    </fp-input>
+    <fp-input title="Password">
+      <font-awesome-icon icon="key" slot="prepend"/>
+      <input type="password" class="form-control" v-model="password"
+             placeholder="Passwort">
+    </fp-input>
     <div class="form-group form-check">
-      <input type="checkbox" class="form-check-input" id="inputLoginRemember" v-model="remember">
-      <label for="inputLoginRemember">Remember me</label>
+      <label>
+      <input type="checkbox" class="form-check-input" v-model="remember">
+      Remember me
+      </label>
     </div>
-    <button type="button" class="btn btn-primary" @click="login()">Login</button>
+    <button type="button" class="btn btn-primary" v-on:click="login()">Anmelden</button>
   </form>
 </template>
 
 <script>
 import Axios from 'axios'
+import FpInput from "@/components/Form Components/FpInput";
+
+import {library} from "@fortawesome/fontawesome-svg-core";
+import {faAt, faKey} from "@fortawesome/free-solid-svg-icons";
+
+library.add(faAt, faKey)
 
 export default {
   name: "FormLogin",
+  components: {FpInput},
   data() {
     return {
       email: "",
@@ -76,5 +77,7 @@ export default {
 </script>
 
 <style scoped>
-
+.btn-primary{
+  width: 100%;
+}
 </style>

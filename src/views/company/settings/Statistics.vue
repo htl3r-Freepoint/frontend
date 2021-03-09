@@ -1,10 +1,17 @@
 <template>
   <div>
-    <div class="d-block">
-      <div v-tooltip.hover:top="'Gescannte Rechnungen'">{{ data.scanned }}</div>
-      <div v-tooltip.hover:top="'Gescannte Rechnungen'">{{  }}</div>
+    <div id="statBar">
+      <div v-tooltip.hover:top="'Gescannte Rechnungen'">
+        {{ data.scanned }}
+      </div>
+      <div v-tooltip.hover:top="'Gekaufte Rabatte'">
+        {{ data.bought }}
+      </div>
+      <div v-tooltip.hover:top="'Eingelöste Rabatte'">
+        {{ data.used }}
+      </div>
     </div>
-    <div id="UserAction" class="col mt-1 mb-1" style="height: 400px"/>
+    <div id="UserAction" class="col mt-1 mb-1"/>
   </div>
 </template>
 
@@ -16,8 +23,10 @@ export default {
   components: {},
   data() {
     return {
-      data:{
-        scanned: 43
+      data: {
+        scanned: 43,
+        bought: 86,
+        used: 32
       }
     }
   },
@@ -114,6 +123,22 @@ export default {
 
 <style scoped lang="scss">
 
-
+#statBar{
+  display: flex;
+  flex-direction: row;
+  background-color: grey;
+  color: white;
+  margin: auto;
+  width: fit-content;
+  padding: .5em;
+  border-radius: 25px;
+  & div{
+    padding: 0 .5em;
+    border-right: white solid 2px;
+    &:last-child{
+      border: none;
+    }
+  }
+}
 
 </style>
