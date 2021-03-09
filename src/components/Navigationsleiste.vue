@@ -3,17 +3,20 @@
 
     <!--Desktop-->
     <header id="nav-header" class="border justify-content-center">
-      <div class="col-6 col-sm-3">
+      <div class="col-3">
         <a href="/">
           <img src="../assets/icons/Schriftzug.svg" width="200">
         </a>
       </div>
 
-      <div id="nav-points" class="col-6 col-sm-3 font-weight-bold text-nowrap">
-        {{ this.$store.state.points }} FP
+      <div class="col-6">
+        <div id="nav-points" class="font-weight-bold text-nowrap">
+          {{ this.$store.state.points }}
+          <font-awesome-icon icon="receipt"/>
+        </div>
       </div>
 
-      <navigation-links id="icons-header" class="col-sm-3"></navigation-links>
+      <navigation-links id="icons-header" class="col-3"></navigation-links>
     </header>
 
     <!--Mobile-->
@@ -25,8 +28,12 @@
 </template>
 
 <script>
-
 import NavigationLinks from "@/components/NavigationLinks";
+
+import {library} from "@fortawesome/fontawesome-svg-core";
+import {faReceipt} from "@fortawesome/free-solid-svg-icons";
+
+library.add(faReceipt)
 
 export default {
   name: "Navigationsleiste",
@@ -42,6 +49,7 @@ nav {
 
   & header {
     display: flex;
+    flex-wrap: wrap;
   }
 
   & footer {

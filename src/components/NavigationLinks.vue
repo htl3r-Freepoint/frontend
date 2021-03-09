@@ -1,66 +1,74 @@
 <template>
-  <div id="navLinks" class="mx-2 row justify-content-between flex-nowrap">
+  <div class="row justify-content-between flex-nowrap">
     <router-link class="col router-link icon" :to="'/company/coupons'">
       <font-awesome-icon icon="home"/>
     </router-link>
 
-    <router-link class="col router-link icon" to="/inventar">
+    <router-link class="col router-link" to="/inventar">
       <font-awesome-icon icon="cubes"/>
     </router-link>
 
-    <router-link class="col router-link icon" to="/scan">
+    <router-link class="col router-link" to="/scan">
       <font-awesome-icon icon="qrcode"/>
     </router-link>
 
-    <router-link class="col router-link icon" to="/user/settings/profile" v-if="this.$store.state.user">
+    <router-link class="col router-link" to="/user/settings/profile" v-if="this.$store.state.user">
       <font-awesome-icon icon="cog"/>
     </router-link>
 
-    <router-link class="col router-link icon" to="/login" v-if="!this.$store.state.user">
+    <router-link class="col router-link" to="/login" v-if="!this.$store.state.user">
       <font-awesome-icon icon="sign-in-alt"/>
     </router-link>
-    <router-link v-else class="col router-link icon" to="/user/settings/profile">
-      <font-awesome-icon icon="user"/>
+    <router-link class="col router-link red" v-on:click="logoutUser" v-else>
+      <font-awesome-icon icon="sign-out-alt"/>
     </router-link>
+    <!--    <router-link v-else class="col router-link icon" to="/user/settings/profile">
+          <font-awesome-icon icon="user"/>
+        </router-link>-->
   </div>
 </template>
 
 <script>
 import {library} from "@fortawesome/fontawesome-svg-core";
-import {faHome, faQrcode, faCog, faSignInAlt, faUser, faCubes} from "@fortawesome/free-solid-svg-icons";
+import {faCog, faCubes, faHome, faQrcode, faSignInAlt, faSignOutAlt, faUser} from "@fortawesome/free-solid-svg-icons";
 
-library.add(faHome, faCubes, faQrcode, faCog, faSignInAlt, faUser)
+library.add(faHome, faCubes, faQrcode, faCog, faSignInAlt, faUser, faSignOutAlt)
 
 export default {
-  name: "NavigationLinks"
+  name: "NavigationLinks",
+  methods:{
+    logoutUser(){
+      localStorage.setItem('user', {})
+      sessionStorage.setItem('user', {})
+      this.$store.commit("deleteUser")
+      this.$router.push("/")
+    }
+  }
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 
-#navLinks{
-  height: 100%;
-}
-
-.router-link {
+a, .router-link, .router-link-active {
   text-decoration: none;
   color: inherit;
   height: 100%;
+  display: flex;
+  flex-direction: row;
+  & svg{
+    font-size: 1.7em;
+  }
 }
 
-.router-link-active{
+.router-link-active {
   color: var(--store-primary);
 }
 
-
-
-.icon {
-  font-size: 3vh;
-}
-
 @media (max-width: 560px) {
-  .icon{
-    font-size: 3.5vh;
+  a, .router-link, .router-link-active {
+    & svg{
+      font-size: 2em;
+    }
   }
 }
 

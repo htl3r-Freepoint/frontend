@@ -26,7 +26,7 @@
 
     <fp-input label="Tauschrate"
         description="Dieser Wert bestimmt, wie viel € einen Punkt wert ist.">
-      <span slot="prepend">1 FP =</span>
+      <span slot="prepend">1 <font-awesome-icon icon="receipt"/></span>
       <input type="number" min="1" class="form-control text-right" v-model="exchangeRate">
       <font-awesome-icon slot="append" icon="euro-sign"/>
     </fp-input>
@@ -41,9 +41,9 @@ import FpInput from "@/components/Form Components/FpInput";
 import Axios from "axios";
 
 import {library} from "@fortawesome/fontawesome-svg-core";
-import {faImage, faSign, faEnvelope, faEuroSign} from "@fortawesome/free-solid-svg-icons";
+import {faImage, faSign, faEnvelope, faEuroSign, faReceipt} from "@fortawesome/free-solid-svg-icons";
 
-library.add(faImage, faSign, faEnvelope, faEuroSign)
+library.add(faImage, faSign, faEnvelope, faEuroSign, faReceipt)
 
 export default {
   name: "Profile",

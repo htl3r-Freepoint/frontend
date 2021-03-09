@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h2>{{$route.params.company}}</h2>
+    <h2 class="text-uppercase font-weight-bold">{{$store.state.companyName}}</h2>
     <div class="col custom-control custom-switch align-self-end">
       <input id="edit-mode" type="checkbox" class="custom-control-input" v-model="editRights">
       <label class="custom-control-label" for="edit-mode">Edit Mode</label>
@@ -13,7 +13,7 @@
               class="col-sm-6 col-md-4 col-xl-3"
               :coupon="coupon"
               :edit-rights="editRights">
-        <font-awesome-icon slot="actionIcon" icon="shopping-cart"/>
+        <font-awesome-icon slot="actionIcon" style="position: absolute; left: 9.5px; top:10.5px" icon="shopping-cart"/>
       </coupon>
 
       <div v-if="editRights" class="add-coupon col-sm-6 col-md-4 col-xl-3">
