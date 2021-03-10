@@ -6,6 +6,11 @@ import router from './router'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap.js'
 
+import IntroJs from 'intro.js/intro'
+import 'intro.js/introjs.css';
+
+Vue.prototype.$introJS = IntroJs;
+
 import { FontAwesomeIcon, FontAwesomeLayers, FontAwesomeLayersText } from '@fortawesome/vue-fontawesome'
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
@@ -31,7 +36,7 @@ const bsTooltip = (el, binding) => {
         title: binding.value,
         placement: binding.arg || 'top',
         trigger: t.join(' '),
-        html: !!binding.modifiers.html,
+        html: !!binding.modifiers.html
     });
 }
 
@@ -56,6 +61,11 @@ const store = new Vuex.Store({
             colorText: "#2c3e50",
             colorBackground: "#FAFAFA",
             colorBanner: "#ffffff",
+        },
+        tutorial:{
+            navbar: true,
+            couponMenu: true,
+            settings: true
         }
     },
     mutations: {
@@ -91,6 +101,15 @@ const store = new Vuex.Store({
         },
         setColorBanner(state, color){
             state.design.colorBanner = color
+        },
+        setTutorialCouponMenu(state, doTutorial){
+            state.tutorial.couponMenu = doTutorial
+        },
+        setTutorialNavBar(state, doTutorial){
+            state.tutorial.navbar = doTutorial
+        },
+        setTutorialSettings(state, doTutorial){
+            state.tutorial.settings = doTutorial
         }
     }
 })

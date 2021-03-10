@@ -1,12 +1,14 @@
 <template>
   <div class="container">
-    <h2 class="text-uppercase font-weight-bold">{{$store.state.companyName}}</h2>
+    <h2 id="title" class="text-uppercase font-weight-bold">{{ $store.state.companyName }}</h2>
+
+
     <div class="col custom-control custom-switch align-self-end">
       <input id="edit-mode" type="checkbox" class="custom-control-input" v-model="editRights">
       <label class="custom-control-label" for="edit-mode">Edit Mode</label>
     </div>
 
-    <router-link class="btn btn-primary" to="/company/settings/profile">Settings</router-link>
+    <router-link class="btn btn-primary" to="/company/settings/profile" data-intro="Hier sind die Settings">Settings</router-link>
 
     <div id="coupon-container" class="row justify-content-center py-2">
       <coupon v-for="(coupon, id) in coupons" v-bind:key="id"
@@ -126,6 +128,23 @@ export default {
       ]
     }
   },
+  mounted() {
+    if (this.$store.state.tutorial.couponMenu) {
+      this.$introJS.introJs().setOptions({
+        steps: [
+          {
+            element: document.getElementById('title'),
+            intro: 'Hier wird Ihnen der Firmenname angezeigt'
+          },
+          {
+            element: document.getElementById('coupon-container'),
+            intro: 'Das sind alle verfügbaren Coupons der Firma' + this.$store.state.companyName
+          }
+        ]
+      }).start()
+      this.$store.commit('setTutorialCouponMenu', false)
+    }
+  },
   methods: {
     getData() {
       Axios.get(this.$store.state.url + "/Rabatte", {
@@ -135,10 +154,11 @@ export default {
         }
       }).then(r => this.coupons = r)
     },
-    saveCoupon(){
+    saveCoupon() {
 
     }
   }
+
 }
 </script>
 

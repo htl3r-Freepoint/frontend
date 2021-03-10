@@ -2,14 +2,14 @@
   <nav id="navbar" class="sticky-top">
 
     <!--Desktop-->
-    <header id="nav-header" class="border justify-content-center">
+    <header id="nav-header" class="border justify-content-center intro-nav">
       <div class="col-3">
         <a href="/">
           <img src="../assets/icons/Schriftzug.svg" width="200">
         </a>
       </div>
 
-      <div class="col-6">
+      <div class="col-6 intro-nav" id="punkteanzeige">
         <div id="nav-points" class="font-weight-bold text-nowrap">
           {{ this.$store.state.points }}
           <font-awesome-icon icon="receipt"/>
@@ -37,7 +37,22 @@ library.add(faReceipt)
 
 export default {
   name: "Navigationsleiste",
-  components: {NavigationLinks}
+  components: {NavigationLinks},
+  mounted() {
+    if (this.$store.state.tutorial.navbar) {
+      this.$introJS.introJs().setOptions({
+        steps: [{
+          title: 'Willkommen',
+          intro: 'Hello World! 👋'
+        },
+          {
+            element: document.getElementById('punkteanzeige'),
+            intro: 'Hier werden Ihre Punkte angezeigt. Damit können Sie sich neue Rabatte kaufen. Die Punkte sind pro Geschäft unterschiedlich.'
+          }]
+      }).start();
+      this.$store.commit('setTutorialNavBar', false)
+    }
+  }
 }
 </script>
 
