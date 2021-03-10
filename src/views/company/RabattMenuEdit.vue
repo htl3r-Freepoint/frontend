@@ -2,31 +2,43 @@
   <div class="container">
     <h2 class="text-uppercase font-weight-bold">{{$store.state.companyName}}</h2>
 
-    <router-link class="btn btn-primary" to="/company/settings/profile">Settings</router-link>
+    <router-link class="btn btn-primary" to="/company/coupons">Coupons</router-link>
 
     <div id="coupon-container" class="row justify-content-center py-2">
-      <coupon v-for="(coupon, id) in coupons" v-bind:key="id"
-              class="col-sm-6 col-md-4 col-xl-3"
-              :coupon="coupon">
-        <font-awesome-icon slot="actionIcon" style="position: absolute; left: 9.5px; top:10.5px" icon="shopping-cart"/>
-      </coupon>
+      <coupon-edit v-for="(coupon, id) in coupons" v-bind:key="id"
+                   class="col-sm-6 col-md-4 col-xl-3"
+                   :coupon="coupon">
+      </coupon-edit>
+
+      <div class="add-coupon col-sm-6 col-md-4 col-xl-3">
+        <button class="btn-block"
+                data-toggle="modal" data-target="#modalCreateNewCoupon">
+          <font-awesome-icon icon="plus-circle"/>
+        </button>
+      </div>
     </div>
+
+    <modal id="modalCreateNewCoupon" :title="'Neuer Coupon'">
+      <form-new-coupon></form-new-coupon>
+    </modal>
 
   </div>
 </template>
 
 <script>
 import Axios from 'axios'
-import Coupon from "@/components/Coupon";
+import FormNewCoupon from "@/components/forms/FormNewCoupon";
+import Modal from "@/components/Modal";
+import CouponEdit from "@/components/CouponEdit";
 
 import {library} from "@fortawesome/fontawesome-svg-core";
-import {faShoppingCart} from "@fortawesome/free-solid-svg-icons";
+import {faPlusCircle} from "@fortawesome/free-solid-svg-icons";
 
-library.add(faShoppingCart)
+library.add(faPlusCircle)
 
 export default {
-  name: "RabattMenu",
-  components: {Coupon},
+  name: "RabattMenuEdit",
+  components: {CouponEdit, Modal, FormNewCoupon},
   data() {
     return {
       user: '1',
@@ -116,7 +128,7 @@ export default {
         }
       }).then(r => this.coupons = r)
     },
-    saveCoupon(){
+    saveCoupon() {
 
     }
   }

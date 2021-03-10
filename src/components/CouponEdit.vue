@@ -25,7 +25,7 @@
 
       </div>
 
-      <div class="control-buttons" v-if="$slots.actionIcon">
+      <div class="control-buttons">
 
         <button class="btn btn-primary mb-1" data-toggle="modal"
                 :data-target="'#modalEditCoupon' + coupon.id" v-on:click="edit = true">
