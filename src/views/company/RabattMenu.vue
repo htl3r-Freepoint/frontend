@@ -86,6 +86,21 @@ export default {
   },
   mounted() {
     this.getData()
+    if (this.$store.state.tutorial.couponMenu) {
+      this.$introJS.introJs().setOptions({
+        steps: [
+          {
+            element: document.getElementById('title'),
+            intro: 'Hier wird Ihnen der Firmenname angezeigt'
+          },
+          {
+            element: document.getElementById('coupon-container'),
+            intro: 'Das sind alle verfügbaren Coupons der Firma' + this.$store.state.companyName
+          }
+        ]
+      }).start()
+      this.$store.commit('setTutorialCouponMenu', false)
+    }
   },
   methods: {
     getData() {
@@ -112,6 +127,7 @@ export default {
       })
     }
   }
+
 }
 </script>
 

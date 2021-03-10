@@ -2,7 +2,7 @@
   <nav id="navbar" class="sticky-top shadow-lg">
 
     <!--Desktop-->
-    <header id="nav-header" class="justify-content-center py-2">
+    <header id="nav-header" class="justify-content-center py-2 intro-nav">
       <div class="col-6 col-sm-3">
         <a href="/" v-if="this.$store.state.company.logo">
           {{this.$store.state.company.logo}}
@@ -12,7 +12,7 @@
         </a>
       </div>
 
-      <div class="col-6 col-sm-3" v-if="this.$store.state.user.token">
+      <div class="col-6 col-sm-3 intro-nav" id="punkteanzeige"" v-if="this.$store.state.user.token">
         <div id="nav-points" class="font-weight-bold text-nowrap">
           {{ navNumber }}
           <font-awesome-icon icon="receipt"/>
@@ -57,6 +57,21 @@ export default {
   watch: {
     '$store.state.points': function(newValue) {
       gsap.to(this.$data, { duration: 0.5, tweenedNumber: newValue });
+    }
+  }
+  mounted() {
+    if (this.$store.state.tutorial.navbar) {
+      this.$introJS.introJs().setOptions({
+        steps: [{
+          title: 'Willkommen',
+          intro: 'Hello World! 👋'
+        },
+          {
+            element: document.getElementById('punkteanzeige'),
+            intro: 'Hier werden Ihre Punkte angezeigt. Damit können Sie sich neue Rabatte kaufen. Die Punkte sind pro Geschäft unterschiedlich.'
+          }]
+      }).start();
+      this.$store.commit('setTutorialNavBar', false)
     }
   }
 }

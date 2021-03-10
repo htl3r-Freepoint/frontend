@@ -21,6 +21,7 @@
     "core-js": "^3.6.5",
     "gsap": "^3.6.0",
     "highcharts": "^9.0.0",
+    "intro.js": "^2.9.3",
     "jquery": "^3.5.1",
     "jspdf": "^2.1.1",
     "mapbox-gl": "^2.0.1",

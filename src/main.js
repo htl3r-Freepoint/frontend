@@ -6,7 +6,12 @@ import router from './router'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap.js'
 
-import {FontAwesomeIcon, FontAwesomeLayers, FontAwesomeLayersText} from '@fortawesome/vue-fontawesome'
+import IntroJs from 'intro.js/intro'
+import 'intro.js/introjs.css';
+
+Vue.prototype.$introJS = IntroJs;
+
+import { FontAwesomeIcon, FontAwesomeLayers, FontAwesomeLayersText } from '@fortawesome/vue-fontawesome'
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.component('font-awesome-layers', FontAwesomeLayers)
@@ -36,7 +41,7 @@ const bsTooltip = (el, binding) => {
         title: binding.value,
         placement: binding.arg || 'top',
         trigger: t.join(' '),
-        html: !!binding.modifiers.html,
+        html: !!binding.modifiers.html
     });
 }
 
