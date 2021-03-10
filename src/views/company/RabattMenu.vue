@@ -9,12 +9,11 @@
     <router-link class="btn btn-primary" to="/company/settings/profile">Settings</router-link>
 
     <div id="coupon-container" class="row justify-content-center py-2">
-      <coupon v-for="(coupon, id) in coupons" v-bind:key="id"
+      <coupon-edit v-for="(coupon, id) in coupons" v-bind:key="id"
               class="col-sm-6 col-md-4 col-xl-3"
-              :coupon="coupon"
-              :edit-rights="editRights">
+              :coupon="coupon">
         <font-awesome-icon slot="actionIcon" style="position: absolute; left: 9.5px; top:10.5px" icon="shopping-cart"/>
-      </coupon>
+      </coupon-edit>
 
       <div v-if="editRights" class="add-coupon col-sm-6 col-md-4 col-xl-3">
         <button class="btn-block"
@@ -33,18 +32,18 @@
 
 <script>
 import Axios from 'axios'
-import Coupon from "@/components/Coupon";
 import FormNewCoupon from "@/components/forms/FormNewCoupon";
 import Modal from "@/components/Modal";
 
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {faPlusCircle, faShoppingCart} from "@fortawesome/free-solid-svg-icons";
+import CouponEdit from "@/components/CouponEdit";
 
 library.add(faPlusCircle, faShoppingCart)
 
 export default {
   name: "RabattMenu",
-  components: {Modal, FormNewCoupon, Coupon},
+  components: {CouponEdit, Modal, FormNewCoupon},
   data() {
     return {
       user: '1',

@@ -25,27 +25,15 @@
 
       </div>
 
-      <div class="control-buttons" v-if="editRights || $slots.actionIcon">
-        <button v-if="!editRights && $slots.actionIcon" class="btn btn-primary btn-action" data-toggle="modal"
+      <div class="control-buttons" v-if="$slots.actionIcon">
+        <button v-if="$slots.actionIcon" class="btn btn-primary btn-action" data-toggle="modal"
                 :data-target="'#modalActionCoupon' + coupon.id">
           <slot name="actionIcon"></slot>
-        </button>
-
-        <button v-if="editRights" class="btn btn-primary mb-1" data-toggle="modal"
-                :data-target="'#modalEditCoupon' + coupon.id" v-on:click="edit = true">
-          <font-awesome-icon icon="pen"/>
-        </button>
-
-        <button v-if="editRights" class="btn btn-danger mt-1">
-          <font-awesome-icon icon="trash"/>
         </button>
       </div>
 
     </button>
 
-    <modal :id="'modalEditCoupon' + coupon.id">
-      <form-edit-coupon :coupon="coupon"></form-edit-coupon>
-    </modal>
     <modal :id="'modalActionCoupon' + coupon.id">
       <slot name="modal">
         <coupon-detail :coupon="coupon"></coupon-detail>
@@ -57,18 +45,12 @@
 
 <script>
 import Modal from "@/components/Modal";
-import FormEditCoupon from "@/components/forms/FormEditCoupon";
 import CouponDetail from "@/components/CouponDetail";
-
-import {library} from "@fortawesome/fontawesome-svg-core";
-import {faPen, faTrash} from "@fortawesome/free-solid-svg-icons";
-
-library.add(faPen, faTrash)
 
 export default {
   name: "Coupon",
-  components: {CouponDetail, FormEditCoupon, Modal},
-  props: ['coupon', 'editRights'],
+  components: {CouponDetail, Modal},
+  props: ['coupon'],
 }
 </script>
 
