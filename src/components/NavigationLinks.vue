@@ -12,16 +12,16 @@
       <font-awesome-icon icon="qrcode"/>
     </router-link>
 
-    <router-link class="col router-link" to="/user/settings/profile" v-if="this.$store.state.user">
+    <router-link class="col router-link" to="/user/settings/profile" v-if="this.$store.state.user.token">
       <font-awesome-icon icon="cog"/>
     </router-link>
 
-    <router-link class="col router-link" to="/login" v-if="!this.$store.state.user">
+    <router-link class="col router-link" to="/login" v-if="!this.$store.state.user.token">
       <font-awesome-icon icon="sign-in-alt"/>
     </router-link>
-    <router-link class="col router-link red" v-on:click="logoutUser" v-else>
+    <button class="col router-link red" v-on:click="logoutUser" v-else>
       <font-awesome-icon icon="sign-out-alt"/>
-    </router-link>
+    </button>
     <!--    <router-link v-else class="col router-link icon" to="/user/settings/profile">
           <font-awesome-icon icon="user"/>
         </router-link>-->
@@ -38,8 +38,8 @@ export default {
   name: "NavigationLinks",
   methods:{
     logoutUser(){
-      localStorage.setItem('user', {})
-      sessionStorage.setItem('user', {})
+      localStorage.removeItem('user')
+      sessionStorage.removeItem('user')
       this.$store.commit("deleteUser")
       this.$router.push("/")
     }
@@ -49,7 +49,9 @@ export default {
 
 <style scoped lang="scss">
 
-a, .router-link, .router-link-active {
+a, .router-link, .router-link-active, button {
+  border: none;
+  background: none;
   text-decoration: none;
   color: inherit;
   height: 100%;

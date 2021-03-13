@@ -16,13 +16,14 @@
       </label>
     </div>
     <div class="col form-group">
-      <button type="button" class="btn btn-primary" @click="register()">Register</button>
+      <button type="button" class="btn btn-primary" @click="register()" :disabled="!email && !companyName && !TOS">
+        Register
+      </button>
     </div>
   </form>
 </template>
 
 <script>
-import Axios from "axios";
 
 export default {
   name: "FormRegisterCompany",
@@ -36,13 +37,13 @@ export default {
   methods: {
     register() {
       if (this.email && this.companyName) {
-        Axios.post(this.$store.state.url + "/registerCompany", {
+        this.$http.post(this.$store.state.url + "/registerCompany", {
           name: this.companyName,
           email: this.email,
-          hash: this.$store.state.token
+          hash: this.$store.state.user.token
         }).then((response) => {
           console.debug(response)
-
+          if(response.data.company) window.location.href = response.data.company.name + ".localhost:8080"
         }).catch(error => {
           if (error.response) {
             console.debug("Data:", error.response.data);
@@ -54,6 +55,7 @@ export default {
             console.debug("Error:", error.message);
           }
           console.debug("Config:", error.config);
+          window.location.href = "https://wurstbude.localhost:8080"
         })
       }
     }

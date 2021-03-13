@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter);
 
 const routes = [
+    {path: '/', component: () => import("@/views/Root.vue")},
     {path: '/forgot-password', component: () => import('@/views/ForgotPassword.vue')},
     {path: '/terms-and-service', component: () => import('@/views/TermsAndService.vue')},
     {path: '/terms-and-service-company', component: () => import('@/views/TermsAndServiceCompany.vue')},
@@ -44,6 +45,6 @@ const routes = [
 ]
 
 export default new VueRouter({
-    mode: 'history',
+    /*mode: 'history',*/
     routes
 })

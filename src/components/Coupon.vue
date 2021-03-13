@@ -1,6 +1,6 @@
 <template>
   <div class="coupon">
-    <button class="card" data-toggle="modal" :data-target="'#modalActionCoupon' + coupon.id">
+    <button class="card" v-on:click="showActionModal">
       <div class="card-body text-left d-flex flex-column justify-content-between pb-1">
         <div>
           <h4 class="font-weight-bold">{{ this.coupon.title }}</h4>
@@ -26,13 +26,12 @@
       </div>
 
       <div class="control-buttons" v-if="editRights || $slots.actionIcon">
-        <button v-if="!editRights && $slots.actionIcon" class="btn btn-primary btn-action" data-toggle="modal"
-                :data-target="'#modalActionCoupon' + coupon.id">
+        <button v-if="!editRights && $slots.actionIcon" class="btn btn-primary btn-action"
+                v-on:click="showActionModal">
           <slot name="actionIcon"></slot>
         </button>
 
-        <button v-if="editRights" class="btn btn-primary mb-1" data-toggle="modal"
-                :data-target="'#modalEditCoupon' + coupon.id" v-on:click="edit = true">
+        <button v-if="editRights" class="btn btn-primary mb-1" v-on:click="showEditModal">
           <font-awesome-icon icon="pen"/>
         </button>
 
@@ -69,6 +68,15 @@ export default {
   name: "Coupon",
   components: {CouponDetail, FormEditCoupon, Modal},
   props: ['coupon', 'editRights'],
+  methods: {
+    showActionModal() {
+      if(this.$store.state.user.token) this.$("#modalActionCoupon" + this.coupon.id).modal()
+      else this.$router.push('/login')
+    },
+    showEditModal() {
+      this.$("#modalEditCoupon" + this.coupon.id).modal()
+    }
+  }
 }
 </script>
 
@@ -110,7 +118,7 @@ export default {
     border-bottom: var(--store-primary) solid 4px;
     border-radius: 5px 5px 2px 2px;
 
-    .card-body{
+    .card-body {
       padding: .5em;
     }
 
@@ -119,10 +127,12 @@ export default {
       border-bottom: rgba(0, 0, 0, .3) solid 4px;
       transform: translateY(-4px);
     }
-    &:active{
+
+    &:active {
       outline: none;
     }
-    &:focus{
+
+    &:focus {
       outline: none;
     }
   }

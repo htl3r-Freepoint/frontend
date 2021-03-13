@@ -35,7 +35,7 @@
       </label>
     </div>
 
-    <button type="submit" class="btn btn-primary"
+    <button type="button" class="btn btn-primary"
             v-on:click="register()"
             :disabled="!TOS && !email && !password && !passwordConfirm">Registrieren
     </button>
@@ -44,7 +44,6 @@
 </template>
 
 <script>
-import Axios from "axios";
 import FpInput from "@/components/Form Components/FpInput";
 
 import {library} from "@fortawesome/fontawesome-svg-core";
@@ -68,7 +67,7 @@ export default {
     register() {
       if (this.email && this.password && this.passwordConfirm && this.TOS) {
         if (this.password === this.passwordConfirm) {
-          Axios.post(this.$store.state.url + '/registerUser', {
+          this.$http.post(this.$store.state.url + '/registerUser', {
             email: this.email,
             password: this.password,
             username: this.name
@@ -77,9 +76,9 @@ export default {
             console.debug("Saving user login")
             localStorage.setItem('user', JSON.stringify({}))
             sessionStorage.setItem('user', JSON.stringify(response.data))
-            this.$store.commit('setToken', JSON.parse(sessionStorage.getItem('user')).token)
+            this.$store.commit('setUser', JSON.parse(sessionStorage.getItem('user')).token)
             console.debug("Token:", this.$store.state.token)
-            this.$router.push({path: 'menu'})
+            window.history.length > 1 ? this.$router.go(-1) : this.$router.push({path: '/'})
           }).catch(error => {
             if (error.response) {
               console.debug("Data:", error.response.data);
