@@ -64,6 +64,16 @@ p {
   min-height: 100vh;
 }
 
+.heading{
+  font-size: 3em;
+  color: black;
+}
+
+.paragraph{
+  font-size: 1.3em;
+  color: black;
+}
+
 .router-view {
 
 }
