@@ -3,20 +3,20 @@
 
     <!--Desktop-->
     <header id="nav-header" class="border justify-content-center">
-      <div class="col-3">
+      <div class="col-6 col-sm-3">
         <a href="/">
           <img src="../assets/icons/Schriftzug.svg" width="200">
         </a>
       </div>
 
-      <div class="col-6">
+      <div class="col-6 col-sm-3">
         <div id="nav-points" class="font-weight-bold text-nowrap">
           {{ this.$store.state.points }}
           <font-awesome-icon icon="receipt"/>
         </div>
       </div>
 
-      <navigation-links id="icons-header" class="col-3"></navigation-links>
+      <navigation-links id="icons-header" class="col-sm-3"></navigation-links>
     </header>
 
     <!--Mobile-->
@@ -77,7 +77,7 @@ nav {
   display: none;
 }
 
-@media (max-width: 560px) {
+@media (max-width: 576px) {
   #icons-header {
     display: none;
   }

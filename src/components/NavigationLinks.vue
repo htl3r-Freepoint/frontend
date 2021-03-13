@@ -66,7 +66,7 @@ a, .router-link, .router-link-active, button {
   color: var(--store-primary);
 }
 
-@media (max-width: 560px) {
+@media (max-width: 576px) {
   a, .router-link, .router-link-active {
     & svg{
       font-size: 2em;
