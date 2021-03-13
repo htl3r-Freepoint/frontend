@@ -16,12 +16,11 @@
       Remember me
       </label>
     </div>
-    <button type="button" class="btn btn-primary" v-on:click="login()">Anmelden</button>
+    <button type="button" class="btn btn-primary" v-on:click="login()" :disabled="!email && !password">Anmelden</button>
   </form>
 </template>
 
 <script>
-import Axios from 'axios'
 import FpInput from "@/components/Form Components/FpInput";
 
 import {library} from "@fortawesome/fontawesome-svg-core";
@@ -42,33 +41,23 @@ export default {
   methods: {
     login() {
       if (this.email && this.password) {
-        Axios.post(this.$store.state.url + '/loginUser', {
+        this.$http.post(this.$store.state.url + '/loginUser', {
           email: this.email,
           password: this.password
         }).then(response => {
-          console.debug("Response:", response.data)
           console.debug("Saving user login")
           if (this.remember) {
             localStorage.setItem('user', JSON.stringify(response.data))
           } else {
-            localStorage.setItem('user', JSON.stringify({}))
+            localStorage.removeItem('user')
           }
           sessionStorage.setItem('user', JSON.stringify(response.data))
           this.$store.commit('setUser', JSON.parse(sessionStorage.getItem('user')))
           console.debug("User:", this.$store.state.user)
-          console.debug("Saving Complete. Moving User to new Path")
-          window.history.length > 1 ? this.$router.go(-1) : this.$router.push({path: '/menu'})
+          console.debug("Saving Complete. Moving User to old Path")
+          window.history.length > 1 ? this.$router.go(-1) : this.$router.push({path: '/'})
         }).catch(error => {
-          if (error.response) {
-            console.debug("Data:", error.response.data);
-            console.debug("Status:", error.response.status);
-            console.debug("Headers:", error.response.headers);
-          } else if (error.request) {
-            console.debug("Request:", error.request);
-          } else {
-            console.debug("Error:", error.message);
-          }
-          console.debug("Config:", error.config);
+          console.debug("Config:", error);
         })
       }
     }

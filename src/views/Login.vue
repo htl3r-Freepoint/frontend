@@ -27,7 +27,13 @@ import FormLogin from "@/components/forms/FormLogin";
 
 export default {
   name: "Login",
-  components: {FormLogin}
+  components: {FormLogin},
+  created() {
+    if (this.$store.state.user.token){
+      console.debug("User is already logged in", this.$store.state.user)
+      window.history.length > 1 ? this.$router.go(-1) : this.$router.push({path: '/'})
+    }
+  }
 }
 </script>
 

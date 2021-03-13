@@ -6,7 +6,7 @@ import router from './router'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap.js'
 
-import { FontAwesomeIcon, FontAwesomeLayers, FontAwesomeLayersText } from '@fortawesome/vue-fontawesome'
+import {FontAwesomeIcon, FontAwesomeLayers, FontAwesomeLayersText} from '@fortawesome/vue-fontawesome'
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.component('font-awesome-layers', FontAwesomeLayers)
@@ -18,6 +18,9 @@ import $ from 'jquery'
 Vue.use(Vuex)
 
 Vue.config.productionTip = false
+
+Vue.prototype.$http = Axios
+Vue.prototype.$ = $
 
 const bsTooltip = (el, binding) => {
     const t = []
@@ -38,7 +41,7 @@ const bsTooltip = (el, binding) => {
 Vue.directive('tooltip', {
     bind: bsTooltip,
     update: bsTooltip,
-    unbind (el) {
+    unbind(el) {
         $(el).tooltip('dispose')
     }
 });
@@ -46,12 +49,21 @@ Vue.directive('tooltip', {
 const store = new Vuex.Store({
     state: {
         url: 'https://freepoint.htl3r.com/api',
-        user: undefined,
-        companyName: '[insertCompanyName]',
-        token: '',
-        verification: false,
+        /*url: 'localhost:8000/api',*/
+        user: {
+            token: undefined,
+            username: undefined,
+            verified: undefined
+        },
+        company: {
+            name: undefined,
+            conversionRate: undefined,
+            email: undefined,
+            logo: undefined
+        },
+        subdomain: undefined,
         points: 0,
-        design:{
+        design: {
             colorMain: "#10cdb7",
             colorText: "#2c3e50",
             colorBackground: "#FAFAFA",
@@ -59,17 +71,18 @@ const store = new Vuex.Store({
         }
     },
     mutations: {
-        setToken(state, token) {
-            state.token = token
-        },
         setVerfification(state, verified) {
-            state.verification = verified
+            state.user.verified = verified
         },
-        setUser(state, user){
+        setUser(state, user) {
             state.user = user
         },
-        deleteUser(state){
-            state.user = undefined
+        deleteUser(state) {
+            state.user = {
+                token: undefined,
+                username: undefined,
+                verified: undefined
+            }
         },
         increment(state) {
             state.points++
@@ -80,16 +93,16 @@ const store = new Vuex.Store({
         setPoints(state, number) {
             state.points = number
         },
-        setColorMain(state, color){
+        setColorMain(state, color) {
             state.design.colorMain = color
         },
-        setColorText(state, color){
+        setColorText(state, color) {
             state.design.colorText = color
         },
-        setColorBackground(state, color){
+        setColorBackground(state, color) {
             state.design.colorBackground = color
         },
-        setColorBanner(state, color){
+        setColorBanner(state, color) {
             state.design.colorBanner = color
         }
     }
@@ -97,22 +110,31 @@ const store = new Vuex.Store({
 
 router.beforeEach((to, from, next) => {
 
-    if (store.state.token) {
+    if (store.state.user) {
         Axios.post(store.state.url + '/checkLogin', {
-            hash: this.$store.state.token
+            hash: store.state.user.token
         }).then(response => {
-            if (!response.data.valid) store.commit("setToken", '')
+            if (!response.data.valid) store.commit("deleteUser")
             else store.commit("setVerfification", response.data.verified)
         }).catch(error => {
             console.error(error)
-            store.commit("setToken", '')
+            //TODO uncomment when server is fixed
+            /*localStorage.removeItem('user')
+            sessionStorage.removeItem('user')
+            store.commit("deleteUser")*/
         })
     }
 
     let subdir = window.location.host.split('.')[0]
-    let domain = 'localhost'
-    if (subdir !== domain) {
-        store.state.companyName = subdir
+    let domainLocal = 'localhost:8080'
+    let domain = "freepoint.at"
+    if (subdir !== domainLocal && subdir !== domain) {
+        Axios.post(store.state.url + "/getCompany", {
+            companyName: subdir
+        }).then(response => {
+            store.state.company = response.data.company
+            store.state.subdomain = subdir
+        })
     }
     next()
 })

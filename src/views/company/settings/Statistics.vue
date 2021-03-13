@@ -30,6 +30,14 @@ export default {
       }
     }
   },
+  created() {
+    this.$http.post(this.$store.state.url + '/getStatistik', {
+      token: this.$store.state.token
+    }).then(response => {
+      console.debug()
+      this.data = response.data
+    })
+  },
   mounted() {
     this.basicChart()
   },
@@ -37,7 +45,7 @@ export default {
     basicChart() {
       this.Chart = Highchart.chart('UserAction', {
         chart: {
-          type: 'areaspline'
+          type: 'line'
         },
         title: {
           text: 'User Aktionen'
@@ -123,7 +131,7 @@ export default {
 
 <style scoped lang="scss">
 
-#statBar{
+#statBar {
   display: flex;
   flex-direction: row;
   background-color: grey;
@@ -132,10 +140,12 @@ export default {
   width: fit-content;
   padding: .5em;
   border-radius: 25px;
-  & div{
+
+  & div {
     padding: 0 .5em;
     border-right: white solid 2px;
-    &:last-child{
+
+    &:last-child {
       border: none;
     }
   }
