@@ -51,7 +51,6 @@ export default {
   name: "Coupon",
   components: {CouponDetail, Modal},
   props: ['coupon'],
-  props: ['coupon', 'editRights'],
   methods: {
     showActionModal() {
       if(this.$store.state.user.token) this.$("#modalActionCoupon" + this.coupon.id).modal()
