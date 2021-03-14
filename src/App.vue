@@ -38,6 +38,7 @@ export default {
 
 <style lang="scss">
 
+
 :root {
   --store-primary: #10cdb7;
   --text-color: #153E73;
@@ -54,10 +55,6 @@ p {
   color: var(--store-primary);
 }
 
-*{
-  transition: all 0.15s ease;
-}
-
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -68,14 +65,28 @@ p {
   min-height: 100vh;
 }
 
+*{
+  transition: all 0.15s ease;
+}
+
 .heading{
   font-size: 3em;
   color: black;
 }
 
 .heading-sub{
-  font-size: 2em;
+  font-size: 1.6em;
   color: black;
+}
+
+@media (max-width: 576px) {
+  .heading{
+    font-size: 2.2em;
+  }
+
+  .heading-sub{
+    font-size: 1.3em;
+  }
 }
 
 .paragraph{
