@@ -9,6 +9,7 @@ const routes = [
     {path: '/terms-and-service', component: () => import('@/views/TermsAndService.vue')},
     {path: '/terms-and-service-company', component: () => import('@/views/TermsAndServiceCompany.vue')},
     {path: '/imprint', component: () => import('@/views/Imprint.vue')},
+    {path: '/privacy-policy', component: () => import('@/views/PrivacyPolicy.vue')},
     {path: '/login', component: () => import('@/views/Login.vue')},
     {path: '/register', component: () => import('@/views/RegisterUser.vue')},
     {path: '/register/company', component: () => import('@/views/RegisterCompany.vue')},

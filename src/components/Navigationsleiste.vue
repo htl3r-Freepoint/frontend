@@ -1,5 +1,5 @@
 <template>
-  <nav id="navbar" class="sticky-top">
+  <nav id="navbar" class="sticky-top shadow-lg">
 
     <!--Desktop-->
     <header id="nav-header" class="border justify-content-center">

@@ -1,6 +1,6 @@
 <template>
   <div class="row justify-content-between flex-nowrap">
-    <router-link class="col router-link icon" :to="'/company/coupons'">
+    <router-link class="col router-link" :to="'/company/coupons'">
       <font-awesome-icon icon="home"/>
     </router-link>
 
@@ -55,8 +55,6 @@ a, .router-link, .router-link-active, button {
   text-decoration: none;
   color: inherit;
   height: 100%;
-  display: flex;
-  flex-direction: row;
   & svg{
     font-size: 1.7em;
   }

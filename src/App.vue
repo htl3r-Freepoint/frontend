@@ -54,6 +54,10 @@ p {
   color: var(--store-primary);
 }
 
+*{
+  transition: all 0.15s ease;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -66,6 +70,11 @@ p {
 
 .heading{
   font-size: 3em;
+  color: black;
+}
+
+.heading-sub{
+  font-size: 2em;
   color: black;
 }
 
