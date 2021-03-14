@@ -11,5 +11,7 @@ name: "divider"
 </script>
 
 <style scoped>
-
+svg {
+  fill: #00A982;
+}
 </style>

@@ -71,7 +71,7 @@ p {
 
 .heading{
   font-size: 3em;
-  color: black;
+  color: #00A982;
 }
 
 .heading-sub{

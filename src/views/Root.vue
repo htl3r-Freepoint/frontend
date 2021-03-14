@@ -6,7 +6,8 @@
         <div class="col-md-5">
           <h1 class="heading">Erstellen Sie Ihre eigene Gutschein-App!</h1>
           <hr>
-          <p class="heading-sub">Passen Sie mit FreePoint einfach und schnell Ihre eigene Gutschein-App an! Oder genießen Sie als Kunde alle Vorteile der Rabatte!</p>
+          <p class="heading-sub">Passen Sie mit FreePoint einfach und schnell Ihre eigene Gutschein-App an! Oder
+            genießen Sie als Kunde alle Vorteile der Rabatte!</p>
         </div>
         <div class="col-md-6">
           <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -35,13 +36,13 @@
 
       <divider class="row"></divider>
 
-      <div class="row p-5" id="forms">
-        <div class="col-md-6">
-          <h3>Anmelden</h3>
+      <div class="row p-5 justify-content-around" id="forms">
+        <div class="col-md-4 mb-5">
+          <h1 class="mb-4 form-header">Anmelden</h1>
           <form-login class="shadow-lg p-3 bg-white rounded"></form-login>
         </div>
-        <div class="col-md-6">
-          <h3>Registrieren</h3>
+        <div class="col-md-4">
+          <h1 class="mb-4 form-header">Registrieren</h1>
           <form-register-user class="shadow-lg p-3 bg-white rounded"></form-register-user>
         </div>
       </div>
@@ -52,18 +53,50 @@
 
 
       <div class="row m-5" id="faq">
-        blablabla FAQ
+        <FaqElement class="col-md-3 col-sm-6">
+          <template v-slot:icon>
+            <font-awesome-icon icon="download" class="fa-5x faq-icon"/>
+          </template>
+          <template v-slot:headline>Einfacher geht´s nicht!</template>
+          <template v-slot:text>Erstellen Sie einen Account.
+            Definieren Sie Ihre Gutscheine und Rabatte.
+            Fertig! Nun können Ihre Kunden Ihre App herunterladen.
+          </template>
+        </FaqElement>
+
+        <FaqElement class="col-md-3 col-sm-6">
+          <template v-slot:icon>
+            <font-awesome-icon icon="lock" class="fa-5x faq-icon"/>
+          </template>
+          <template v-slot:headline>Sicherer und billiger!</template>
+          <template v-slot:text>Aufwendige Stempelkarten sind Geschichte! Mit dieser App können Ihre Kunden ganz einfach
+            den QR-Code auf deren Rechnung scannen und damit Punkte sammeln.
+          </template>
+        </FaqElement>
+
+        <FaqElement class="col-md-3 col-sm-6">
+          <template v-slot:icon>
+            <font-awesome-icon icon="chart-pie" class="fa-5x faq-icon"/>
+          </template>
+          <template v-slot:headline>Kundenstatistiken!</template>
+          <template v-slot:text>Freepoint informiert Sie über das Kaufverhalten Ihrer Kunden. Damit können Sie Ihre
+            Marketingstrategie optimieren.
+          </template>
+        </FaqElement>
+
+        <FaqElement class="col-md-3 col-sm-6">
+          <template v-slot:icon>
+            <font-awesome-icon icon="mobile" class="fa-5x faq-icon"/>
+          </template>
+          <template v-slot:headline>App herunterladen und los geht's!</template>
+          <template v-slot:text>Holen Sie sich die App auf Ihr Handy und erstellen Sie Ihre ersten Angebote.</template>
+        </FaqElement>
+
       </div>
 
       <divider class="row"></divider>
 
-      <footer class="row d-flex justify-content-around py-3">
-        <div>Ein Projekt der HTL Rennweg.</div>
-        <div>Copyright © 2021 Freepoint | Powered by Freepoint</div>
-        <router-link  to="/imprint">
-          Impressum
-        </router-link>
-      </footer>
+      <Footer class="row"></Footer>
 
     </div>
 
@@ -78,37 +111,43 @@ import RabattMenu from "@/views/company/RabattMenu";
 import FormLogin from "@/components/forms/FormLogin";
 import FormRegisterUser from "@/components/forms/FormRegisterUser";
 import Divider from "@/components/divider";
+import Footer from "@/components/Footer";
+import FaqElement from "@/components/FaqElement";
+
+import {library} from "@fortawesome/fontawesome-svg-core";
+import {faChartPie, faMobile, faDownload, faLock} from "@fortawesome/free-solid-svg-icons";
+
+library.add(faChartPie, faMobile, faDownload, faLock)
 
 export default {
   name: "Root",
-  components: {Divider, FormRegisterUser, FormLogin, RabattMenu}
+  components: {FaqElement, Footer, Divider, FormRegisterUser, FormLogin, RabattMenu}
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .carousel-control-next-icon {
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%2300A982' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%2300A982' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
 }
 
 .carousel-control-prev-icon {
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%2300A982' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
 }
 
-img{
-  width: 100%;
-}
-
-footer{
-  background-color: #00A982;
+.form-header {
   color: white;
 }
 
-#forms{
+img {
+  width: 100%;
+}
+
+#forms {
   background-color: #00A982;
 }
 
 
-#faq{
+#faq {
   background-color: #FAFAFA;
 }
 
@@ -116,7 +155,7 @@ svg {
   fill: #00A982;
 }
 
-#banner{
+#banner {
   background-color: #FAFAFA;
 }
 
