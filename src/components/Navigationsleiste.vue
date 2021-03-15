@@ -2,7 +2,7 @@
   <nav id="navbar" class="sticky-top shadow-lg">
 
     <!--Desktop-->
-    <header id="nav-header" class="border justify-content-center">
+    <header id="nav-header" class="border-bottom justify-content-center">
       <div class="col-6 col-sm-3">
         <a href="/">
           <img src="../assets/icons/Schriftzug.svg" height="30">

@@ -32,7 +32,7 @@
       </router-link>
     </nav>
 
-    <router-view></router-view>
+    <router-view class="pb-5"></router-view>
 
   </submenu>
 </template>
