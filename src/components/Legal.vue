@@ -20,6 +20,6 @@ hr {
   margin-top: 1rem;
   margin-bottom: 1rem;
   border: 0;
-  border-top: 4px solid #00A982;;
+  border-top: 4px solid #00A982;
 }
 </style>

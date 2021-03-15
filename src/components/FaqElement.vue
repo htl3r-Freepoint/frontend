@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <slot name="icon">
+  <div class="mb-5">
+    <slot name="icon" class="m-5">
 
     </slot>
 
@@ -31,6 +31,7 @@ export default {
   color: black;
   font-size: 1.3em;
   font-weight: bold;
+  margin-top: 1em;
 }
 
 #faq-text {

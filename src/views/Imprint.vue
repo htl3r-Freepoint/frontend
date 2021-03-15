@@ -63,7 +63,9 @@
         Generator</a> von AdSimple</p>
       </div>
     </Legal>
-    <Footer></Footer>
+    <div class="container-fluid">
+      <Footer class="row"></Footer>
+    </div>
   </div>
 </template>
 

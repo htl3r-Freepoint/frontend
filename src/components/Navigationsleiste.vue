@@ -5,7 +5,7 @@
     <header id="nav-header" class="border justify-content-center">
       <div class="col-6 col-sm-3">
         <a href="/">
-          <img src="../assets/icons/Schriftzug.svg" width="200">
+          <img src="../assets/icons/Schriftzug.svg" height="30">
         </a>
       </div>
 
@@ -68,7 +68,7 @@ nav {
   background: var(--store-primary);
   color: white;
   font-size: 1.4em;
-  padding: 0 2px 4px;
+  height: 100%;
   border-bottom-right-radius: 90px;
   border-bottom-left-radius: 90px;
 }

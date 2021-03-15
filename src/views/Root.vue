@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div v-if="!this.$store.state.company.name" class="container-fluid mt-4">
+    <div v-if="!this.$store.state.company.name" class="container-fluid">
 
-      <div class="row justify-content-center text-left p-2" id="banner">
+      <div class="row justify-content-center align-content-center text-left" id="banner">
         <div class="col-md-5">
           <h1 class="heading">Erstellen Sie Ihre eigene Gutschein-App!</h1>
           <hr>
@@ -10,16 +10,20 @@
             genießen Sie als Kunde alle Vorteile der Rabatte!</p>
         </div>
         <div class="col-md-6">
-          <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+          <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="false">
             <div class="carousel-inner">
               <div class="carousel-item active">
-                <img src="@/assets/root_carousel/Unbenannt-1.png" alt="First slide">
+                <div class="embed-responsive embed-responsive-16by9">
+                  <iframe width="560" height="315" src="https://www.youtube.com/embed/JxS_LZZdyJ4" frameborder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowfullscreen></iframe>
+                </div>
               </div>
               <div class="carousel-item">
-                <img src="@/assets/root_carousel/app_vorschau_hr.png" alt="Second slide">
+                <img src="@/assets/root_carousel/Geschafte.png" alt="Second slide">
               </div>
               <div class="carousel-item">
-                <img src="@/assets/root_carousel/app_vorschau_hr.png" alt="Third slide">
+                <img src="@/assets/root_carousel/Kunden.png" alt="Third slide">
               </div>
             </div>
             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -157,6 +161,7 @@ svg {
 
 #banner {
   background-color: #FAFAFA;
+  height: 100vh;
 }
 
 hr {

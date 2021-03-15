@@ -65,9 +65,11 @@ p {
   min-height: 100vh;
 }
 
+/**
 *{
   transition: all 0.15s ease;
 }
+*/
 
 .heading{
   font-size: 3em;
@@ -93,9 +95,10 @@ p {
   font-size: 1.3em;
   color: black;
 }
-
-.router-view {
-
+@media (max-width: 576px) {
+  .router-view {
+    margin-bottom: 2em;
+  }
 }
 
 .btn{
