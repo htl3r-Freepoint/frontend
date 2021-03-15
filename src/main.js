@@ -53,12 +53,13 @@ const store = new Vuex.Store({
         user: {
             token: undefined,
             username: undefined,
-            verified: undefined
+            verified: false
         },
         company: {
-            name: undefined,
+            companyName: undefined,
+            contactMail: undefined,
             conversionRate: undefined,
-            email: undefined,
+            domain: undefined,
             logo: undefined
         },
         subdomain: undefined,
@@ -83,6 +84,9 @@ const store = new Vuex.Store({
                 username: undefined,
                 verified: undefined
             }
+        },
+        setCompany(state, company){
+            state.company = company
         },
         increment(state) {
             state.points++
@@ -122,18 +126,6 @@ router.beforeEach((to, from, next) => {
             /*localStorage.removeItem('user')
             sessionStorage.removeItem('user')
             store.commit("deleteUser")*/
-        })
-    }
-
-    let subdir = window.location.host.split('.')[0]
-    let domainLocal = 'localhost:8080'
-    let domain = "freepoint.at"
-    if (subdir !== domainLocal && subdir !== domain) {
-        Axios.post(store.state.url + "/getCompany", {
-            companyName: subdir
-        }).then(response => {
-            store.state.company = response.data.company
-            store.state.subdomain = subdir
         })
     }
     next()

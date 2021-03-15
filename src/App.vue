@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <navigationsleiste></navigationsleiste>
-    <div v-if="this.$store.state.token && !this.$store.state.verification">
+    <div v-if="this.$store.state.user.token && this.$store.state.user.verified === false">
       Bitte verifizieren sie ihre Email Addresse.
       <a :href="sendVerificationEmail">Email erneut senden</a>
     </div>
@@ -17,14 +17,36 @@ export default {
   name: "App",
   components: {Navigationsleiste},
   created() {
-    // eslint-disable-next-line no-constant-condition
-    if (sessionStorage.getItem('user')) {
-      this.$store.commit('setUser', JSON.parse(sessionStorage.getItem('user')))
-    }
+    //Init Company
+    let subdir = window.location.host.split('.')[0]
+    let domainLocal = 'localhost:8080'
+    let domain = "freepoint.at"
+    if (subdir !== domainLocal && subdir !== domain) {
+      Axios.post(this.$store.state.url + "/getCompany", {
+        companyName: subdir
+      }).then(response => {
+        console.debug(response)
+        console.debug("Saving company information")
+        this.$store.commit('setCompany', response.data.company)
+        console.debug("Company saved")
+        console.debug(this.$store.state.company)
+        this.$store.state.subdomain = subdir
+      })
+    } else console.debug()
+
     document.querySelector(':root').style.setProperty(
         '--store-primary',
         this.$store.state.design.colorMain
     )
+  },
+  beforeMount() {
+    //Init User
+    if (sessionStorage.getItem('user')) {
+      console.debug("Loading login information from cookies")
+      this.$store.commit('setUser', JSON.parse(sessionStorage.getItem('user')))
+      console.debug("Loading login information from cookies completed")
+      console.debug("User:", this.$store.state.user)
+    }
   },
   methods: {
     sendVerificationEmail() {
@@ -68,23 +90,27 @@ p {
 
 }
 
-.btn{
+.btn {
   border-right: inherit;
+
   &.btn-primary {
     background: var(--store-primary) !important;
     border: none;
     font-size: 1.2em;
     font-weight: bold;
   }
-  &:hover{
+
+  &:hover {
     border-radius: 10px;
     transition: .3s;
   }
-  &:active{
+
+  &:active {
     border-radius: 20px;
     transition: .3s;
   }
-  &:focus{
+
+  &:focus {
     box-shadow: 0 0 0 0 !important;
   }
 }

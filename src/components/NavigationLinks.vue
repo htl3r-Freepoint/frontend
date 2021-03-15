@@ -1,6 +1,6 @@
 <template>
   <div class="row justify-content-between flex-nowrap">
-    <router-link class="col router-link icon" :to="'/company/coupons'">
+    <router-link class="col router-link icon" to="/">
       <font-awesome-icon icon="home"/>
     </router-link>
 

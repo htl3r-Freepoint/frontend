@@ -3,12 +3,12 @@
     <fp-input title="Email">
       <font-awesome-icon icon="at" slot="prepend"/>
       <input type="email" class="form-control" id="inputLoginEmail" v-model="email"
-             placeholder="z.B. name@gmail.com" required>
+             placeholder="z.B. name@gmail.com" required autocomplete="email">
     </fp-input>
     <fp-input title="Password">
       <font-awesome-icon icon="key" slot="prepend"/>
       <input type="password" class="form-control" v-model="password"
-             placeholder="Passwort">
+             placeholder="Passwort" required autocomplete="current-password">
     </fp-input>
     <div class="form-group form-check">
       <label>
@@ -30,12 +30,16 @@ library.add(faAt, faKey)
 
 export default {
   name: "FormLogin",
+  props: {
+    overwritePathRedirect: Boolean
+  },
   components: {FpInput},
   data() {
     return {
       email: "",
       password: "",
-      remember: false
+      remember: false,
+
     }
   },
   methods: {
@@ -54,11 +58,14 @@ export default {
           sessionStorage.setItem('user', JSON.stringify(response.data))
           this.$store.commit('setUser', JSON.parse(sessionStorage.getItem('user')))
           console.debug("User:", this.$store.state.user)
-          console.debug("Saving Complete. Moving User to old Path")
-          window.history.length > 1 ? this.$router.go(-1) : this.$router.push({path: '/'})
+          console.debug("Saving Complete", "Moving User to old Path")
+          if (!this.overwritePathRedirect)window.history.length > 1 ? this.$router.go(-1) : this.$router.push({path: '/'})
         }).catch(error => {
           console.debug("Config:", error);
+          this.password = undefined
         })
+      } else {
+        console.log("Login information incomplete")
       }
     }
   }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="!this.$store.state.company.name" class="container-fluid">
+    <div v-if="this.$store.state.company.companyName === undefined" class="container-fluid">
       <div class="row">
         <div class="col">
           <h2>Erstellen Sie Ihre eigene Gutschein-App!</h2>
@@ -15,16 +15,16 @@
           <path class="elementor-shape-fill" d="M761.9,40.6L643.1,24L333.9,93.8L0.1,1H0v99h1000V1"></path>
         </svg>
       </div>
-      <div class="row mb-5 p" id="forms">
+
+      <div class="row mb-5 p" id="forms" v-if="this.$store.state.user.token === undefined">
         <div class="col">
           <h3>Anmelden</h3>
-          <form-login class="shadow-lg p-3 bg-white rounded"></form-login>
+          <form-login class="shadow-lg p-3 bg-white rounded" :overwrite-path-redirect="true"></form-login>
         </div>
         <div class="col">
           <h3>Registrieren</h3>
           <form-register-user class="shadow-lg p-3 bg-white rounded"></form-register-user>
         </div>
-
       </div>
       <!--TODO Root page-->
 
@@ -44,7 +44,11 @@ import FormRegisterUser from "@/components/forms/FormRegisterUser";
 
 export default {
   name: "Root",
-  components: {FormRegisterUser, FormLogin, RabattMenu}
+  components: {FormRegisterUser, FormLogin, RabattMenu},
+  created() {
+    console.debug("Company:", this.$store.state.company)
+    console.debug("User:", this.$store.state.user)
+  }
 }
 </script>
 
