@@ -1,5 +1,15 @@
 <template>
   <div>
+    <fp-input label="Vorgefertigte Designs"
+              description="Dies sind vorgefertigte Farbpaletten mit denen Sie nichts falsch machen können.">
+      <button @click="setDesign('#dbdbdb', '#5c5c5c', '#F5f5f5', '#ffffff')" class="form-control">
+        <farbpalette main="#dbdbdb" text="#5c5c5c" background="#F5f5f5" banner="#ffffff"></farbpalette>
+      </button>
+      <button @click="setDesign('#10cdb7', '#2c3e50', '#fafafa', '#ffffff')" class="form-control">
+        <farbpalette main="#10cdb7" text="#2c3e50" background="#fafafa" banner="#ffffff"></farbpalette>
+      </button>
+    </fp-input>
+
     <fp-input label="Primärfarbe"
               description="Die Primärfarbe bestimmt das grundlegende Aussehen ihrer Seite. Sie wird auf Buttons und als Akzentfarbe bei verschiedenen Elementen benutzt.">
       <font-awesome-icon slot="prepend" icon="palette"/>
@@ -27,12 +37,13 @@
 import FpInput from "@/components/Form Components/FpInput";
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {faPalette} from "@fortawesome/free-solid-svg-icons";
+import Farbpalette from "@/components/Farbpalette";
 
 library.add(faPalette)
 
 export default {
   name: "Design",
-  components: {FpInput},
+  components: {Farbpalette, FpInput},
   data: function () {
     return {
       color: '',
@@ -49,6 +60,28 @@ export default {
     console.debug(this.color)
   },
   methods: {
+    setDesign(main, text, background, banner) {
+      this.$store.commit('setColorMain', main)
+      document.querySelector(':root').style.setProperty(
+          '--store-primary',
+          this.$store.state.design.colorMain
+      )
+      this.$store.commit('setColorText', text)
+      document.querySelector(':root').style.setProperty(
+          '--text-color',
+          this.$store.state.design.colorText
+      )
+      this.$store.commit('setColorBackground', background)
+      document.querySelector(':root').style.setProperty(
+          '--background-color',
+          this.$store.state.design.colorBackground
+      )
+      this.$store.commit('setColorBanner', banner)
+      document.querySelector(':root').style.setProperty(
+          '--banner-color',
+          this.$store.state.design.colorBanner
+      )
+    },
     setColor(event) {
       console.log(event.target.value)
       this.color = event.target.value
