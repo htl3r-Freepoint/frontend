@@ -110,12 +110,12 @@ p {
     font-weight: bold;
   }
   &:hover{
-    border-radius: 10px;
+    border-radius: 12px;
     transition: .3s;
   }
   &:active{
     border-radius: 20px;
-    transition: .3s;
+    transition: .2s;
   }
   &:focus{
     box-shadow: 0 0 0 0 !important;
@@ -123,7 +123,7 @@ p {
 }
 
 .container {
-  margin: 16px auto;
+  margin: 30px auto;
 }
 
 </style>
