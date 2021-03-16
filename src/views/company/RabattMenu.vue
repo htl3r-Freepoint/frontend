@@ -8,7 +8,8 @@
       <label class="custom-control-label" for="edit-mode">Edit Mode</label>
     </div>
 
-    <router-link class="btn btn-primary" to="/company/settings/profile" data-intro="Hier sind die Settings">Settings</router-link>
+    <router-link class="btn btn-primary" to="/company/settings/profile" data-intro="Hier sind die Settings">Settings
+    </router-link>
 
     <div id="coupon-container" class="row justify-content-center py-2">
       <coupon v-for="(coupon, id) in coupons" v-bind:key="id"
@@ -134,11 +135,11 @@ export default {
         steps: [
           {
             element: document.getElementById('title'),
-            intro: 'Hier wird Ihnen der Firmenname angezeigt'
+            intro: 'Hier wird Ihnen der Firmenname angezeigt.'
           },
           {
             element: document.getElementById('coupon-container'),
-            intro: 'Das sind alle verfügbaren Coupons der Firma' + this.$store.state.companyName
+            intro: 'Das sind alle verfügbaren Coupons der Firma ' + this.$store.state.companyName + ' Diese können In diesem Menü direkt gekauft werden.'
           }
         ]
       }).start()
