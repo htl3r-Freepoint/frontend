@@ -14,6 +14,7 @@ Vue.component('font-awesome-layers-text', FontAwesomeLayersText)
 
 import Axios from "axios";
 import $ from 'jquery'
+import './registerServiceWorker'
 
 Vue.use(Vuex)
 

@@ -5,7 +5,7 @@
     <header id="nav-header" class="border justify-content-center">
       <div class="col-3">
         <a href="/">
-          <img src="../assets/icons/Schriftzug.svg" width="200">
+          <img src="../assets/icons/Schriftzug.svg" width="200" alt="company-logo">
         </a>
       </div>
 
