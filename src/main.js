@@ -71,8 +71,13 @@ const store = new Vuex.Store({
             colorBanner: "#ffffff",
         }
     },
+    getters: {
+        showVerification(state) {
+            return !state.user.verified && state.user.token !== undefined
+        }
+    },
     mutations: {
-        setVerfification(state, verified) {
+        setVerification(state, verified) {
             state.user.verified = verified
         },
         setUser(state, user) {
@@ -118,13 +123,12 @@ router.beforeEach((to, from, next) => {
         Axios.post(store.state.url + '/checkLogin', {
             hash: store.state.user.token
         }).then(response => {
-            if (!response.data.valid) store.commit("deleteUser")
-            else store.commit("setVerfification", response.data.verified)
+            console.debug(response.data)
+            if (response.data.verified) store.commit("setVerification", response.data.verified)
         }).catch(error => {
             console.error(error)
             //TODO uncomment when server is fixed
             /*localStorage.removeItem('user')
-            sessionStorage.removeItem('user')
             store.commit("deleteUser")*/
         })
     }

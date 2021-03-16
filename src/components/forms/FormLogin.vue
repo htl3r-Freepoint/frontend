@@ -55,8 +55,7 @@ export default {
           } else {
             localStorage.removeItem('user')
           }
-          sessionStorage.setItem('user', JSON.stringify(response.data))
-          this.$store.commit('setUser', JSON.parse(sessionStorage.getItem('user')))
+          this.$store.commit('setUser', response.data)
           console.debug("User:", this.$store.state.user)
           console.debug("Saving Complete", "Moving User to old Path")
           if (!this.overwritePathRedirect)window.history.length > 1 ? this.$router.go(-1) : this.$router.push({path: '/'})

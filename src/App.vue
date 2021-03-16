@@ -1,17 +1,17 @@
 <template>
   <div id="app">
     <navigationsleiste></navigationsleiste>
-    <div v-if="this.$store.state.user.token && this.$store.state.user.verified === false">
+    <div v-if="this.$store.getters.showVerification">
       Bitte verifizieren sie ihre Email Addresse.
       <a :href="sendVerificationEmail">Email erneut senden</a>
     </div>
+    <div>{{$store.getters.showVerification}} test</div>
     <router-view class="router-view"/>
   </div>
 </template>
 
 <script>
 import Navigationsleiste from "@/components/Navigationsleiste";
-import Axios from "axios";
 
 export default {
   name: "App",
@@ -22,7 +22,7 @@ export default {
     let domainLocal = 'localhost:8080'
     let domain = "freepoint.at"
     if (subdir !== domainLocal && subdir !== domain) {
-      Axios.post(this.$store.state.url + "/getCompany", {
+      this.$http.post(this.$store.state.url + "/getCompany", {
         companyName: subdir
       }).then(response => {
         console.debug(response)
@@ -38,19 +38,19 @@ export default {
         '--store-primary',
         this.$store.state.design.colorMain
     )
-  },
-  beforeMount() {
+
     //Init User
-    if (sessionStorage.getItem('user')) {
-      console.debug("Loading login information from cookies")
-      this.$store.commit('setUser', JSON.parse(sessionStorage.getItem('user')))
+    console.debug("Loading login information from cookies")
+    if (localStorage.getItem('user')) {
+      this.$store.commit('setUser', JSON.parse(localStorage.getItem('user')))
       console.debug("Loading login information from cookies completed")
-      console.debug("User:", this.$store.state.user)
+    }else{
+      console.error('Loading login information from cookies abandoned.')
     }
   },
   methods: {
     sendVerificationEmail() {
-      Axios.post(this.$store.state.url + "/sendEmail", {
+      this.$http.post(this.$store.state.url + "/sendEmail", {
         hash: this.$store.state.user.token
       }).catch(error => console.error(error))
     }

@@ -44,11 +44,7 @@ import FormRegisterUser from "@/components/forms/FormRegisterUser";
 
 export default {
   name: "Root",
-  components: {FormRegisterUser, FormLogin, RabattMenu},
-  created() {
-    console.debug("Company:", this.$store.state.company)
-    console.debug("User:", this.$store.state.user)
-  }
+  components: {FormRegisterUser, FormLogin, RabattMenu}
 }
 </script>
 
