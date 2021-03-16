@@ -1,6 +1,6 @@
 <template>
   <div id="grid">
-      <div id="main"></div>
+      <div class="main"></div>
       <div class="text"></div>
       <div class="background"></div>
       <div class="banner"></div>
@@ -12,7 +12,8 @@ export default {
   name: "farbpalette",
   props: ['main', 'text', 'background', 'banner'],
   created() {
-    document.getElementById('#main').style.setProperty(
+    /**
+    document.getElementById('#grid').style.setProperty(
         '--main',
         this.main
     )
@@ -27,7 +28,7 @@ export default {
     document.querySelector('#grid').style.setProperty(
         '--banner',
         this.banner
-    )
+    )*/
   }
 }
 </script>
@@ -36,20 +37,32 @@ export default {
 
 #grid{
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-auto-rows: minmax(0.5em, auto);
+  padding: 0;
+  grid-auto-rows: minmax(0.8em, auto);
+  --main: #07575b;
+  --text: #003b46;
+  --background: #66a5ad;
+  --banner: #C4dfe6;
 
+  .main{
+    background-color: var(--main);
+    grid-column: 1;
+    grid-row: 1;
+  }
   & .text{
     background-color: var(--text);
+    grid-column: 2;
+    grid-row: 1;
   }
   & .background{
     background-color: var(--background);
+    grid-column: 1;
+    grid-row: 2;
   }
   & .banner{
     background-color: var(--banner);
+    grid-column: 2;
+    grid-row: 2;
   }
-}
-#main{
-  background-color: var(--main);
 }
 </style>
