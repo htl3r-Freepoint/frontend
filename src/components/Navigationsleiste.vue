@@ -63,17 +63,21 @@ export default {
     if (this.$store.state.tutorial.navbar) {
       this.$introJS.introJs().setOptions({
         steps: [{
-          title: 'Willkommen',
-          intro: 'Hello World! 👋'
+          intro: 'Herzlich Willkommen! Wir haben ein kleines Tutorial für Sie vorbereitet. Sie haben jedoch auch die Möglichkeit es zu überspringen. 👋'
         },
           {
             element: document.getElementById('punkteanzeige'),
             intro: 'Hier werden Ihre Punkte angezeigt. Damit können Sie sich neue Rabatte kaufen. Die Punkte sind pro Geschäft unterschiedlich.'
+          },
+          {
+            element: document.getElementById('icons-header'),
+            intro: 'Mit diesem Icons navigieren Sie durch die Website. Es gibt das Rabattmenü, das Rabattinventar, den QR-Code-Scanner, und die Einstellungen.'
           }]
       }).start();
       this.$store.commit('setTutorialNavBar', false)
     }
   }
+   */
 }
 </script>
 

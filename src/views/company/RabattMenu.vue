@@ -91,11 +91,11 @@ export default {
         steps: [
           {
             element: document.getElementById('title'),
-            intro: 'Hier wird Ihnen der Firmenname angezeigt'
+            intro: 'Hier wird Ihnen der Firmenname angezeigt.'
           },
           {
             element: document.getElementById('coupon-container'),
-            intro: 'Das sind alle verfügbaren Coupons der Firma' + this.$store.state.companyName
+            intro: 'Das sind alle verfügbaren Coupons der Firma ' + this.$store.state.companyName + ' Diese können In diesem Menü direkt gekauft werden.'
           }
         ]
       }).start()

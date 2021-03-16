@@ -1,5 +1,5 @@
 <template>
-  <submenu title="Einstellungen">
+  <submenu title="Einstellungen" id="profil">
 
     <nav slot="links">
       <router-link to="/company/settings/profile">
@@ -59,7 +59,20 @@ library.add(faInfo, faUserFriends, faCompass, faBookOpen, faChartBar, faPalette,
 
 export default {
   name: "Settings",
-  components: {Submenu}
+  components: {Submenu},
+  mounted() {
+    if (this.$store.state.tutorial.settings) {
+      this.$introJS.introJs().setOptions({
+        steps: [
+          {
+            element: document.getElementById('profil'),
+            intro: 'Unter diesem Menü können Sie ihr Logo hinzufügen, Ihren Firmennamen, Email ändern und den Wert eines Punktes festlegen.'
+          }
+        ]
+      }).start()
+      this.$store.commit('setTutorialSettings', false)
+    }
+  }
 }
 </script>
 
