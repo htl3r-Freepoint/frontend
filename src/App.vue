@@ -104,14 +104,16 @@ p {
 .btn{
   border-right: inherit;
   &.btn-primary {
-    background: var(--store-primary) !important;
-    border: none;
+    background-color: transparent !important;
+    border: solid var(--store-primary) !important;
     font-size: 1.2em;
     font-weight: bold;
+    color: var(--store-primary);
   }
-  &:hover{
-    border-radius: 12px;
-    transition: .3s;
+    &:hover{
+      transition: .3s;
+    background-color: var(--store-primary) !important;
+    color: white;
   }
   &:active{
     border-radius: 20px;
