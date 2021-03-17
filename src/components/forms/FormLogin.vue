@@ -1,15 +1,14 @@
 <template>
   <form>
-    <fp-input title="Email">
-      <font-awesome-icon icon="at" slot="prepend"/>
+
+    <register-input title="Email"><font-awesome-icon icon="at" slot="prepend"/>
       <input type="email" class="form-control" id="inputLoginEmail" v-model="email"
-             placeholder="z.B. name@gmail.com" required>
-    </fp-input>
-    <fp-input title="Password">
+             placeholder="E-Mail-Adresse" required></register-input>
+    <register-input title="Password">
       <font-awesome-icon icon="key" slot="prepend"/>
       <input type="password" class="form-control" v-model="password"
              placeholder="Passwort">
-    </fp-input>
+    </register-input>
     <div class="form-group form-check">
       <label>
       <input type="checkbox" class="form-check-input" v-model="remember">
@@ -21,16 +20,17 @@
 </template>
 
 <script>
-import FpInput from "@/components/Form Components/FpInput";
+import RegisterInput from "@/components/Form Components/RegisterInput";
 
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {faAt, faKey} from "@fortawesome/free-solid-svg-icons";
+
 
 library.add(faAt, faKey)
 
 export default {
   name: "FormLogin",
-  components: {FpInput},
+  components: {RegisterInput},
   data() {
     return {
       email: "",

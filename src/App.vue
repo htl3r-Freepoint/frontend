@@ -71,56 +71,65 @@ p {
 }
 */
 
-.heading{
+.heading {
   font-size: 3em;
   color: #00A982;
 }
 
-.heading-sub{
+.heading-sub {
   font-size: 1.6em;
   color: black;
 }
 
 @media (max-width: 576px) {
-  .heading{
+  .heading {
     font-size: 2.2em;
   }
 
-  .heading-sub{
+  .heading-sub {
     font-size: 1.3em;
   }
 }
 
-.paragraph{
+.paragraph {
   font-size: 1.3em;
   color: black;
 }
+
 @media (max-width: 576px) {
   .router-view {
     margin-bottom: 2em;
   }
 }
 
-.btn{
+.btn {
   border-right: inherit;
+
   &.btn-primary {
-    background-color: transparent !important;
+    background-color: var(--store-primary) !important;
     border: solid var(--store-primary) !important;
     font-size: 1.2em;
     font-weight: bold;
-    color: var(--store-primary);
   }
-    &:hover{
-      transition: .3s;
-    background-color: var(--store-primary) !important;
-    color: white;
+
+  &:hover {
+    border-radius: 12px;
+    transition: .2s;
   }
-  &:active{
+
+  &:active {
     border-radius: 20px;
     transition: .2s;
   }
-  &:focus{
+
+  &:focus {
     box-shadow: 0 0 0 0 !important;
+  }
+}
+
+.form-control{
+  &:focus{
+    box-shadow: none !important;
   }
 }
 

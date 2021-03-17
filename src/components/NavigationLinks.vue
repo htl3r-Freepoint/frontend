@@ -53,7 +53,7 @@ a, .router-link, .router-link-active, button {
   border: none;
   background: none;
   text-decoration: none;
-  color: inherit;
+  color: var(--text-color);
   height: 100%;
   & svg{
     font-size: 1.7em;
