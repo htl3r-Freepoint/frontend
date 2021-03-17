@@ -12,7 +12,7 @@
       <font-awesome-icon icon="qrcode"/>
     </router-link>
 
-    <router-link class="col router-link" to="/user/settings/profile" v-if="this.$store.state.user.token">
+    <router-link class="col router-link" to="/user/profile" v-if="this.$store.state.user.token">
       <font-awesome-icon icon="cog"/>
     </router-link>
 

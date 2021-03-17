@@ -85,6 +85,7 @@ const store = new Vuex.Store({
             state.user = user
         },
         deleteUser(state) {
+            console.debug("Deleting userdata from VueX")
             state.user = {
                 token: undefined,
                 username: undefined,
@@ -120,12 +121,23 @@ const store = new Vuex.Store({
 
 router.beforeEach((to, from, next) => {
 
-    if (store.state.user) {
+    if (store.state.user.token) {
         Axios.post(store.state.url + '/checkLogin', {
             hash: store.state.user.token
         }).then(response => {
-            console.debug(response.data)
-            if (response.data.verified) store.commit("setVerification", response.data.verified)
+            let data = JSON.parse(response.data.substring('1'))
+            /*console.debug(data)*/
+            if (data.valid) {
+                if (!store.state.user.verified) {
+                    if (data.verified) {
+                        store.commit("setVerification", data.verified)
+                        localStorage.setItem('user', JSON.stringify(store.state.user))
+                        console.debug("User verificated")
+                    }else console.debug("User needs to verify")
+                }
+            } else {
+                throw new Error()
+            }
         }).catch(error => {
             console.error(error)
             //TODO uncomment when server is fixed

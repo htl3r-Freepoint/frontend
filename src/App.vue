@@ -3,9 +3,8 @@
     <navigationsleiste></navigationsleiste>
     <div v-if="this.$store.getters.showVerification">
       Bitte verifizieren sie ihre Email Addresse.
-      <a :href="sendVerificationEmail">Email erneut senden</a>
+      <a href="" @click="sendVerificationEmail">Email erneut senden</a>
     </div>
-    <div>{{$store.getters.showVerification}} test</div>
     <router-view class="router-view"/>
   </div>
 </template>
@@ -50,6 +49,7 @@ export default {
   },
   methods: {
     sendVerificationEmail() {
+      console.debug("Resending verification email")
       this.$http.post(this.$store.state.url + "/sendEmail", {
         hash: this.$store.state.user.token
       }).catch(error => console.error(error))
