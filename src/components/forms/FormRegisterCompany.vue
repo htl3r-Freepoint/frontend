@@ -36,7 +36,7 @@ export default {
   },
   methods: {
     register() {
-      if (this.email && this.companyName) {
+      if (this.email && this.companyName && this.TOS) {
         this.$http.post(this.$store.state.url + "/registerCompany", {
           name: this.companyName,
           email: this.email,
@@ -57,7 +57,7 @@ export default {
           console.debug("Config:", error.config);
           window.location.href = "https://wurstbude.localhost:8080"
         })
-      }
+      } else console.log("Please fill all required fields in the form")
     }
   }
 }

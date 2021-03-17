@@ -30,6 +30,9 @@ export default {
         console.debug("Company saved")
         console.debug(this.$store.state.company)
         this.$store.state.subdomain = subdir
+      }).catch(error => {
+        console.error(error)
+        window.location.replace('http://' + domainLocal)
       })
     } else console.debug()
 
@@ -43,7 +46,7 @@ export default {
     if (localStorage.getItem('user')) {
       this.$store.commit('setUser', JSON.parse(localStorage.getItem('user')))
       console.debug("Loading login information from cookies completed")
-    }else{
+    } else {
       console.error('Loading login information from cookies abandoned.')
     }
   },
