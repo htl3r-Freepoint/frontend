@@ -126,7 +126,6 @@ router.beforeEach((to, from, next) => {
             hash: store.state.user.token
         }).then(response => {
             let data = JSON.parse(response.data.substring('1'))
-            /*console.debug(data)*/
             if (data.valid) {
                 if (!store.state.user.verified) {
                     if (data.verified) {
@@ -140,9 +139,8 @@ router.beforeEach((to, from, next) => {
             }
         }).catch(error => {
             console.error(error)
-            //TODO uncomment when server is fixed
-            /*localStorage.removeItem('user')
-            store.commit("deleteUser")*/
+            localStorage.removeItem('user')
+            store.commit("deleteUser")
         })
     }
     next()
