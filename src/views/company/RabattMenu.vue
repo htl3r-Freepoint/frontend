@@ -1,12 +1,10 @@
 <template>
   <div class="container">
-    <h2 class="text-uppercase font-weight-bold">{{$store.state.companyName}}</h2>
-    <div class="col custom-control custom-switch align-self-end">
-      <input id="edit-mode" type="checkbox" class="custom-control-input" v-model="editRights">
-      <label class="custom-control-label" for="edit-mode">Edit Mode</label>
-    </div>
+    <h2 class="text-uppercase font-weight-bold">{{ $store.state.company.companyName }}</h2>
 
-    <router-link class="btn btn-primary" to="/company/settings/profile">Settings</router-link>
+    <router-link class="btn btn-primary" to="/company/settings/profile" v-if="editRights === 2 || editRights === 3">
+      Settings <font-awesome-icon icon="cog"/>
+    </router-link>
 
     <div id="coupon-container" class="row justify-content-center py-2">
       <coupon v-for="(coupon, id) in coupons" v-bind:key="id"
@@ -32,110 +30,39 @@
 </template>
 
 <script>
-import Axios from 'axios'
 import Coupon from "@/components/Coupon";
 import FormNewCoupon from "@/components/forms/FormNewCoupon";
 import Modal from "@/components/Modal";
 
 import {library} from "@fortawesome/fontawesome-svg-core";
-import {faPlusCircle, faShoppingCart} from "@fortawesome/free-solid-svg-icons";
+import {faCog, faPlusCircle, faShoppingCart} from "@fortawesome/free-solid-svg-icons";
 
-library.add(faPlusCircle, faShoppingCart)
+library.add(faPlusCircle, faShoppingCart, faCog)
 
 export default {
   name: "RabattMenu",
   components: {Modal, FormNewCoupon, Coupon},
   data() {
     return {
-      user: '1',
-      store: '1',
-      editRights: false,
-      coupons: [
-        {
-          id: 0,
-          title: 'Hamburger',
-          text: 'Genieße den saftigen Hamburger mit Gurken und Salat, um -20%',
-          isPercent: true,
-          price: 0.00,
-          percentage: 20,
-          value: 15
-        },
-        {
-          id: 1,
-          title: 'Cheeseburger',
-          text: 'Genieße den saftigen Cheeseburger mit Gurken, Salat und geschmolzenem Ementaler, um -1€',
-          isPercent: false,
-          price: 1.00,
-          percentage: 0,
-          value: 25
-        },
-        {
-          id: 0,
-          title: 'Hamburger',
-          text: 'Genieße den saftigen Hamburger mit Gurken und Salat, um -20%',
-          isPercent: true,
-          price: 0.00,
-          percentage: 20,
-          value: 15
-        },
-        {
-          id: 1,
-          title: 'Cheeseburger',
-          text: 'Genieße den saftigen Cheeseburger mit Gurken, Salat und geschmolzenem Ementaler, um -1€',
-          isPercent: false,
-          price: 1.00,
-          percentage: 0,
-          value: 25
-        },
-        {
-          id: 0,
-          title: 'Hamburger',
-          text: 'Genieße den saftigen Hamburger mit Gurken und Salat, um -20%',
-          isPercent: true,
-          price: 0.00,
-          percentage: 20,
-          value: 15
-        },
-        {
-          id: 1,
-          title: 'Cheeseburger',
-          text: 'Genieße den saftigen Cheeseburger mit Gurken, Salat und geschmolzenem Ementaler, um -1€',
-          isPercent: false,
-          price: 1.00,
-          percentage: 0,
-          value: 25
-        },
-        {
-          id: 0,
-          title: 'Hamburger',
-          text: 'Genieße den saftigen Hamburger mit Gurken und Salat, um -20%',
-          isPercent: true,
-          price: 0.00,
-          percentage: 20,
-          value: 15
-        },
-        {
-          id: 1,
-          title: 'Cheeseburger',
-          text: 'Genieße den saftigen Cheeseburger mit Gurken, Salat und geschmolzenem Ementaler, um -1€',
-          isPercent: false,
-          price: 1.00,
-          percentage: 0,
-          value: 25
-        }
-      ]
+      editRights: 0,
+      coupons: []
     }
+  },
+  created() {
+    this.getData()
   },
   methods: {
     getData() {
-      Axios.get(this.$store.state.url + "/Rabatte", {
-        params: {
-          user: this.user,
-          store: this.$route.params.company
-        }
-      }).then(r => this.coupons = r)
+      this.$http.post(this.$store.state.url + "/getRabatt", {
+        hash: this.$store.state.user.token ? this.$store.state.user.token : "",
+        firmenname: this.$store.state.company.companyName
+      }).then(response => {
+        console.debug("Coupons:", response)
+        this.coupons = response.data.coupons
+        this.editRights = response.data.editRights
+      })
     },
-    saveCoupon(){
+    saveCoupon() {
 
     }
   }
