@@ -2,7 +2,7 @@
   <nav id="navbar" class="sticky-top shadow-lg">
 
     <!--Desktop-->
-    <header id="nav-header" class="border-bottom justify-content-center">
+    <header id="nav-header" class="justify-content-center py-2">
       <div class="col-6 col-sm-3">
         <a href="/">
           <img src="../assets/icons/Schriftzug.svg" height="30">
@@ -69,8 +69,7 @@ nav {
   color: white;
   font-size: 1.4em;
   height: 100%;
-  border-bottom-right-radius: 90px;
-  border-bottom-left-radius: 90px;
+  border-radius: 90px;
 }
 
 #nav-footer {
@@ -83,12 +82,13 @@ nav {
   }
 
   #nav-points {
-    border-top-left-radius: 90px;
-    border-top-right-radius: 90px;
+
   }
 
   #nav-footer {
     display: block;
+    padding-top: 0.3em;
+    padding-bottom: 0.3em;
   }
 
 }

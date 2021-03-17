@@ -6,7 +6,7 @@
         <h3>{{ title }}</h3>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#links"
                 aria-controls="navbarSupportedContent" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+          <font-awesome-icon icon="bars"/>
         </button>
       </div>
       <div id="links" class="collapse show navbar-collapse">
@@ -30,6 +30,11 @@
 </template>
 
 <script>
+import {library} from "@fortawesome/fontawesome-svg-core";
+import {faBars} from "@fortawesome/free-solid-svg-icons";
+
+library.add(faBars)
+
 export default {
   name: "Submenu",
   props: ['title']
