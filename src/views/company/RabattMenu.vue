@@ -1,6 +1,8 @@
 <template>
   <div class="container">
-    <h2 class="text-uppercase font-weight-bold">{{ $store.state.company.companyName }}</h2>
+    <h2 class="text-uppercase font-weight-bold">
+      {{$store.state.company.companyName ? $store.state.company.companyName : "ERROR: no Company selected"}}
+    </h2>
 
     <router-link class="btn btn-primary" to="/company/settings/profile" v-if="editRights === 2 || editRights === 3">
       Settings <font-awesome-icon icon="cog"/>

@@ -43,80 +43,10 @@ export default {
     return {
       user: '1',
       store: '1',
-      coupons: [
-        {
-          id: 0,
-          title: 'Hamburger',
-          text: 'Genieße den saftigen Hamburger mit Gurken und Salat, um -20%',
-          isPercent: true,
-          price: 0.00,
-          percentage: 20,
-          value: 15
-        },
-        {
-          id: 1,
-          title: 'Cheeseburger',
-          text: 'Genieße den saftigen Cheeseburger mit Gurken, Salat und geschmolzenem Ementaler, um -1€',
-          isPercent: false,
-          price: 1.00,
-          percentage: 0,
-          value: 25
-        },
-        {
-          id: 0,
-          title: 'Hamburger',
-          text: 'Genieße den saftigen Hamburger mit Gurken und Salat, um -20%',
-          isPercent: true,
-          price: 0.00,
-          percentage: 20,
-          value: 15
-        },
-        {
-          id: 1,
-          title: 'Cheeseburger',
-          text: 'Genieße den saftigen Cheeseburger mit Gurken, Salat und geschmolzenem Ementaler, um -1€',
-          isPercent: false,
-          price: 1.00,
-          percentage: 0,
-          value: 25
-        },
-        {
-          id: 0,
-          title: 'Hamburger',
-          text: 'Genieße den saftigen Hamburger mit Gurken und Salat, um -20%',
-          isPercent: true,
-          price: 0.00,
-          percentage: 20,
-          value: 15
-        },
-        {
-          id: 1,
-          title: 'Cheeseburger',
-          text: 'Genieße den saftigen Cheeseburger mit Gurken, Salat und geschmolzenem Ementaler, um -1€',
-          isPercent: false,
-          price: 1.00,
-          percentage: 0,
-          value: 25
-        },
-        {
-          id: 0,
-          title: 'Hamburger',
-          text: 'Genieße den saftigen Hamburger mit Gurken und Salat, um -20%',
-          isPercent: true,
-          price: 0.00,
-          percentage: 20,
-          value: 15
-        },
-        {
-          id: 1,
-          title: 'Cheeseburger',
-          text: 'Genieße den saftigen Cheeseburger mit Gurken, Salat und geschmolzenem Ementaler, um -1€',
-          isPercent: false,
-          price: 1.00,
-          percentage: 0,
-          value: 25
-        }
-      ]
+      coupons: [],
+      couponsNew: [],
+      couponsEdit: [],
+      couponsDelete: []
     }
   },
   methods: {

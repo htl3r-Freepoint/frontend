@@ -49,7 +49,7 @@ Vue.directive('tooltip', {
 
 const store = new Vuex.Store({
     state: {
-        url: 'https://freepoint.htl3r.com/api',
+        url: 'http://freepoint.htl3r.com/api',
         /*url: 'localhost:8000/api',*/
         user: {
             token: undefined,
@@ -75,6 +75,9 @@ const store = new Vuex.Store({
     getters: {
         showVerification(state) {
             return !state.user.verified && state.user.token !== undefined
+        },
+        getPoints(state){
+            return state.points
         }
     },
     mutations: {
@@ -95,10 +98,10 @@ const store = new Vuex.Store({
         setCompany(state, company){
             state.company = company
         },
-        increment(state) {
+        incrementPoints(state) {
             state.points++
         },
-        add(state, number) {
+        addPoints(state, number) {
             state.points += number
         },
         setPoints(state, number) {
