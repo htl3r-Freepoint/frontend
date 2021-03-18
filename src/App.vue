@@ -55,6 +55,10 @@ p {
   color: var(--store-primary);
 }
 
+html{
+  background: var(--background-color);
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
