@@ -18,10 +18,10 @@ export default {
   created() {
     //Init Company
     let browserUrl = window.location.host.split('.')
-    let subdir = browserUrl[0]
-    let domainLocal = 'localhost:8080'
-    let domain = "freepoint"
-    if (subdir !== domainLocal && subdir !== domain) {
+    let subdir = browserUrl.shift()
+    console.log(subdir)
+    let forbiddenDomains = ['freepoint', 'www', 'localhost', 'localhost:8080']
+    if (!forbiddenDomains.includes(subdir)) {
       this.$http.post(this.$store.state.url + "/getCompany", {
         companyName: subdir
       }).then(response => {
@@ -33,9 +33,9 @@ export default {
         this.$store.state.subdomain = subdir
       }).catch(error => {
         console.error(error)
-        window.location.replace('https://' + browserUrl[1]+browserUrl[2])
+        window.location.replace(document.location.protocol + '//' + browserUrl.join('.'))
       })
-    } else console.debug()
+    } else window.location.replace(document.location.protocol + '//' + browserUrl.join('.'))
 
     document.querySelector(':root').style.setProperty(
         '--store-primary',
@@ -153,8 +153,8 @@ p {
   }
 }
 
-.form-control{
-  &:focus{
+.form-control {
+  &:focus {
     box-shadow: none !important;
   }
 }
