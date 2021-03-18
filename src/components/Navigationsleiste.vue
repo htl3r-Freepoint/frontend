@@ -37,7 +37,22 @@ library.add(faReceipt)
 
 export default {
   name: "Navigationsleiste",
-  components: {NavigationLinks}
+  components: {NavigationLinks},
+  data() {
+    return {
+      tweenedPoints: 0
+    }
+  },
+  computed: {
+    animatedPoints: () => {
+      return this.tweenedPoints.toFixed(0)
+    }
+  },
+  watch:{
+    animatedPoints: function(newValue) {
+      gsap.to(this.$data, { duration: 0.5, tweenedNumber: newValue });
+    }
+  }
 }
 </script>
 
