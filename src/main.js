@@ -128,11 +128,10 @@ router.beforeEach((to, from, next) => {
         Axios.post(store.state.url + '/checkLogin', {
             hash: store.state.user.token
         }).then(response => {
-            let data = JSON.parse(response.data.substring('1'))
-            if (data.valid) {
+            if (response.data.valid) {
                 if (!store.state.user.verified) {
-                    if (data.verified) {
-                        store.commit("setVerification", data.verified)
+                    if (response.data.verified) {
+                        store.commit("setVerification", response.data.verified)
                         localStorage.setItem('user', JSON.stringify(store.state.user))
                         console.debug("User verificated")
                     }else console.debug("User needs to verify")

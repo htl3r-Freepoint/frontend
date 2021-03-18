@@ -26,7 +26,6 @@
 </template>
 
 <script>
-import Axios from 'axios'
 import FormNewCoupon from "@/components/forms/FormNewCoupon";
 import Modal from "@/components/Modal";
 import CouponEdit from "@/components/CouponEdit";
@@ -41,8 +40,6 @@ export default {
   components: {CouponEdit, Modal, FormNewCoupon},
   data() {
     return {
-      user: '1',
-      store: '1',
       coupons: [],
       couponsNew: [],
       couponsEdit: [],
@@ -51,12 +48,16 @@ export default {
   },
   methods: {
     getData() {
-      Axios.get(this.$store.state.url + "/Rabatte", {
-        params: {
-          user: this.user,
-          store: this.$route.params.company
-        }
-      }).then(r => this.coupons = r)
+      this.$http.post(this.$store.state.url + "/getRabatt", {
+        hash: this.$store.state.user.token ? this.$store.state.user.token : undefined,
+        firmenname: this.$store.state.company.companyName
+      }).then(response => {
+        console.debug("Coupons:", response)
+        //TODO delete line when fixed
+        response.data = JSON.parse(response.data.substring(1))
+        this.coupons = response.data.coupons
+        this.editRights = response.data.editRights
+      })
     },
     saveCoupon() {
 
