@@ -36,13 +36,13 @@ export default {
       coupons: []
     }
   },
-  created() {
+  mounted() {
     this.getData()
   },
   methods: {
     getData() {
       this.$http.post(this.$store.state.url + "/getRabatt", {
-        hash: this.$store.state.user.token ? this.$store.state.user.token : "",
+        hash: this.$store.state.user.token ? this.$store.state.user.token : undefined,
         firmenname: this.$store.state.company.companyName
       }).then(response => {
         console.debug("Coupons:", response)

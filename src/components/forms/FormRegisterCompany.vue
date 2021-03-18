@@ -43,7 +43,7 @@ export default {
           hash: this.$store.state.user.token
         }).then((response) => {
           console.debug(response)
-          if(response.data.company) window.location.href = response.data.company.name + ".localhost:8080"
+          if(response.data) window.location.href = response.data.company.name + ".localhost:8080"
         }).catch(error => {
           if (error.response) {
             console.debug("Data:", error.response.data);
@@ -55,7 +55,6 @@ export default {
             console.debug("Error:", error.message);
           }
           console.debug("Config:", error.config);
-          window.location.href = "https://wurstbude.localhost:8080"
         })
       } else console.log("Please fill all required fields in the form")
     }

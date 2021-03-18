@@ -19,7 +19,7 @@ export default {
     //Init Company
     let subdir = window.location.host.split('.')[0]
     let domainLocal = 'localhost:8080'
-    let domain = "freepoint.at"
+    let domain = "freepoint"
     if (subdir !== domainLocal && subdir !== domain) {
       this.$http.post(this.$store.state.url + "/getCompany", {
         companyName: subdir

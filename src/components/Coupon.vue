@@ -25,8 +25,8 @@
 
       </div>
 
-      <div class="control-buttons" v-if="editRights || $slots.actionIcon">
-        <button v-if="!editRights && $slots.actionIcon" class="btn btn-primary btn-action"
+      <div class="control-buttons" v-if="$slots.actionIcon">
+        <button v-if="$slots.actionIcon" class="btn btn-primary btn-action"
                 v-on:click="showActionModal">
           <slot name="actionIcon"></slot>
         </button>
