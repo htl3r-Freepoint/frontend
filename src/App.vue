@@ -147,7 +147,7 @@ html{
   }
 
   &:active {
-    border-radius: 20px;
+    border-radius: 25px;
     transition: .2s;
   }
 

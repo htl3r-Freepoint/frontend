@@ -1,7 +1,7 @@
 <template>
   <div id="register" class="container">
 
-    <div class="row  justify-content-center align-content-center">
+    <div class="row justify-content-center align-content-center">
       <div id="login-form" class="shadow-lg p-3 mb-5 bg-white rounded">
         <h2>Registrieren</h2>
         <form-register-user class="p-4"></form-register-user>
