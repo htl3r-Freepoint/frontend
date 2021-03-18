@@ -60,8 +60,11 @@ a, .router-link, .router-link-active, button {
   }
 }
 
-.router-link-active {
+.router-link-active{
   color: var(--store-primary);
+  &[href="#/"]:not(.router-link-exact-active){
+    color: var(--text-color);
+  }
 }
 
 @media (max-width: 576px) {
