@@ -20,22 +20,6 @@ import FormRegisterCompany from "@/components/forms/FormRegisterCompany";
 export default {
   name: "RegisterCompany",
   components: {FormRegisterCompany},
-  data() {
-    return {
-      isLoggedIn: false,
-      isVerified: false
-    }
-  },
-  created() {
-    console.debug("Token:", this.$store.state.token)
-    this.$http.post(this.$store.state.url + "/checkLogin", {
-      hash: this.$store.state.token
-    }).then(response => {
-      console.debug(response.data)
-      this.isLoggedIn = response.data.valid
-      this.isVerified = response.data.verified
-    })
-  }
 }
 </script>
 

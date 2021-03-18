@@ -5,7 +5,10 @@
       <span class="input-group-prepend" v-if="$slots.prepend">
         <span class="input-group-text"><slot name="prepend"></slot></span>
       </span>
-        <slot><input class="form-control danger"></slot>
+        <slot>
+          <input class="form-control border-danger" style="border-width: 3px"
+                 disabled placeholder="please fill in a <input>">
+        </slot>
       </div>
     </label>
     <small class="form-text text-muted text-left">{{ description }}</small>
@@ -20,29 +23,31 @@ export default {
 </script>
 
 <style scoped lang="scss">
-label{
+label {
   color: var(--text-color);
-  &:hover{
+
+  &:hover {
     border-radius: 20px;
     box-shadow: 0px 0px 4px #888888;
   }
 }
 
-.form-control{
+.form-control {
   border-radius: 20px;
   border-left: none;
   border-color: #bcbcbc;
 
-  &:hover{
+  &:hover {
 
   }
-  &:focus{
+
+  &:focus {
     box-shadow: none;
     border-color: #bcbcbc;
   }
 }
 
-.input-group-text{
+.input-group-text {
   border-color: #bcbcbc;
   border-radius: 25px;
   background-color: transparent;

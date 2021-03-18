@@ -55,6 +55,9 @@ library.add(faAt, faKey, faUser)
 export default {
   name: "FormRegisterUser",
   components: {RegisterInput},
+  props: {
+    overwritePathRedirect: Boolean
+  },
   data() {
     return {
       email: "",
@@ -75,11 +78,10 @@ export default {
           }).then(response => {
             console.debug("Response:", response.data)
             console.debug("Saving user login")
-            localStorage.setItem('user', JSON.stringify({}))
-            sessionStorage.setItem('user', JSON.stringify(response.data))
-            this.$store.commit('setUser', JSON.parse(sessionStorage.getItem('user')).token)
-            console.debug("Token:", this.$store.state.token)
-            window.history.length > 1 ? this.$router.go(-1) : this.$router.push({path: '/'})
+            localStorage.removeItem('user')
+            this.$store.commit('setUser', response.data)
+            console.debug("Token:", this.$store.state.user)
+            if (!this.overwritePathRedirect) window.history.length > 1 ? this.$router.go(-1) : this.$router.push({path: '/'})
           }).catch(error => {
             if (error.response) {
               console.debug("Data:", error.response.data);

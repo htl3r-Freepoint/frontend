@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <navigationsleiste></navigationsleiste>
-    <div v-if="this.$store.state.token && !this.$store.state.verification">
+    <div v-if="this.$store.getters.showVerification">
       Bitte verifizieren sie ihre Email Addresse.
-      <a :href="sendVerificationEmail">Email erneut senden</a>
+      <a href="" @click="sendVerificationEmail">Email erneut senden</a>
     </div>
     <router-view class="router-view"/>
   </div>
@@ -11,24 +11,49 @@
 
 <script>
 import Navigationsleiste from "@/components/Navigationsleiste";
-import Axios from "axios";
 
 export default {
   name: "App",
   components: {Navigationsleiste},
   created() {
-    // eslint-disable-next-line no-constant-condition
-    if (sessionStorage.getItem('user')) {
-      this.$store.commit('setUser', JSON.parse(sessionStorage.getItem('user')))
-    }
+    //Init Company
+    let subdir = window.location.host.split('.')[0]
+    let domainLocal = 'localhost:8080'
+    let domain = "freepoint.at"
+    if (subdir !== domainLocal && subdir !== domain) {
+      this.$http.post(this.$store.state.url + "/getCompany", {
+        companyName: subdir
+      }).then(response => {
+        console.debug(response)
+        console.debug("Saving company information")
+        this.$store.commit('setCompany', response.data.company)
+        console.debug("Company saved")
+        console.debug(this.$store.state.company)
+        this.$store.state.subdomain = subdir
+      }).catch(error => {
+        console.error(error)
+        window.location.replace('http://' + domainLocal)
+      })
+    } else console.debug()
+
     document.querySelector(':root').style.setProperty(
         '--store-primary',
         this.$store.state.design.colorMain
     )
+
+    //Init User
+    console.debug("Loading login information from cookies")
+    if (localStorage.getItem('user')) {
+      this.$store.commit('setUser', JSON.parse(localStorage.getItem('user')))
+      console.debug("Loading login information from cookies completed")
+    } else {
+      console.error('Loading login information from cookies abandoned.')
+    }
   },
   methods: {
     sendVerificationEmail() {
-      Axios.post(this.$store.state.url + "/sendEmail", {
+      console.debug("Resending verification email")
+      this.$http.post(this.$store.state.url + "/sendEmail", {
         hash: this.$store.state.user.token
       }).catch(error => console.error(error))
     }

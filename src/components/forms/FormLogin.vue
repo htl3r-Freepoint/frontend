@@ -1,9 +1,11 @@
 <template>
   <form>
 
-    <register-input title="Email"><font-awesome-icon icon="at" slot="prepend"/>
+    <register-input title="Email">
+      <font-awesome-icon icon="at" slot="prepend"/>
       <input type="email" class="form-control" id="inputLoginEmail" v-model="email"
-             placeholder="E-Mail-Adresse" required></register-input>
+             placeholder="E-Mail-Adresse" required>
+    </register-input>
     <register-input title="Password">
       <font-awesome-icon icon="key" slot="prepend"/>
       <input type="password" class="form-control" v-model="password"
@@ -11,8 +13,8 @@
     </register-input>
     <div class="form-group form-check">
       <label>
-      <input type="checkbox" class="form-check-input" v-model="remember">
-      Remember me
+        <input type="checkbox" class="form-check-input" v-model="remember">
+        Remember me
       </label>
     </div>
     <button type="button" class="btn btn-primary" v-on:click="login()" :disabled="!email && !password">Anmelden</button>
@@ -31,11 +33,15 @@ library.add(faAt, faKey)
 export default {
   name: "FormLogin",
   components: {RegisterInput},
+  props: {
+    overwritePathRedirect: Boolean
+  },
   data() {
     return {
       email: "",
       password: "",
-      remember: false
+      remember: false,
+
     }
   },
   methods: {
@@ -51,14 +57,16 @@ export default {
           } else {
             localStorage.removeItem('user')
           }
-          sessionStorage.setItem('user', JSON.stringify(response.data))
-          this.$store.commit('setUser', JSON.parse(sessionStorage.getItem('user')))
+          this.$store.commit('setUser', response.data)
           console.debug("User:", this.$store.state.user)
-          console.debug("Saving Complete. Moving User to old Path")
-          window.history.length > 1 ? this.$router.go(-1) : this.$router.push({path: '/'})
+          console.debug("Saving Complete", "Moving User to old Path")
+          if (!this.overwritePathRedirect) window.history.length > 1 ? this.$router.go(-1) : this.$router.push({path: '/'})
         }).catch(error => {
           console.debug("Config:", error);
+          this.password = undefined
         })
+      } else {
+        console.log("Login information incomplete")
       }
     }
   }
@@ -66,7 +74,7 @@ export default {
 </script>
 
 <style scoped>
-.btn-primary{
+.btn-primary {
   width: 100%;
 }
 </style>

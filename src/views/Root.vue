@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="!this.$store.state.company.name" class="container-fluid">
+    <div v-if="this.$store.state.company.companyName === undefined" class="container-fluid">
 
       <div class="row justify-content-center align-content-center text-left" id="banner">
         <div class="col-md-5">

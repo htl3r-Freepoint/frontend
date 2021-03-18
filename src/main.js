@@ -14,6 +14,7 @@ Vue.component('font-awesome-layers-text', FontAwesomeLayersText)
 
 import Axios from "axios";
 import $ from 'jquery'
+import './registerServiceWorker'
 
 Vue.use(Vuex)
 
@@ -53,12 +54,13 @@ const store = new Vuex.Store({
         user: {
             token: undefined,
             username: undefined,
-            verified: undefined
+            verified: false
         },
         company: {
-            name: undefined,
+            companyName: undefined,
+            contactMail: undefined,
             conversionRate: undefined,
-            email: undefined,
+            domain: undefined,
             logo: undefined
         },
         subdomain: undefined,
@@ -70,19 +72,28 @@ const store = new Vuex.Store({
             colorBanner: "#ffffff",
         }
     },
+    getters: {
+        showVerification(state) {
+            return !state.user.verified && state.user.token !== undefined
+        }
+    },
     mutations: {
-        setVerfification(state, verified) {
+        setVerification(state, verified) {
             state.user.verified = verified
         },
         setUser(state, user) {
             state.user = user
         },
         deleteUser(state) {
+            console.debug("Deleting userdata from VueX")
             state.user = {
                 token: undefined,
                 username: undefined,
                 verified: undefined
             }
+        },
+        setCompany(state, company){
+            state.company = company
         },
         increment(state) {
             state.points++
@@ -110,30 +121,26 @@ const store = new Vuex.Store({
 
 router.beforeEach((to, from, next) => {
 
-    if (store.state.user) {
+    if (store.state.user.token) {
         Axios.post(store.state.url + '/checkLogin', {
             hash: store.state.user.token
         }).then(response => {
-            if (!response.data.valid) store.commit("deleteUser")
-            else store.commit("setVerfification", response.data.verified)
+            let data = JSON.parse(response.data.substring('1'))
+            if (data.valid) {
+                if (!store.state.user.verified) {
+                    if (data.verified) {
+                        store.commit("setVerification", data.verified)
+                        localStorage.setItem('user', JSON.stringify(store.state.user))
+                        console.debug("User verificated")
+                    }else console.debug("User needs to verify")
+                }
+            } else {
+                throw new Error()
+            }
         }).catch(error => {
             console.error(error)
-            //TODO uncomment when server is fixed
-            /*localStorage.removeItem('user')
-            sessionStorage.removeItem('user')
-            store.commit("deleteUser")*/
-        })
-    }
-
-    let subdir = window.location.host.split('.')[0]
-    let domainLocal = 'localhost:8080'
-    let domain = "freepoint.at"
-    if (subdir !== domainLocal && subdir !== domain) {
-        Axios.post(store.state.url + "/getCompany", {
-            companyName: subdir
-        }).then(response => {
-            store.state.company = response.data.company
-            store.state.subdomain = subdir
+            localStorage.removeItem('user')
+            store.commit("deleteUser")
         })
     }
     next()

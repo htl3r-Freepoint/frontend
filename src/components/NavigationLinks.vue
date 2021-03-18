@@ -1,6 +1,6 @@
 <template>
-  <div class="row flex-nowrap">
-    <router-link class="col router-link" :to="'/company/coupons'">
+  <div class="row justify-content-between flex-nowrap">
+    <router-link class="col router-link icon" to="/">
       <font-awesome-icon icon="home"/>
     </router-link>
 
@@ -12,7 +12,7 @@
       <font-awesome-icon icon="qrcode"/>
     </router-link>
 
-    <router-link class="col router-link" to="/user/settings/profile" v-if="this.$store.state.user.token">
+    <router-link class="col router-link" to="/user/profile" v-if="this.$store.state.user.token">
       <font-awesome-icon icon="cog"/>
     </router-link>
 
@@ -60,8 +60,11 @@ a, .router-link, .router-link-active, button {
   }
 }
 
-.router-link-active {
+.router-link-active{
   color: var(--store-primary);
+  &[href="#/"]:not(.router-link-exact-active){
+    color: var(--text-color);
+  }
 }
 
 @media (max-width: 576px) {
