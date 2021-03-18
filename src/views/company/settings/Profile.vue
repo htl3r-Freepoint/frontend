@@ -26,7 +26,7 @@
 
     <fp-input label="Tauschrate"
         description="Dieser Wert bestimmt, wie viel € einen Punkt wert ist.">
-      <span slot="prepend">1 <font-awesome-icon icon="receipt"/></span>
+      <font-awesome-icon slot="prepend" icon="receipt"/>
       <input type="number" min="1" class="form-control text-right" v-model="exchangeRate">
       <font-awesome-icon slot="append" icon="euro-sign"/>
     </fp-input>

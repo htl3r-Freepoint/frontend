@@ -1,14 +1,16 @@
 <template>
 
   <div>
-
+    <Legal title="Nutzungsbedingungen"></Legal>
   </div>
 
 </template>
 
 <script>
+import Legal from "@/components/Legal";
 export default {
-name: "TermsAndService"
+name: "TermsAndService",
+  components: {Legal}
 }
 </script>
 

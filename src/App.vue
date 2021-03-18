@@ -63,6 +63,7 @@ export default {
 
 <style lang="scss">
 
+
 :root {
   --store-primary: #10cdb7;
   --text-color: #153E73;
@@ -89,28 +90,61 @@ p {
   min-height: 100vh;
 }
 
-.router-view {
+/**
+*{
+  transition: all 0.15s ease;
+}
+*/
 
+.heading {
+  font-size: 3em;
+  color: #00A982;
+}
+
+.heading-sub {
+  font-size: 1.6em;
+  color: black;
+}
+
+@media (max-width: 576px) {
+  .heading {
+    font-size: 2.2em;
+  }
+
+  .heading-sub {
+    font-size: 1.3em;
+  }
+}
+
+.paragraph {
+  font-size: 1.3em;
+  color: black;
+}
+
+@media (max-width: 576px) {
+  .router-view {
+    margin-bottom: 2em;
+  }
 }
 
 .btn {
   border-right: inherit;
 
   &.btn-primary {
-    background: var(--store-primary) !important;
-    border: none;
+    background-color: var(--store-primary) !important;
+    border: solid var(--store-primary) !important;
     font-size: 1.2em;
     font-weight: bold;
   }
 
   &:hover {
-    border-radius: 10px;
-    transition: .3s;
+    border-radius: 12px;
+    transition: .2s;
   }
 
   &:active {
     border-radius: 20px;
-    transition: .3s;
+    transition: .2s;
   }
 
   &:focus {
@@ -118,8 +152,14 @@ p {
   }
 }
 
+.form-control{
+  &:focus{
+    box-shadow: none !important;
+  }
+}
+
 .container {
-  margin: 16px auto;
+  margin: 30px auto;
 }
 
 </style>

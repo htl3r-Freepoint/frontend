@@ -9,39 +9,25 @@
     <div id="coupon-container" class="row justify-content-center py-2">
       <coupon v-for="(coupon, id) in coupons" v-bind:key="id"
               class="col-sm-6 col-md-4 col-xl-3"
-              :coupon="coupon"
-              :edit-rights="editRights">
+              :coupon="coupon">
         <font-awesome-icon slot="actionIcon" style="position: absolute; left: 9.5px; top:10.5px" icon="shopping-cart"/>
       </coupon>
-
-      <div v-if="editRights" class="add-coupon col-sm-6 col-md-4 col-xl-3">
-        <button class="btn-block"
-                data-toggle="modal" data-target="#modalCreateNewCoupon">
-          <font-awesome-icon icon="plus-circle"/>
-        </button>
-      </div>
     </div>
-
-    <modal id="modalCreateNewCoupon" :title="'Neuer Coupon'">
-      <form-new-coupon></form-new-coupon>
-    </modal>
 
   </div>
 </template>
 
 <script>
 import Coupon from "@/components/Coupon";
-import FormNewCoupon from "@/components/forms/FormNewCoupon";
-import Modal from "@/components/Modal";
 
 import {library} from "@fortawesome/fontawesome-svg-core";
-import {faCog, faPlusCircle, faShoppingCart} from "@fortawesome/free-solid-svg-icons";
+import {faShoppingCart} from "@fortawesome/free-solid-svg-icons";
 
-library.add(faPlusCircle, faShoppingCart, faCog)
+library.add(faShoppingCart)
 
 export default {
   name: "RabattMenu",
-  components: {Modal, FormNewCoupon, Coupon},
+  components: {Coupon},
   data() {
     return {
       editRights: 0,

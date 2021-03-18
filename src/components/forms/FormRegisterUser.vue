@@ -1,30 +1,30 @@
 <template>
   <form>
 
-    <fp-input>
+    <register-input>
       <font-awesome-icon icon="user" slot="prepend"/>
       <input type="text" class="form-control" id="inputRegisterUsername" v-model="name"
              placeholder="Benutzername" autocomplete="username" required>
-    </fp-input>
+    </register-input>
 
 
-    <fp-input description="Wir werden Ihre E-Mail-Adresse nicht weiterleiten.">
+    <register-input description="Wir werden Ihre E-Mail-Adresse nicht weiterleiten.">
       <font-awesome-icon icon="at" slot="prepend"/>
       <input type="email" class="form-control" id="inputRegisterEmail" v-model="email"
              placeholder="E-Mail-Adresse" required>
-    </fp-input>
+    </register-input>
 
-      <fp-input>
+      <register-input>
         <font-awesome-icon icon="key" slot="prepend"/>
         <input type="password" class="form-control" id="inputRegisterPassword" v-model="password"
                placeholder="Passwort" autocomplete="new-password" required>
-      </fp-input>
+      </register-input>
 
-      <fp-input>
+      <register-input>
         <font-awesome-icon icon="key" slot="prepend"/>
         <input type="password" class="form-control" id="inputRegisterPasswordConfirm" v-model="passwordConfirm"
                placeholder="Passwort bestätigen" autocomplete="new-password" required>
-      </fp-input>
+      </register-input>
 
 
     <div class="form-group form-check">
@@ -44,16 +44,17 @@
 </template>
 
 <script>
-import FpInput from "@/components/Form Components/FpInput";
+import RegisterInput from "@/components/Form Components/RegisterInput";
 
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {faAt, faKey, faUser} from "@fortawesome/free-solid-svg-icons";
+
 
 library.add(faAt, faKey, faUser)
 
 export default {
   name: "FormRegisterUser",
-  components: {FpInput},
+  components: {RegisterInput},
   data() {
     return {
       email: "",

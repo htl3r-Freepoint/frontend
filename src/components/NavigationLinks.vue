@@ -53,10 +53,8 @@ a, .router-link, .router-link-active, button {
   border: none;
   background: none;
   text-decoration: none;
-  color: inherit;
+  color: var(--text-color);
   height: 100%;
-  display: flex;
-  flex-direction: row;
   & svg{
     font-size: 1.7em;
   }
@@ -66,7 +64,7 @@ a, .router-link, .router-link-active, button {
   color: var(--store-primary);
 }
 
-@media (max-width: 560px) {
+@media (max-width: 576px) {
   a, .router-link, .router-link-active {
     & svg{
       font-size: 2em;
