@@ -1,15 +1,17 @@
 <template>
   <div class="container">
-    <h2 class="text-uppercase font-weight-bold">
-      {{ $store.state.company.companyName ? $store.state.company.companyName : "ERROR: no Company selected" }}
-    </h2>
-    <div class="btn-group" v-if="editRights === 2 || editRights === 3">
-      <router-link class="btn btn-primary mr-1" to="/company/edit">
-        <font-awesome-icon icon="pen"/>
-      </router-link>
-      <router-link class="btn btn-primary" to="/company/settings/profile">
-        <font-awesome-icon icon="cog"/>
-      </router-link>
+    <div class="d-flex justify-content-between">
+      <h2 class="text-uppercase font-weight-bold">
+        {{ $store.state.company.companyName ? $store.state.company.companyName : "ERROR: no Company selected" }}
+      </h2>
+      <div class="d-flex justify-content-end" v-if="editRights === 2 || editRights === 3">
+        <router-link class="btn btn-primary" to="/company/edit">
+          <font-awesome-icon icon="pen"/>
+        </router-link>
+        <router-link class="btn btn-primary" to="/company/settings/profile">
+          <font-awesome-icon icon="cog"/>
+        </router-link>
+      </div>
     </div>
 
     <div id="coupon-container" class="row justify-content-center py-2">
