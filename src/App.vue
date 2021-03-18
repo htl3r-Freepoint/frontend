@@ -17,7 +17,8 @@ export default {
   components: {Navigationsleiste},
   created() {
     //Init Company
-    let subdir = window.location.host.split('.')[0]
+    let browserUrl = window.location.host.split('.')
+    let subdir = browserUrl[0]
     let domainLocal = 'localhost:8080'
     let domain = "freepoint"
     if (subdir !== domainLocal && subdir !== domain) {
@@ -32,7 +33,7 @@ export default {
         this.$store.state.subdomain = subdir
       }).catch(error => {
         console.error(error)
-        window.location.replace('http://' + domainLocal)
+        window.location.replace('https://' + browserUrl[1]+browserUrl[2])
       })
     } else console.debug()
 
