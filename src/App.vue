@@ -20,7 +20,7 @@ export default {
     let browserUrl = window.location.host.split('.')
     if (browserUrl.length > 1) {
       let subdir = browserUrl.shift()
-      console.log(subdir)
+      console.log([subdir])
       console.debug(browserUrl)
       let forbiddenDomains = ['freepoint', 'www', 'localhost', 'localhost:8080']
       if (!forbiddenDomains.includes(subdir)) {
@@ -33,6 +33,15 @@ export default {
           console.debug("Company saved")
           console.debug(this.$store.state.company)
           this.$store.state.subdomain = subdir
+
+          //Init User
+          console.debug("Loading login information from cookies")
+          if (localStorage.getItem('user')) {
+            this.$store.commit('setUser', JSON.parse(localStorage.getItem('user')))
+            console.debug("Loading login information from cookies completed")
+          } else {
+            console.error('Loading login information from cookies abandoned.')
+          }
         }).catch(error => {
           console.error(error)
           window.location.replace(document.location.protocol + '//' + browserUrl.join('.'))
@@ -47,14 +56,15 @@ export default {
         '--store-primary',
         this.$store.state.design.colorMain
     )
-
-    //Init User
-    console.debug("Loading login information from cookies")
-    if (localStorage.getItem('user')) {
-      this.$store.commit('setUser', JSON.parse(localStorage.getItem('user')))
-      console.debug("Loading login information from cookies completed")
-    } else {
-      console.error('Loading login information from cookies abandoned.')
+  },
+  mounted() {
+    if (this.$store.state.user.token) {
+      this.http.post(this.$store.state.url + '/getPoints', {
+        hash: this.$store.state.user.token,
+        companyName: this.$store.state.company.companyName
+      }).then(result => {
+        this.$store.commit('setPoints', result.data)
+      })
     }
   },
   methods: {
