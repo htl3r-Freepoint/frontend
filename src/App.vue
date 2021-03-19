@@ -18,24 +18,30 @@ export default {
   created() {
     //Init Company
     let browserUrl = window.location.host.split('.')
-    let subdir = browserUrl.shift()
-    console.log(subdir)
-    let forbiddenDomains = ['freepoint', 'www', 'localhost', 'localhost:8080']
-    if (!forbiddenDomains.includes(subdir)) {
-      this.$http.post(this.$store.state.url + "/getCompany", {
-        companyName: subdir
-      }).then(response => {
-        console.debug(response)
-        console.debug("Saving company information")
-        this.$store.commit('setCompany', response.data.company)
-        console.debug("Company saved")
-        console.debug(this.$store.state.company)
-        this.$store.state.subdomain = subdir
-      }).catch(error => {
-        console.error(error)
+    if (browserUrl.length > 1) {
+      let subdir = browserUrl.shift()
+      console.log(subdir)
+      console.debug(browserUrl)
+      let forbiddenDomains = ['freepoint', 'www', 'localhost', 'localhost:8080']
+      if (!forbiddenDomains.includes(subdir)) {
+        this.$http.post(this.$store.state.url + "/getCompany", {
+          companyName: subdir
+        }).then(response => {
+          console.debug(response)
+          console.debug("Saving company information")
+          this.$store.commit('setCompany', response.data.company)
+          console.debug("Company saved")
+          console.debug(this.$store.state.company)
+          this.$store.state.subdomain = subdir
+        }).catch(error => {
+          console.error(error)
+          window.location.replace(document.location.protocol + '//' + browserUrl.join('.'))
+        })
+      } else if (!forbiddenDomains.includes(browserUrl[0])) {
+        console.debug(browserUrl)
         window.location.replace(document.location.protocol + '//' + browserUrl.join('.'))
-      })
-    } else window.location.replace(document.location.protocol + '//' + browserUrl.join('.'))
+      }
+    }
 
     document.querySelector(':root').style.setProperty(
         '--store-primary',
