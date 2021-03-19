@@ -20,11 +20,13 @@
 
     <div class="row row-input btn-toolbar">
       <div class="col btn-group">
-        <label class="btn btn-primary font-weight-bold">
-          <input type="radio" :value="false" v-model="isPercent"> Euro €
+        <label class="btn btn-primary">
+          <input type="radio" :value="false" v-model="isPercent">
+          <span class="underline">Euro €</span>
         </label>
-        <label class="btn btn-primary font-weight-bold">
-          <input type="radio" :value="true" v-model="isPercent"> Prozent %
+        <label class="btn btn-primary">
+          <input type="radio" :value="true" v-model="isPercent">
+          <span class="underline">Prozent %</span>
         </label>
       </div>
     </div>
@@ -105,7 +107,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .row-input {
   padding-bottom: 0.5em;
 }
@@ -134,9 +136,21 @@ input + label {
   border-width: 2px;
 }
 
-input:checked + label {
-  background: var(--store-primary);
+input[type="radio"] + span {
+  font-weight: normal;
 }
+
+
+
+
+input[type="radio"]:checked + span{
+  color: var(--text-color);
+  transition: 0.3s;
+  font-weight: bold;
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+}
+
 
 .control-buttons {
   padding-top: 2em;

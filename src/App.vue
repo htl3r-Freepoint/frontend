@@ -89,7 +89,6 @@ html{
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #153E73;
   background: var(--background-color);
   min-height: 100vh;
 }
