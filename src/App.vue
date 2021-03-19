@@ -70,8 +70,8 @@ export default {
     },
     getUserPoints() {
       if (this.$store.state.user.token) {
-        console.debug("Loading user Points for company:", this.$stor.state.company.companyName)
-        this.http.post(this.$store.state.url + '/getPoints', {
+        console.debug("Loading user Points for company:", this.$store.state.company.companyName)
+        this.$http.post(this.$store.state.url + '/getPoints', {
           hash: this.$store.state.user.token,
           companyName: this.$store.state.company.companyName
         }).then(result => {
