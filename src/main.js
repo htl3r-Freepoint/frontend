@@ -98,12 +98,6 @@ const store = new Vuex.Store({
         setCompany(state, company){
             state.company = company
         },
-        incrementPoints(state) {
-            state.points++
-        },
-        addPoints(state, number) {
-            state.points += number
-        },
         setPoints(state, number) {
             state.points = number
         },
