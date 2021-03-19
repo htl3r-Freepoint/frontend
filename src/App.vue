@@ -40,7 +40,7 @@ export default {
             this.$store.commit('setUser', JSON.parse(localStorage.getItem('user')))
             console.debug("Loading login information from cookies completed")
           } else {
-            console.error('Loading login information from cookies abandoned.')
+            console.debug('Loading login information from cookies abandoned.')
           }
         }).catch(error => {
           console.error(error)
@@ -64,6 +64,8 @@ export default {
         companyName: this.$store.state.company.companyName
       }).then(result => {
         this.$store.commit('setPoints', result.data)
+      }).catch(error => {
+        console.debug(error)
       })
     }
   },
