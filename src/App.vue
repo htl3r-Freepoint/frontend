@@ -39,9 +39,11 @@ export default {
           if (localStorage.getItem('user')) {
             this.$store.commit('setUser', JSON.parse(localStorage.getItem('user')))
             console.debug("Loading login information from cookies completed")
+            this.getUserPoints()
           } else {
             console.debug('Loading login information from cookies abandoned.')
           }
+
         }).catch(error => {
           console.error(error)
           window.location.replace(document.location.protocol + '//' + browserUrl.join('.'))
@@ -58,16 +60,6 @@ export default {
     )
   },
   mounted() {
-    if (this.$store.state.user.token) {
-      this.http.post(this.$store.state.url + '/getPoints', {
-        hash: this.$store.state.user.token,
-        companyName: this.$store.state.company.companyName
-      }).then(result => {
-        this.$store.commit('setPoints', result.data)
-      }).catch(error => {
-        console.debug(error)
-      })
-    }
   },
   methods: {
     sendVerificationEmail() {
@@ -75,6 +67,19 @@ export default {
       this.$http.post(this.$store.state.url + "/sendEmail", {
         hash: this.$store.state.user.token
       }).catch(error => console.error(error))
+    },
+    getUserPoints() {
+      if (this.$store.state.user.token) {
+        console.debug("Loading user Points for company:", this.$stor.state.company.companyName)
+        this.http.post(this.$store.state.url + '/getPoints', {
+          hash: this.$store.state.user.token,
+          companyName: this.$store.state.company.companyName
+        }).then(result => {
+          this.$store.commit('setPoints', result.data)
+        }).catch(error => {
+          console.debug(error)
+        })
+      }
     }
   }
 }
