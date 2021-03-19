@@ -28,7 +28,7 @@ export default {
     postData(code) {
       if (this.regex.exec(code)) {
         console.debug(code)
-        Axios.post(this.$store.state.url + '/addQrCode.json', {
+        Axios.post(this.$store.state.url + '/addQrCode', {
           code: code,
           hash: this.$store.state.user.token
         }).then(result => {
