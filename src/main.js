@@ -63,20 +63,23 @@ const store = new Vuex.Store({
             domain: undefined,
             logo: undefined
         },
-        subdomain: undefined,
         points: 0,
         design: {
             colorMain: "#10cdb7",
             colorText: "#2c3e50",
             colorBackground: "#FAFAFA",
             colorBanner: "#ffffff",
-        }
+        },
+        coupons: [],
+        couponsNew: [],
+        couponsEdit: [],
+        couponsDelete: []
     },
     getters: {
         showVerification(state) {
             return !state.user.verified && state.user.token !== undefined
         },
-        getPoints(state){
+        getPoints(state) {
             return state.points
         }
     },
@@ -95,7 +98,7 @@ const store = new Vuex.Store({
                 verified: undefined
             }
         },
-        setCompany(state, company){
+        setCompany(state, company) {
             state.company = company
         },
         setPoints(state, number) {
@@ -112,6 +115,32 @@ const store = new Vuex.Store({
         },
         setColorBanner(state, color) {
             state.design.colorBanner = color
+        },
+        setCoupons(state, coupons){
+            state.coupons = coupons
+        },
+        resetCouponNew(state){
+            state.couponsNew = []
+        },
+        resetCouponAll(state) {
+            state.couponsNew = []
+            state.couponsEdit = []
+            state.couponsDelete = []
+        },
+        pushCouponsNew(state, coupon) {
+            state.couponsNew.push(coupon)
+        },
+        pushCouponsEdit(state, coupon){
+            state.couponsEdit.push(coupon)
+        },
+        pushCouponsDelete(state, coupon) {
+            if (state.couponsNew.includes(coupon)){
+                state.couponsNew.splice(state.couponsNew.findIndex(x => x.id === coupon.id), 1)
+            }
+            if (state.couponsEdit.includes(coupon)){
+                state.couponsEdit.splice(state.couponsEdit.findIndex(x => x.id === coupon.id), 1)
+            }
+            state.couponsDelete.push(coupon)
         }
     }
 })
@@ -128,7 +157,7 @@ router.beforeEach((to, from, next) => {
                         store.commit("setVerification", response.data.verified)
                         localStorage.setItem('user', JSON.stringify(store.state.user))
                         console.debug("User verificated")
-                    }else console.debug("User needs to verify")
+                    } else console.debug("User needs to verify")
                 }
             } else {
                 throw new Error()

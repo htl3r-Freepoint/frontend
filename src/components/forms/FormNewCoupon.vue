@@ -51,7 +51,7 @@
     <div class="container">
       <div class="row control-buttons justify-content-between">
         <button type="button" class="col-5 btn btn-danger" data-dismiss="modal" @click="resetData">Abbrechen</button>
-        <button type="button" class="col-5 btn btn-primary" data-dismiss="modal">Speichern</button>
+        <button type="button" class="col-5 btn btn-primary" data-dismiss="modal" @click="saveCoupon">Speichern</button>
       </div>
     </div>
 
@@ -59,7 +59,6 @@
 </template>
 
 <script>
-import Axios from "axios";
 
 export default {
   name: "FormNewCoupon",
@@ -76,19 +75,14 @@ export default {
     }
   },
   methods: {
-    postNewCoupon() {
-      Axios.post(this.url + '/coupon.js', {
-        params: {
-          store: this.store,
-          coupon: {
-            isPercent: this.isPercent,
-            title: this.title,
-            text: this.text,
-            price: this.price,
-            percentage: this.percentage,
-            value: this.value
-          }
-        }
+    saveCoupon() {
+      this.$store.commit('pushCouponsNew', {
+        isPercent: this.isPercent,
+        title: this.title,
+        text: this.text,
+        price: this.price,
+        percentage: this.percentage,
+        value: this.value
       })
     },
     resetData() {

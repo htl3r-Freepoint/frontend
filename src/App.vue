@@ -30,9 +30,7 @@ export default {
           console.debug(response)
           console.debug("Saving company information")
           this.$store.commit('setCompany', response.data.company)
-          console.debug("Company saved")
-          console.debug(this.$store.state.company)
-          this.$store.state.subdomain = subdir
+          console.debug("Company saved", this.$store.state.company)
 
           //Init User
           console.debug("Loading login information from cookies")

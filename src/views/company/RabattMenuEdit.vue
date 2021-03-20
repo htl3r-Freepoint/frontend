@@ -1,21 +1,44 @@
 <template>
   <div class="container">
-    <h2 class="text-uppercase font-weight-bold">{{$store.state.companyName}}</h2>
+    <div class="d-flex justify-content-between">
+      <h2 class="text-uppercase font-weight-bold">
+        {{ $store.state.company.companyName ? $store.state.company.companyName : "ERROR: no Company selected" }}
+      </h2>
+      <div class="d-flex justify-content-end">
+        <router-link class="btn btn-primary" to="/">Zurück</router-link>
+      </div>
+    </div>
 
-    <router-link class="btn btn-primary" to="/company/coupons">Coupons</router-link>
+    <!--Coupons-->
+    <div>
+      <h2 class="text-left border-bottom">Gutscheine</h2>
+      <div id="coupon-container" class="row justify-content-center py-2">
+        <coupon-edit v-for="(coupon, id) in $store.state.coupons" v-bind:key="id"
+                     class="col-sm-6 col-md-4 col-xl-3"
+                     :coupon="coupon">
+        </coupon-edit>
 
-    <div id="coupon-container" class="row justify-content-center py-2">
-      <coupon-edit v-for="(coupon, id) in coupons" v-bind:key="id"
-                   class="col-sm-6 col-md-4 col-xl-3"
-                   :coupon="coupon">
-      </coupon-edit>
+        <div class="add-coupon col-sm-6 col-md-4 col-xl-3">
+          <button class="btn-block"
+                  data-toggle="modal" data-target="#modalCreateNewCoupon">
+            <font-awesome-icon icon="plus-circle"/>
+          </button>
+        </div>
+      </div>
+    </div>
 
-      <div class="add-coupon col-sm-6 col-md-4 col-xl-3">
-        <button class="btn-block"
-                data-toggle="modal" data-target="#modalCreateNewCoupon">
-          <font-awesome-icon icon="plus-circle"/>
+    <!--NEW-->
+    <div>
+      <div class="d-flex flex-row justify-content-between border-bottom">
+        <h2 class="text-left">Neue Gutscheine</h2>
+        <button @click="saveCoupon" class="btn btn-primary">
+          <font-awesome-icon icon="check"/>
         </button>
       </div>
+      <coupon v-for="(coupon, id) in  $store.state.couponsNew" :key="id" :coupon="coupon"
+              class="col-sm-6 col-md-4 col-xl-3">
+
+      </coupon>
     </div>
 
     <modal id="modalCreateNewCoupon" :title="'Neuer Coupon'">
@@ -31,36 +54,44 @@ import Modal from "@/components/Modal";
 import CouponEdit from "@/components/CouponEdit";
 
 import {library} from "@fortawesome/fontawesome-svg-core";
-import {faPlusCircle} from "@fortawesome/free-solid-svg-icons";
+import {faCheck, faPlusCircle} from "@fortawesome/free-solid-svg-icons";
+import Coupon from "@/components/Coupon";
 
-library.add(faPlusCircle)
+library.add(faPlusCircle, faCheck)
 
 export default {
   name: "RabattMenuEdit",
-  components: {CouponEdit, Modal, FormNewCoupon},
-  data() {
-    return {
-      coupons: [],
-      couponsNew: [],
-      couponsEdit: [],
-      couponsDelete: []
-    }
+  components: {Coupon, CouponEdit, Modal, FormNewCoupon},
+  created() {
+    this.$store.commit('resetCouponAll')
+  },
+  mounted() {
+    this.getData()
   },
   methods: {
     getData() {
+      console.debug('Company:', this.$store.state.company.companyName)
       this.$http.post(this.$store.state.url + "/getRabatt", {
-        hash: this.$store.state.user.token ? this.$store.state.user.token : undefined,
+        hash: this.$store.state.user.token,
         firmenname: this.$store.state.company.companyName
       }).then(response => {
         console.debug("Coupons:", response)
-        //TODO delete line when fixed
-        response.data = JSON.parse(response.data.substring(1))
-        this.coupons = response.data.coupons
+        this.$store.commit('setCoupons', response.data.coupons)
         this.editRights = response.data.editRights
       })
     },
     saveCoupon() {
-
+      if (this.$store.state.couponsNew.length > 0) {
+        this.$http.post(this.$store.state.url + "/saveRabatt", {
+          hash: this.$store.state.user.token,
+          firmenname: this.$store.state.company.companyName,
+          data: JSON.stringify(this.$store.state.couponsNew)
+        }).then(response => {
+          console.debug(response)
+          this.$store.commit('resetCouponNew')
+          this.getData()
+        })
+      }
     }
   }
 }
