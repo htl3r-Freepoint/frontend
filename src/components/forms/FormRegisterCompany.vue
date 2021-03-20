@@ -66,7 +66,6 @@ export default {
             console.debug("Error:", error.message);
           }
           console.debug("Config:", error.config);
-          window.location.href = "https://wurstbude.localhost:8080"
         })
       } else console.log("Please fill all required fields in the form")
     }

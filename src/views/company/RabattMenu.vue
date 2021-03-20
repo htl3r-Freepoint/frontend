@@ -1,10 +1,18 @@
 <template>
   <div class="container">
-    <h2 class="text-uppercase font-weight-bold">{{ $store.state.company.companyName }}</h2>
-
-    <router-link class="btn btn-primary" to="/company/settings/profile" v-if="editRights === 2 || editRights === 3">
-      Settings <font-awesome-icon icon="cog"/>
-    </router-link>
+    <div class="d-flex justify-content-between">
+      <h2 class="text-uppercase font-weight-bold">
+        {{ $store.state.company.companyName ? $store.state.company.companyName : "ERROR: no Company selected" }}
+      </h2>
+      <div class="d-flex justify-content-end" v-if="editRights === 2 || editRights === 3">
+        <router-link class="btn btn-primary" to="/company/edit">
+          <font-awesome-icon icon="pen"/>
+        </router-link>
+        <router-link class="btn btn-primary" to="/company/settings/profile">
+          <font-awesome-icon icon="cog"/>
+        </router-link>
+      </div>
+    </div>
 
     <div id="coupon-container" class="row justify-content-center py-2">
       <coupon v-for="(coupon, id) in coupons" v-bind:key="id"
@@ -21,9 +29,9 @@
 import Coupon from "@/components/Coupon";
 
 import {library} from "@fortawesome/fontawesome-svg-core";
-import {faShoppingCart} from "@fortawesome/free-solid-svg-icons";
+import {faPen, faShoppingCart} from "@fortawesome/free-solid-svg-icons";
 
-library.add(faShoppingCart)
+library.add(faShoppingCart, faPen)
 
 export default {
   name: "RabattMenu",
@@ -34,22 +42,19 @@ export default {
       coupons: []
     }
   },
-  created() {
+  mounted() {
     this.getData()
   },
   methods: {
     getData() {
       this.$http.post(this.$store.state.url + "/getRabatt", {
-        hash: this.$store.state.user.token ? this.$store.state.user.token : "",
+        hash: this.$store.state.user.token ? this.$store.state.user.token : undefined,
         firmenname: this.$store.state.company.companyName
       }).then(response => {
         console.debug("Coupons:", response)
         this.coupons = response.data.coupons
         this.editRights = response.data.editRights
       })
-    },
-    saveCoupon() {
-
     }
   }
 }

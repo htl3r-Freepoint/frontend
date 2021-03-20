@@ -49,7 +49,7 @@ Vue.directive('tooltip', {
 
 const store = new Vuex.Store({
     state: {
-        url: 'https://freepoint.htl3r.com/api',
+        url: 'https://www.freepoint.htl3r.com/api',
         /*url: 'localhost:8000/api',*/
         user: {
             token: undefined,
@@ -75,6 +75,9 @@ const store = new Vuex.Store({
     getters: {
         showVerification(state) {
             return !state.user.verified && state.user.token !== undefined
+        },
+        getPoints(state){
+            return state.points
         }
     },
     mutations: {
@@ -94,12 +97,6 @@ const store = new Vuex.Store({
         },
         setCompany(state, company){
             state.company = company
-        },
-        increment(state) {
-            state.points++
-        },
-        add(state, number) {
-            state.points += number
         },
         setPoints(state, number) {
             state.points = number
@@ -122,14 +119,13 @@ const store = new Vuex.Store({
 router.beforeEach((to, from, next) => {
 
     if (store.state.user.token) {
-        Axios.post(store.state.url + '/checkLogin', {
+        Vue.prototype.$http.post(store.state.url + '/checkLogin', {
             hash: store.state.user.token
         }).then(response => {
-            let data = JSON.parse(response.data.substring('1'))
-            if (data.valid) {
+            if (response.data.valid) {
                 if (!store.state.user.verified) {
-                    if (data.verified) {
-                        store.commit("setVerification", data.verified)
+                    if (response.data.verified) {
+                        store.commit("setVerification", response.data.verified)
                         localStorage.setItem('user', JSON.stringify(store.state.user))
                         console.debug("User verificated")
                     }else console.debug("User needs to verify")

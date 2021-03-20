@@ -17,38 +17,49 @@ export default {
   components: {Navigationsleiste},
   created() {
     //Init Company
-    let subdir = window.location.host.split('.')[0]
-    let domainLocal = 'localhost:8080'
-    let domain = "freepoint.at"
-    if (subdir !== domainLocal && subdir !== domain) {
-      this.$http.post(this.$store.state.url + "/getCompany", {
-        companyName: subdir
-      }).then(response => {
-        console.debug(response)
-        console.debug("Saving company information")
-        this.$store.commit('setCompany', response.data.company)
-        console.debug("Company saved")
-        console.debug(this.$store.state.company)
-        this.$store.state.subdomain = subdir
-      }).catch(error => {
-        console.error(error)
-        window.location.replace('http://' + domainLocal)
-      })
-    } else console.debug()
+    let browserUrl = window.location.host.split('.')
+    if (browserUrl.length > 1) {
+      let subdir = browserUrl.shift()
+      console.log([subdir])
+      console.debug(browserUrl)
+      let forbiddenDomains = ['freepoint', 'www', 'localhost', 'localhost:8080']
+      if (!forbiddenDomains.includes(subdir)) {
+        this.$http.post(this.$store.state.url + "/getCompany", {
+          companyName: subdir
+        }).then(response => {
+          console.debug(response)
+          console.debug("Saving company information")
+          this.$store.commit('setCompany', response.data.company)
+          console.debug("Company saved")
+          console.debug(this.$store.state.company)
+          this.$store.state.subdomain = subdir
+
+          //Init User
+          console.debug("Loading login information from cookies")
+          if (localStorage.getItem('user')) {
+            this.$store.commit('setUser', JSON.parse(localStorage.getItem('user')))
+            console.debug("Loading login information from cookies completed")
+            this.getUserPoints()
+          } else {
+            console.debug('Loading login information from cookies abandoned.')
+          }
+
+        }).catch(error => {
+          console.error(error)
+          window.location.replace(document.location.protocol + '//' + browserUrl.join('.'))
+        })
+      } else if (!forbiddenDomains.includes(browserUrl[0])) {
+        console.debug(browserUrl)
+        window.location.replace(document.location.protocol + '//' + browserUrl.join('.'))
+      }
+    }
 
     document.querySelector(':root').style.setProperty(
         '--store-primary',
         this.$store.state.design.colorMain
     )
-
-    //Init User
-    console.debug("Loading login information from cookies")
-    if (localStorage.getItem('user')) {
-      this.$store.commit('setUser', JSON.parse(localStorage.getItem('user')))
-      console.debug("Loading login information from cookies completed")
-    } else {
-      console.error('Loading login information from cookies abandoned.')
-    }
+  },
+  mounted() {
   },
   methods: {
     sendVerificationEmail() {
@@ -56,6 +67,19 @@ export default {
       this.$http.post(this.$store.state.url + "/sendEmail", {
         hash: this.$store.state.user.token
       }).catch(error => console.error(error))
+    },
+    getUserPoints() {
+      if (this.$store.state.user.token) {
+        console.debug("Loading user Points for company:", this.$store.state.company.companyName)
+        this.$http.post(this.$store.state.url + '/getPoints', {
+          hash: this.$store.state.user.token,
+          companyName: this.$store.state.company.companyName
+        }).then(result => {
+          this.$store.commit('setPoints', result.data)
+        }).catch(error => {
+          console.debug(error)
+        })
+      }
     }
   }
 }
@@ -155,8 +179,8 @@ html{
   }
 }
 
-.form-control{
-  &:focus{
+.form-control {
+  &:focus {
     box-shadow: none !important;
   }
 }

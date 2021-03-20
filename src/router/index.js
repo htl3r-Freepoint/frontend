@@ -26,16 +26,10 @@ const routes = [
         ]
     },
     {
-        path: '/company', component: () => import('@/views/Company'),
+        path: '/company', component: () => import('@/views/Company.vue'),
         children: [
-            {path: 'coupons', component: () => import('@/views/company/RabattMenu.vue'),
-                /*
-                children: [
-                    {path: 'edit', component: () => import('@/views/company/RabattMenuEdit')}
-                ]
-                 */
-            },
-            {path: 'edit', component: () => import('@/views/company/RabattMenuEdit')},
+            {path: 'coupons', component: () => import('@/views/company/RabattMenu.vue')},
+            {path: 'coupons/edit', component: () => import('@/views/company/RabattMenuEdit.vue')},
             {
                 path: 'settings', component: () => import('@/views/company/Settings.vue'),
                 children: [

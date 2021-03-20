@@ -11,7 +11,7 @@
 
       <div class="col-6 col-sm-3">
         <div id="nav-points" class="font-weight-bold text-nowrap">
-          {{ this.$store.state.points }}
+          {{ navNumber }}
           <font-awesome-icon icon="receipt"/>
         </div>
       </div>
@@ -29,6 +29,7 @@
 
 <script>
 import NavigationLinks from "@/components/NavigationLinks";
+import gsap from 'gsap'
 
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {faReceipt} from "@fortawesome/free-solid-svg-icons";
@@ -37,7 +38,22 @@ library.add(faReceipt)
 
 export default {
   name: "Navigationsleiste",
-  components: {NavigationLinks}
+  components: {NavigationLinks},
+  data() {
+    return {
+      tweenedNumber: 0
+    }
+  },
+  computed: {
+    navNumber() {
+      return this.tweenedNumber.toFixed(0);
+    }
+  },
+  watch: {
+    '$store.state.points': function(newValue) {
+      gsap.to(this.$data, { duration: 0.5, tweenedNumber: newValue });
+    }
+  }
 }
 </script>
 
