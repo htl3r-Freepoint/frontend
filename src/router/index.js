@@ -4,9 +4,12 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter);
 
 const routes = [
+    {path: '/', component: () => import("@/views/Root.vue")},
     {path: '/forgot-password', component: () => import('@/views/ForgotPassword.vue')},
     {path: '/terms-and-service', component: () => import('@/views/TermsAndService.vue')},
     {path: '/terms-and-service-company', component: () => import('@/views/TermsAndServiceCompany.vue')},
+    {path: '/imprint', component: () => import('@/views/Imprint.vue')},
+    {path: '/privacy-policy', component: () => import('@/views/PrivacyPolicy.vue')},
     {path: '/login', component: () => import('@/views/Login.vue')},
     {path: '/register', component: () => import('@/views/RegisterUser.vue')},
     {path: '/register/company', component: () => import('@/views/RegisterCompany.vue')},
@@ -23,9 +26,10 @@ const routes = [
         ]
     },
     {
-        path: '/company', component: () => import('@/views/Company'),
+        path: '/company', component: () => import('@/views/Company.vue'),
         children: [
-            {path: 'coupons', component: () => import('@/views/company/RabattMenu.vue'),},
+            {path: 'coupons', component: () => import('@/views/company/RabattMenu.vue')},
+            {path: 'coupons/edit', component: () => import('@/views/company/RabattMenuEdit.vue')},
             {
                 path: 'settings', component: () => import('@/views/company/Settings.vue'),
                 children: [
@@ -44,6 +48,6 @@ const routes = [
 ]
 
 export default new VueRouter({
-    mode: 'history',
+    /*mode: 'history',*/
     routes
 })

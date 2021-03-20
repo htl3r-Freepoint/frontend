@@ -1,30 +1,30 @@
 <template>
   <form>
 
-    <fp-input>
+    <register-input>
       <font-awesome-icon icon="user" slot="prepend"/>
       <input type="text" class="form-control" id="inputRegisterUsername" v-model="name"
              placeholder="Benutzername" autocomplete="username" required>
-    </fp-input>
+    </register-input>
 
 
-    <fp-input description="Wir werden Ihre E-Mail-Adresse nicht weiterleiten.">
+    <register-input description="Wir werden Ihre E-Mail-Adresse nicht weiterleiten.">
       <font-awesome-icon icon="at" slot="prepend"/>
       <input type="email" class="form-control" id="inputRegisterEmail" v-model="email"
              placeholder="E-Mail-Adresse" required>
-    </fp-input>
+    </register-input>
 
-      <fp-input>
+      <register-input>
         <font-awesome-icon icon="key" slot="prepend"/>
         <input type="password" class="form-control" id="inputRegisterPassword" v-model="password"
                placeholder="Passwort" autocomplete="new-password" required>
-      </fp-input>
+      </register-input>
 
-      <fp-input>
+      <register-input>
         <font-awesome-icon icon="key" slot="prepend"/>
         <input type="password" class="form-control" id="inputRegisterPasswordConfirm" v-model="passwordConfirm"
                placeholder="Passwort bestätigen" autocomplete="new-password" required>
-      </fp-input>
+      </register-input>
 
 
     <div class="form-group form-check">
@@ -35,7 +35,7 @@
       </label>
     </div>
 
-    <button type="submit" class="btn btn-primary"
+    <button type="button" class="btn btn-primary"
             v-on:click="register()"
             :disabled="!TOS && !email && !password && !passwordConfirm">Registrieren
     </button>
@@ -44,17 +44,20 @@
 </template>
 
 <script>
-import Axios from "axios";
-import FpInput from "@/components/Form Components/FpInput";
+import RegisterInput from "@/components/Form Components/RegisterInput";
 
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {faAt, faKey, faUser} from "@fortawesome/free-solid-svg-icons";
+
 
 library.add(faAt, faKey, faUser)
 
 export default {
   name: "FormRegisterUser",
-  components: {FpInput},
+  components: {RegisterInput},
+  props: {
+    overwritePathRedirect: Boolean
+  },
   data() {
     return {
       email: "",
@@ -68,18 +71,17 @@ export default {
     register() {
       if (this.email && this.password && this.passwordConfirm && this.TOS) {
         if (this.password === this.passwordConfirm) {
-          Axios.post(this.$store.state.url + '/registerUser', {
+          this.$http.post(this.$store.state.url + '/registerUser', {
             email: this.email,
             password: this.password,
             username: this.name
           }).then(response => {
             console.debug("Response:", response.data)
             console.debug("Saving user login")
-            localStorage.setItem('user', JSON.stringify({}))
-            sessionStorage.setItem('user', JSON.stringify(response.data))
-            this.$store.commit('setToken', JSON.parse(sessionStorage.getItem('user')).token)
-            console.debug("Token:", this.$store.state.token)
-            this.$router.push({path: 'menu'})
+            localStorage.removeItem('user')
+            this.$store.commit('setUser', response.data)
+            console.debug("Token:", this.$store.state.user)
+            if (!this.overwritePathRedirect) window.history.length > 1 ? this.$router.go(-1) : this.$router.push({path: '/'})
           }).catch(error => {
             if (error.response) {
               console.debug("Data:", error.response.data);

@@ -32,7 +32,7 @@
       </router-link>
     </nav>
 
-    <router-view></router-view>
+    <router-view class="settings-view pb-5"></router-view>
 
   </submenu>
 </template>
@@ -62,6 +62,23 @@ export default {
 
 .text-left{
   padding-left: 1em;
+}
+
+.settings-view{
+
+}
+
+@media (min-width: 576px) {
+  .settings-view {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+}
+
+@media (max-width: 576px) {
+  .settings-view {
+    padding-top: 25px;
+  }
 }
 
 </style>

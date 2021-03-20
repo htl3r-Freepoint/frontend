@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <navigationsleiste></navigationsleiste>
-    <div v-if="this.$store.state.token && !this.$store.state.verification">
+    <div v-if="this.$store.getters.showVerification">
       Bitte verifizieren sie ihre Email Addresse.
-      <a :href="sendVerificationEmail">Email erneut senden</a>
+      <a href="" @click="sendVerificationEmail">Email erneut senden</a>
     </div>
     <router-view class="router-view"/>
   </div>
@@ -11,32 +11,82 @@
 
 <script>
 import Navigationsleiste from "@/components/Navigationsleiste";
-import Axios from "axios";
 
 export default {
   name: "App",
   components: {Navigationsleiste},
   created() {
-    // eslint-disable-next-line no-constant-condition
-    if (sessionStorage.getItem('user')) {
-      this.$store.commit('setUser', JSON.parse(sessionStorage.getItem('user')))
+    //Init Company
+    let browserUrl = window.location.host.split('.')
+    if (browserUrl.length > 1) {
+      let subdir = browserUrl.shift()
+      console.log([subdir])
+      console.debug(browserUrl)
+      let forbiddenDomains = ['freepoint', 'www', 'localhost', 'localhost:8080']
+      if (!forbiddenDomains.includes(subdir)) {
+        this.$http.post(this.$store.state.url + "/getCompany", {
+          companyName: subdir
+        }).then(response => {
+          console.debug(response)
+          console.debug("Saving company information")
+          this.$store.commit('setCompany', response.data.company)
+          console.debug("Company saved")
+          console.debug(this.$store.state.company)
+          this.$store.state.subdomain = subdir
+
+          //Init User
+          console.debug("Loading login information from cookies")
+          if (localStorage.getItem('user')) {
+            this.$store.commit('setUser', JSON.parse(localStorage.getItem('user')))
+            console.debug("Loading login information from cookies completed")
+            this.getUserPoints()
+          } else {
+            console.debug('Loading login information from cookies abandoned.')
+          }
+
+        }).catch(error => {
+          console.error(error)
+          window.location.replace(document.location.protocol + '//' + browserUrl.join('.'))
+        })
+      } else if (!forbiddenDomains.includes(browserUrl[0])) {
+        console.debug(browserUrl)
+        window.location.replace(document.location.protocol + '//' + browserUrl.join('.'))
+      }
     }
+
     document.querySelector(':root').style.setProperty(
         '--store-primary',
         this.$store.state.design.colorMain
     )
   },
+  mounted() {
+  },
   methods: {
     sendVerificationEmail() {
-      Axios.post(this.$store.state.url + "/sendEmail", {
+      console.debug("Resending verification email")
+      this.$http.post(this.$store.state.url + "/sendEmail", {
         hash: this.$store.state.user.token
       }).catch(error => console.error(error))
+    },
+    getUserPoints() {
+      if (this.$store.state.user.token) {
+        console.debug("Loading user Points for company:", this.$store.state.company.companyName)
+        this.$http.post(this.$store.state.url + '/getPoints', {
+          hash: this.$store.state.user.token,
+          companyName: this.$store.state.company.companyName
+        }).then(result => {
+          this.$store.commit('setPoints', result.data)
+        }).catch(error => {
+          console.debug(error)
+        })
+      }
     }
   }
 }
 </script>
 
 <style lang="scss">
+
 
 :root {
   --store-primary: #10cdb7;
@@ -64,33 +114,76 @@ p {
   min-height: 100vh;
 }
 
-.router-view {
+/**
+*{
+  transition: all 0.15s ease;
+}
+*/
 
+.heading {
+  font-size: 3em;
+  color: #00A982;
 }
 
-.btn{
+.heading-sub {
+  font-size: 1.6em;
+  color: black;
+}
+
+@media (max-width: 576px) {
+  .heading {
+    font-size: 2.2em;
+  }
+
+  .heading-sub {
+    font-size: 1.3em;
+  }
+}
+
+.paragraph {
+  font-size: 1.3em;
+  color: black;
+}
+
+@media (max-width: 576px) {
+  .router-view {
+    margin-bottom: 2em;
+  }
+}
+
+.btn {
   border-right: inherit;
+
   &.btn-primary {
-    background: var(--store-primary) !important;
-    border: none;
+    background-color: var(--store-primary) !important;
+    border: solid var(--store-primary) !important;
     font-size: 1.2em;
     font-weight: bold;
   }
-  &:hover{
-    border-radius: 10px;
-    transition: .3s;
+
+  &:hover {
+    border-radius: 12px;
+    transition: .2s;
   }
-  &:active{
+
+  &:active {
     border-radius: 20px;
-    transition: .3s;
+    transition: .2s;
   }
-  &:focus{
+
+  &:focus {
     box-shadow: 0 0 0 0 !important;
   }
 }
 
+.form-control {
+  &:focus {
+    box-shadow: none !important;
+  }
+}
+
 .container {
-  margin: 16px auto;
+  margin: 30px auto;
 }
 
 </style>

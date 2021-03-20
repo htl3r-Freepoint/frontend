@@ -28,9 +28,9 @@ export default {
     postData(code) {
       if (this.regex.exec(code)) {
         console.debug(code)
-        Axios.post(this.$store.state.url + 'AddQrCode.json', {
+        Axios.post(this.$store.state.url + '/addQrCode', {
           code: code,
-          UserId: 2
+          hash: this.$store.state.user.token
         }).then(result => {
           this.$store.commit('setPoints', result.data)
         }).catch(function (error) {

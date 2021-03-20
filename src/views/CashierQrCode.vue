@@ -19,7 +19,6 @@
 
 <script>
 import {QrcodeStream} from 'vue-qrcode-reader'
-import Axios from "axios";
 
 export default {
   name: "CashierQrCode",
@@ -40,7 +39,7 @@ export default {
       if (this.regex.exec(code)) {
         console.debug(code)
         //TODO insert API URL
-        Axios.post(this.$store.state.url + '/', {
+        this.$http.post(this.$store.state.url + '/', {
           code: code,
           UserId: 2
         }).then(result => {

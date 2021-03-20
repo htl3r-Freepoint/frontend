@@ -1,7 +1,7 @@
 <template>
   <div id="register-company" class="container">
-    <div v-if="isLoggedIn">
-      <form-register-company v-if="isVerified"/>
+    <div v-if="this.$store.state.user">
+      <form-register-company v-if="this.$store.state.user.verified"/>
       <p v-else>Please verify your email Address</p>
     </div>
     <div v-else>
@@ -16,27 +16,10 @@
 
 <script>
 import FormRegisterCompany from "@/components/forms/FormRegisterCompany";
-import Axios from "axios";
 
 export default {
   name: "RegisterCompany",
   components: {FormRegisterCompany},
-  data() {
-    return {
-      isLoggedIn: false,
-      isVerified: false
-    }
-  },
-  created() {
-    console.debug("Token:", this.$store.state.token)
-    Axios.post(this.$store.state.url + "/checkLogin", {
-      hash: this.$store.state.token
-    }).then(response => {
-      console.debug(response.data)
-      this.isLoggedIn = response.data.valid
-      this.isVerified = response.data.verified
-    })
-  }
 }
 </script>
 

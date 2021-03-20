@@ -6,7 +6,7 @@ import router from './router'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap.js'
 
-import { FontAwesomeIcon, FontAwesomeLayers, FontAwesomeLayersText } from '@fortawesome/vue-fontawesome'
+import {FontAwesomeIcon, FontAwesomeLayers, FontAwesomeLayersText} from '@fortawesome/vue-fontawesome'
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.component('font-awesome-layers', FontAwesomeLayers)
@@ -14,10 +14,14 @@ Vue.component('font-awesome-layers-text', FontAwesomeLayersText)
 
 import Axios from "axios";
 import $ from 'jquery'
+import './registerServiceWorker'
 
 Vue.use(Vuex)
 
 Vue.config.productionTip = false
+
+Vue.prototype.$http = Axios
+Vue.prototype.$ = $
 
 const bsTooltip = (el, binding) => {
     const t = []
@@ -38,58 +42,75 @@ const bsTooltip = (el, binding) => {
 Vue.directive('tooltip', {
     bind: bsTooltip,
     update: bsTooltip,
-    unbind (el) {
+    unbind(el) {
         $(el).tooltip('dispose')
     }
 });
 
 const store = new Vuex.Store({
     state: {
-        url: 'https://freepoint.htl3r.com/api',
-        user: undefined,
-        companyName: '[insertCompanyName]',
-        token: '',
-        verification: false,
+        url: 'https://www.freepoint.htl3r.com/api',
+        /*url: 'localhost:8000/api',*/
+        user: {
+            token: undefined,
+            username: undefined,
+            verified: false
+        },
+        company: {
+            companyName: undefined,
+            contactMail: undefined,
+            conversionRate: undefined,
+            domain: undefined,
+            logo: undefined
+        },
+        subdomain: undefined,
         points: 0,
-        design:{
+        design: {
             colorMain: "#10cdb7",
             colorText: "#2c3e50",
             colorBackground: "#FAFAFA",
             colorBanner: "#ffffff",
         }
     },
+    getters: {
+        showVerification(state) {
+            return !state.user.verified && state.user.token !== undefined
+        },
+        getPoints(state){
+            return state.points
+        }
+    },
     mutations: {
-        setToken(state, token) {
-            state.token = token
+        setVerification(state, verified) {
+            state.user.verified = verified
         },
-        setVerfification(state, verified) {
-            state.verification = verified
-        },
-        setUser(state, user){
+        setUser(state, user) {
             state.user = user
         },
-        deleteUser(state){
-            state.user = undefined
+        deleteUser(state) {
+            console.debug("Deleting userdata from VueX")
+            state.user = {
+                token: undefined,
+                username: undefined,
+                verified: undefined
+            }
         },
-        increment(state) {
-            state.points++
-        },
-        add(state, number) {
-            state.points += number
+        setCompany(state, company){
+            state.company = company
         },
         setPoints(state, number) {
             state.points = number
         },
-        setColorMain(state, color){
+        setColorMain(state, color) {
             state.design.colorMain = color
         },
-        setColorText(state, color){
+        setColorText(state, color) {
             state.design.colorText = color
         },
-        setColorBackground(state, color){
+        setColorBackground(state, color) {
             state.design.colorBackground = color
         },
-        setColorBanner(state, color){
+        setColorBanner(state, color) {
             state.design.colorBanner = color
         }
     }
@@ -97,22 +118,26 @@ const store = new Vuex.Store({
 
 router.beforeEach((to, from, next) => {
 
-    if (store.state.token) {
-        Axios.post(store.state.url + '/checkLogin', {
-            hash: this.$store.state.token
+    if (store.state.user.token) {
+        this.$http.post(store.state.url + '/checkLogin', {
+            hash: store.state.user.token
         }).then(response => {
-            if (!response.data.valid) store.commit("setToken", '')
-            else store.commit("setVerfification", response.data.verified)
+            if (response.data.valid) {
+                if (!store.state.user.verified) {
+                    if (response.data.verified) {
+                        store.commit("setVerification", response.data.verified)
+                        localStorage.setItem('user', JSON.stringify(store.state.user))
+                        console.debug("User verificated")
+                    }else console.debug("User needs to verify")
+                }
+            } else {
+                throw new Error()
+            }
         }).catch(error => {
             console.error(error)
-            store.commit("setToken", '')
+            localStorage.removeItem('user')
+            store.commit("deleteUser")
         })
-    }
-
-    let subdir = window.location.host.split('.')[0]
-    let domain = 'localhost'
-    if (subdir !== domain) {
-        store.state.companyName = subdir
     }
     next()
 })

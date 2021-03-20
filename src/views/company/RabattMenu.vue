@@ -1,142 +1,60 @@
 <template>
   <div class="container">
-    <h2 class="text-uppercase font-weight-bold">{{$store.state.companyName}}</h2>
-    <div class="col custom-control custom-switch align-self-end">
-      <input id="edit-mode" type="checkbox" class="custom-control-input" v-model="editRights">
-      <label class="custom-control-label" for="edit-mode">Edit Mode</label>
+    <div class="d-flex justify-content-between">
+      <h2 class="text-uppercase font-weight-bold">
+        {{ $store.state.company.companyName ? $store.state.company.companyName : "ERROR: no Company selected" }}
+      </h2>
+      <div class="d-flex justify-content-end" v-if="editRights === 2 || editRights === 3">
+        <router-link class="btn btn-primary" to="/company/edit">
+          <font-awesome-icon icon="pen"/>
+        </router-link>
+        <router-link class="btn btn-primary" to="/company/settings/profile">
+          <font-awesome-icon icon="cog"/>
+        </router-link>
+      </div>
     </div>
-
-    <router-link class="btn btn-primary" to="/company/settings/profile">Settings</router-link>
 
     <div id="coupon-container" class="row justify-content-center py-2">
       <coupon v-for="(coupon, id) in coupons" v-bind:key="id"
               class="col-sm-6 col-md-4 col-xl-3"
-              :coupon="coupon"
-              :edit-rights="editRights">
+              :coupon="coupon">
         <font-awesome-icon slot="actionIcon" style="position: absolute; left: 9.5px; top:10.5px" icon="shopping-cart"/>
       </coupon>
-
-      <div v-if="editRights" class="add-coupon col-sm-6 col-md-4 col-xl-3">
-        <button class="btn-block"
-                data-toggle="modal" data-target="#modalCreateNewCoupon">
-          <font-awesome-icon icon="plus-circle"/>
-        </button>
-      </div>
     </div>
-
-    <modal id="modalCreateNewCoupon" :title="'Neuer Coupon'">
-      <form-new-coupon></form-new-coupon>
-    </modal>
 
   </div>
 </template>
 
 <script>
-import Axios from 'axios'
 import Coupon from "@/components/Coupon";
-import FormNewCoupon from "@/components/forms/FormNewCoupon";
-import Modal from "@/components/Modal";
 
 import {library} from "@fortawesome/fontawesome-svg-core";
-import {faPlusCircle, faShoppingCart} from "@fortawesome/free-solid-svg-icons";
+import {faPen, faShoppingCart} from "@fortawesome/free-solid-svg-icons";
 
-library.add(faPlusCircle, faShoppingCart)
+library.add(faShoppingCart, faPen)
 
 export default {
   name: "RabattMenu",
-  components: {Modal, FormNewCoupon, Coupon},
+  components: {Coupon},
   data() {
     return {
-      user: '1',
-      store: '1',
-      editRights: false,
-      coupons: [
-        {
-          id: 0,
-          title: 'Hamburger',
-          text: 'Genieße den saftigen Hamburger mit Gurken und Salat, um -20%',
-          isPercent: true,
-          price: 0.00,
-          percentage: 20,
-          value: 15
-        },
-        {
-          id: 1,
-          title: 'Cheeseburger',
-          text: 'Genieße den saftigen Cheeseburger mit Gurken, Salat und geschmolzenem Ementaler, um -1€',
-          isPercent: false,
-          price: 1.00,
-          percentage: 0,
-          value: 25
-        },
-        {
-          id: 0,
-          title: 'Hamburger',
-          text: 'Genieße den saftigen Hamburger mit Gurken und Salat, um -20%',
-          isPercent: true,
-          price: 0.00,
-          percentage: 20,
-          value: 15
-        },
-        {
-          id: 1,
-          title: 'Cheeseburger',
-          text: 'Genieße den saftigen Cheeseburger mit Gurken, Salat und geschmolzenem Ementaler, um -1€',
-          isPercent: false,
-          price: 1.00,
-          percentage: 0,
-          value: 25
-        },
-        {
-          id: 0,
-          title: 'Hamburger',
-          text: 'Genieße den saftigen Hamburger mit Gurken und Salat, um -20%',
-          isPercent: true,
-          price: 0.00,
-          percentage: 20,
-          value: 15
-        },
-        {
-          id: 1,
-          title: 'Cheeseburger',
-          text: 'Genieße den saftigen Cheeseburger mit Gurken, Salat und geschmolzenem Ementaler, um -1€',
-          isPercent: false,
-          price: 1.00,
-          percentage: 0,
-          value: 25
-        },
-        {
-          id: 0,
-          title: 'Hamburger',
-          text: 'Genieße den saftigen Hamburger mit Gurken und Salat, um -20%',
-          isPercent: true,
-          price: 0.00,
-          percentage: 20,
-          value: 15
-        },
-        {
-          id: 1,
-          title: 'Cheeseburger',
-          text: 'Genieße den saftigen Cheeseburger mit Gurken, Salat und geschmolzenem Ementaler, um -1€',
-          isPercent: false,
-          price: 1.00,
-          percentage: 0,
-          value: 25
-        }
-      ]
+      editRights: 0,
+      coupons: []
     }
+  },
+  mounted() {
+    this.getData()
   },
   methods: {
     getData() {
-      Axios.get(this.$store.state.url + "/Rabatte", {
-        params: {
-          user: this.user,
-          store: this.$route.params.company
-        }
-      }).then(r => this.coupons = r)
-    },
-    saveCoupon(){
-
+      this.$http.post(this.$store.state.url + "/getRabatt", {
+        hash: this.$store.state.user.token ? this.$store.state.user.token : undefined,
+        firmenname: this.$store.state.company.companyName
+      }).then(response => {
+        console.debug("Coupons:", response)
+        this.coupons = response.data.coupons
+        this.editRights = response.data.editRights
+      })
     }
   }
 }

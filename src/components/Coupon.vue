@@ -1,6 +1,6 @@
 <template>
   <div class="coupon">
-    <button class="card" data-toggle="modal" :data-target="'#modalActionCoupon' + coupon.id">
+    <button class="card" v-on:click="showActionModal">
       <div class="card-body text-left d-flex flex-column justify-content-between pb-1">
         <div>
           <h4 class="font-weight-bold">{{ this.coupon.title }}</h4>
@@ -25,27 +25,15 @@
 
       </div>
 
-      <div class="control-buttons" v-if="editRights || $slots.actionIcon">
-        <button v-if="!editRights && $slots.actionIcon" class="btn btn-primary btn-action" data-toggle="modal"
-                :data-target="'#modalActionCoupon' + coupon.id">
+      <div class="control-buttons" v-if="$slots.actionIcon">
+        <button v-if="$slots.actionIcon" class="btn btn-primary btn-action"
+                v-on:click="showActionModal">
           <slot name="actionIcon"></slot>
-        </button>
-
-        <button v-if="editRights" class="btn btn-primary mb-1" data-toggle="modal"
-                :data-target="'#modalEditCoupon' + coupon.id" v-on:click="edit = true">
-          <font-awesome-icon icon="pen"/>
-        </button>
-
-        <button v-if="editRights" class="btn btn-danger mt-1">
-          <font-awesome-icon icon="trash"/>
         </button>
       </div>
 
     </button>
 
-    <modal :id="'modalEditCoupon' + coupon.id">
-      <form-edit-coupon :coupon="coupon"></form-edit-coupon>
-    </modal>
     <modal :id="'modalActionCoupon' + coupon.id">
       <slot name="modal">
         <coupon-detail :coupon="coupon"></coupon-detail>
@@ -57,18 +45,18 @@
 
 <script>
 import Modal from "@/components/Modal";
-import FormEditCoupon from "@/components/forms/FormEditCoupon";
 import CouponDetail from "@/components/CouponDetail";
-
-import {library} from "@fortawesome/fontawesome-svg-core";
-import {faPen, faTrash} from "@fortawesome/free-solid-svg-icons";
-
-library.add(faPen, faTrash)
 
 export default {
   name: "Coupon",
-  components: {CouponDetail, FormEditCoupon, Modal},
-  props: ['coupon', 'editRights'],
+  components: {CouponDetail, Modal},
+  props: ['coupon'],
+  methods: {
+    showActionModal() {
+      if(this.$store.state.user.token) this.$("#modalActionCoupon" + this.coupon.id).modal()
+      else this.$router.push('/login')
+    }
+  }
 }
 </script>
 
@@ -110,7 +98,7 @@ export default {
     border-bottom: var(--store-primary) solid 4px;
     border-radius: 5px 5px 2px 2px;
 
-    .card-body{
+    .card-body {
       padding: .5em;
     }
 
@@ -119,10 +107,12 @@ export default {
       border-bottom: rgba(0, 0, 0, .3) solid 4px;
       transform: translateY(-4px);
     }
-    &:active{
+
+    &:active {
       outline: none;
     }
-    &:focus{
+
+    &:focus {
       outline: none;
     }
   }
