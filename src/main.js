@@ -119,7 +119,7 @@ const store = new Vuex.Store({
 router.beforeEach((to, from, next) => {
 
     if (store.state.user.token) {
-        Axios.post(store.state.url + '/checkLogin', {
+        this.$http.post(store.state.url + '/checkLogin', {
             hash: store.state.user.token
         }).then(response => {
             if (response.data.valid) {
