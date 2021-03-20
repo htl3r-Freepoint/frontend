@@ -104,12 +104,15 @@ p {
   color: var(--store-primary);
 }
 
+html{
+  background: var(--background-color);
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #153E73;
   background: var(--background-color);
   min-height: 100vh;
 }
@@ -167,7 +170,7 @@ p {
   }
 
   &:active {
-    border-radius: 20px;
+    border-radius: 25px;
     transition: .2s;
   }
 
