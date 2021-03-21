@@ -4,8 +4,11 @@
       <h2 class="text-uppercase font-weight-bold">
         {{ $store.state.company.companyName ? $store.state.company.companyName : "ERROR: no Company selected" }}
       </h2>
+      <router-link class="btn btn-primary" to="/cashier" v-if="editRights > 0">
+        <font-awesome-icon icon="qrcode"/>
+      </router-link>
       <div class="d-flex justify-content-end" v-if="editRights === 2 || editRights === 3">
-        <router-link class="btn btn-primary" to="/company/coupons/edit">
+        <router-link class="btn btn-primary mr-1" to="/company/coupons/edit">
           <font-awesome-icon icon="pen"/>
         </router-link>
         <router-link class="btn btn-primary" to="/company/settings/profile">
@@ -61,9 +64,9 @@ import Modal from '@/components/Modal'
 import VueQrCode from 'vue-qrcode'
 
 import {library} from "@fortawesome/fontawesome-svg-core";
-import {faPen, faReceipt, faShoppingCart} from "@fortawesome/free-solid-svg-icons";
+import {faPen, faQrcode, faReceipt, faShoppingCart} from "@fortawesome/free-solid-svg-icons";
 
-library.add(faShoppingCart, faPen, faReceipt)
+library.add(faShoppingCart, faPen, faReceipt, faQrcode)
 
 export default {
   name: "RabattMenu",
@@ -72,7 +75,7 @@ export default {
     return {
       editRights: 0,
       coupons: [],
-      lastCoupon: {code: 'no Couon Provided'}
+      lastCoupon: {code: 'no Coupon Provided'}
     }
   },
   mounted() {

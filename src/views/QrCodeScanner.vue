@@ -1,9 +1,16 @@
 <template>
   <div>
-    <div v-if="error">
-      {{this.error}}
-    </div>
-    <qrcode-stream id="QRScanner" class="my-5" v-else @decode="onDecode" @init="checkCamera"/>
+    <qrcode-stream id="QRScanner" class="my-5" @decode="onDecode" @init="checkCamera"/>
+    <transition name="fade" v-on:enter="enterError">
+      <div class="alert alert-danger" v-if="error">
+        {{ this.error }}
+      </div>
+    </transition>
+    <transition name="fade" v-on:enter="enterSuccess">
+      <div class="alert alert-success" v-if="success">
+        Gutschein erfolgreich eingelöst
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -33,6 +40,7 @@ export default {
           hash: this.$store.state.user.token
         }).then(result => {
           this.$store.commit('setPoints', result.data)
+          this.success = true
         }).catch(function (error) {
           console.error(error)
         })
@@ -48,6 +56,16 @@ export default {
         console.error(error)
       }
     },
+    enterError() {
+      setTimeout(() => {
+        this.error = false;
+      }, 3000);
+    },
+    enterSuccess() {
+      setTimeout(() => {
+        this.success = false;
+      }, 3000);
+    }
   }
 }
 </script>
@@ -63,6 +81,19 @@ export default {
   #QRScanner{
     max-width: 300px;
   }
+}
+
+.alert {
+  width: fit-content;
+  margin: auto;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 1s
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0
 }
 
 </style>
