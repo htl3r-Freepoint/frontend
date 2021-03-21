@@ -64,7 +64,7 @@
           </div>
           <div v-else>
             <h1 class="mb-4 form-header">Registrieren</h1>
-            <form-register-user class="shadow-lg p-3 bg-white rounded"></form-register-user>
+            <form-register-user :overwrite-path-redirect="true" class="shadow-lg p-3 bg-white rounded"></form-register-user>
           </div>
         </div>
       </div>
