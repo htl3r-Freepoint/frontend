@@ -50,6 +50,7 @@ Vue.directive('tooltip', {
 const store = new Vuex.Store({
     state: {
         url: 'https://www.freepoint.htl3r.com/api',
+        loading: false,
         /*url: 'localhost:8000/api',*/
         user: {
             token: undefined,
@@ -81,6 +82,9 @@ const store = new Vuex.Store({
         }
     },
     mutations: {
+        setLoading(state, loading) {
+            state.loading = loading
+        },
         setVerification(state, verified) {
             state.user.verified = verified
         },
@@ -117,7 +121,7 @@ const store = new Vuex.Store({
 })
 
 router.beforeEach((to, from, next) => {
-
+    store.commit("setLoading", false)
     if (store.state.user.token) {
         Vue.prototype.$http.post(store.state.url + '/checkLogin', {
             hash: store.state.user.token
