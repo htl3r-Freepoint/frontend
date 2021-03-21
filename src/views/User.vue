@@ -1,7 +1,7 @@
 <template>
   <submenu title="Einstellungen">
 
-    <div slot="links">
+    <nav slot="links">
       <router-link to="/user/profile">
         <font-awesome-icon icon="user-circle"/>
         <div>Profil bearbeiten</div>
@@ -18,9 +18,9 @@
         <font-awesome-icon icon="comment-dots"/>
         <div>Feedback</div>
       </router-link>
-    </div>
+    </nav>
 
-    <router-view></router-view>
+    <router-view class="settings-view pb-5"></router-view>
 
   </submenu>
 </template>
@@ -38,6 +38,23 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+nav {
+  div {
+    padding-left: 1em;
+  }
+}
 
+@media (min-width: 576px) {
+  .settings-view {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+}
+
+@media (max-width: 576px) {
+  .settings-view {
+    padding-top: 25px;
+  }
+}
 </style>
