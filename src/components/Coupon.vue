@@ -1,6 +1,6 @@
 <template>
   <div class="coupon">
-    <button class="card" v-on:click="showActionModal">
+    <div class="card" v-on:click="showActionModal">
       <div class="card-body text-left d-flex flex-column justify-content-between pb-1">
         <div>
           <h4 class="font-weight-bold">{{ this.coupon.title }}</h4>
@@ -20,7 +20,7 @@
               }}
             </h4>
           </div>
-          <h4 class="primary-text font-weight-bold text-nowrap">{{ this.coupon.value + " FP" }}</h4>
+          <h4 class="primary-text font-weight-bold text-nowrap">{{ this.coupon.value + " " }} <font-awesome-icon icon="receipt"/></h4>
         </footer>
 
       </div>
@@ -32,7 +32,7 @@
         </button>
       </div>
 
-    </button>
+    </div>
 
     <modal :id="'modalActionCoupon' + coupon.id">
       <slot name="modal">
@@ -44,6 +44,12 @@
 </template>
 
 <script>
+import {library} from "@fortawesome/fontawesome-svg-core";
+import {faReceipt} from "@fortawesome/free-solid-svg-icons";
+
+library.add(faReceipt)
+
+
 import Modal from "@/components/Modal";
 import CouponDetail from "@/components/CouponDetail";
 
@@ -92,6 +98,7 @@ export default {
   }
 
   .card {
+    cursor: pointer;
     transition: 0.3s;
     height: 100%;
     width: 100%;
