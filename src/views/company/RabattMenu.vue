@@ -49,6 +49,7 @@
     </div>
 
     <modal id="lastCoupon">
+      hekp
       <vue-qr-code :value="lastCoupon.code"/>
     </modal>
 
