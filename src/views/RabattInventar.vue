@@ -6,7 +6,7 @@
               :coupon="coupon">
         <font-awesome-icon slot="actionIcon" icon="qrcode"/>
         <div slot="modal">
-          <vue-qr-code></vue-qr-code>
+          <vue-qr-code :value="coupon.code"></vue-qr-code>
         </div>
       </coupon>
     </div>
@@ -31,12 +31,17 @@ export default {
       coupons: []
     }
   },
+  created() {
+    this.getInventory()
+  },
   methods: {
     getInventory() {
-      this.$http.get(this.$store.state.url + "/getUserCoupons", {
+      console.debug("Fetchin alls User Coupons")
+      this.$http.post(this.$store.state.url + "/getUserCoupons", {
         hash: this.$store.state.user.token,
         companyName: this.$store.state.company.companyName
       }).then(result => {
+        console.debug(result)
         this.coupons = result.data
       }).catch(function (error) {
         console.error(error)
