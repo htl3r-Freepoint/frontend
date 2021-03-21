@@ -42,12 +42,30 @@
 
       <div class="row p-5 justify-content-around" id="forms">
         <div class="col-md-4 mb-5">
-          <h1 class="mb-4 form-header">Anmelden</h1>
-          <form-login class="shadow-lg p-3 bg-white rounded"></form-login>
+          <div v-if="this.$store.state.user.token">
+            <h1 class="mb-4 form-header">Ein Geschäft erstellen</h1>
+            <form-register-company class="shadow-lg p-3 bg-white rounded"></form-register-company>
+          </div>
+          <div v-else>
+            <h1 class="mb-4 form-header">Anmelden</h1>
+            <form-login class="shadow-lg p-3 bg-white rounded"></form-login>
+          </div>
         </div>
         <div class="col-md-4">
-          <h1 class="mb-4 form-header">Registrieren</h1>
-          <form-register-user class="shadow-lg p-3 bg-white rounded"></form-register-user>
+          <div v-if="this.$store.state.user.token">
+            <h1 class="mb-4 form-header">Nach einem Geschäft suchen</h1>
+            <div class="shadow-lg p-3 bg-white rounded">
+              <register-input description="Hier können Sie nach den zahlreichen Geschäften suchen, die FreePoint nutzen.">
+                <font-awesome-icon icon="search" slot="prepend"/>
+                <input class="form-control" type="search" placeholder="Geschäft suchen" aria-label="Search">
+              </register-input>
+              <button type="button" class="btn btn-primary">Suchen</button>
+            </div>
+          </div>
+          <div v-else>
+            <h1 class="mb-4 form-header">Registrieren</h1>
+            <form-register-user class="shadow-lg p-3 bg-white rounded"></form-register-user>
+          </div>
         </div>
       </div>
 
@@ -119,13 +137,15 @@ import Footer from "@/components/Footer";
 import FaqElement from "@/components/FaqElement";
 
 import {library} from "@fortawesome/fontawesome-svg-core";
-import {faChartPie, faMobile, faDownload, faLock} from "@fortawesome/free-solid-svg-icons";
+import {faChartPie, faMobile, faDownload, faLock, faSearch} from "@fortawesome/free-solid-svg-icons";
+import FormRegisterCompany from "@/components/forms/FormRegisterCompany";
+import RegisterInput from "@/components/Form Components/RegisterInput";
 
-library.add(faChartPie, faMobile, faDownload, faLock)
+library.add(faChartPie, faMobile, faDownload, faLock, faSearch)
 
 export default {
   name: "Root",
-  components: {FaqElement, Footer, Divider, FormRegisterUser, FormLogin, RabattMenu}
+  components: {RegisterInput, FormRegisterCompany, FaqElement, Footer, Divider, FormRegisterUser, FormLogin, RabattMenu}
 }
 </script>
 
@@ -158,6 +178,12 @@ img {
 
 #forms {
   background-color: #00A982;
+}
+
+@media (max-width: 576px) {
+  #forms{
+    padding: 3em 0px !important;
+  }
 }
 
 
