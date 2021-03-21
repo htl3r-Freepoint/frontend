@@ -41,18 +41,24 @@
           <div class="container">
             <div class="row control-buttons justify-content-between">
               <button type="button" class="col-5 btn btn-danger font-weight-bold" data-dismiss="modal">Zurück</button>
-              <button type="button" class="col-5 btn btn-primary font-weight-bold" data-dismiss="modal">Kaufen</button>
+              <button type="button" class="col-5 btn btn-primary font-weight-bold" data-dismiss="modal" @click="buyCoupon(coupon.id)" :disabled="$store.state.points < coupon.value">Kaufen</button>
             </div>
           </div>
         </div>
       </coupon>
     </div>
 
+    <modal id="lastCoupon">
+      <vue-qr-code :value="lastCoupon.code"/>
+    </modal>
+
   </div>
 </template>
 
 <script>
 import Coupon from "@/components/Coupon";
+import Modal from '@/components/Modal'
+import VueQrCode from 'vue-qrcode'
 
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {faPen, faReceipt, faShoppingCart} from "@fortawesome/free-solid-svg-icons";
@@ -61,11 +67,12 @@ library.add(faShoppingCart, faPen, faReceipt)
 
 export default {
   name: "RabattMenu",
-  components: {Coupon},
+  components: {Coupon, Modal, VueQrCode},
   data() {
     return {
       editRights: 0,
-      coupons: []
+      coupons: [],
+      lastCoupon: {code: 'no Couon Provided'}
     }
   },
   mounted() {
@@ -81,6 +88,17 @@ export default {
         console.debug("Coupons:", response)
         this.$store.commit('setCoupons', response.data.coupons)
         this.editRights = response.data.editRights
+      })
+    },
+    buyCoupon(id){
+      this.$http.post(this.$store.state.url + "/buyCoupon", {
+        hash: this.$store.state.user.token ? this.$store.state.user.token : undefined,
+        firmenname: this.$store.state.company.companyName,
+        rabattID: id
+      }).then(result => {
+        this.$store.commit('setPoints', result.data.points)
+        this.lastCoupon = result.data.coupon
+        this.$("#lastCoupon").modal()
       })
     }
   }

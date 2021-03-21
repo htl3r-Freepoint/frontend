@@ -5,6 +5,9 @@
               class="col-sm-6 col-md-4 col-xl-3"
               :coupon="coupon">
         <font-awesome-icon slot="actionIcon" icon="qrcode"/>
+        <div slot="modal">
+          <vue-qr-code></vue-qr-code>
+        </div>
       </coupon>
     </div>
 
@@ -13,7 +16,7 @@
 
 <script>
 import Coupon from "@/components/Coupon";
-import Axios from "axios";
+import VueQrCode from "vue-qrcode";
 
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {faQrcode} from "@fortawesome/free-solid-svg-icons";
@@ -22,35 +25,17 @@ library.add(faQrcode)
 
 export default {
   name: "RabattInventar",
-  components: {Coupon},
+  components: {Coupon, VueQrCode},
   data() {
     return {
-      coupons: [
-        {
-          id: 0,
-          title: 'Hamburger',
-          text: 'Genieße den saftigen Hamburger mit Gurken und Salat, um -20%',
-          isPercent: true,
-          price: 0.00,
-          percentage: 20,
-          value: 15
-        },
-        {
-          id: 1,
-          title: 'Cheeseburger',
-          text: 'Genieße den saftigen Cheeseburger mit Gurken, Salat und geschmolzenem Ementaler, um -1€',
-          isPercent: false,
-          price: 1.00,
-          percentage: 0,
-          value: 25
-        }
-      ]
+      coupons: []
     }
   },
   methods: {
     getInventory() {
-      Axios.get(this.$store.state.url + "inventar.json", {
-        user: 1
+      this.$http.get(this.$store.state.url + "/getUserCoupons", {
+        hash: this.$store.state.user.token,
+        companyName: this.$store.state.company.companyName
       }).then(result => {
         this.coupons = result.data
       }).catch(function (error) {

@@ -17,38 +17,17 @@ export default {
   components: {Navigationsleiste},
   created() {
     //Init Company
-    let browserUrl = window.location.host.split('.')
+    const browserUrl = window.location.host.split('.')
     if (browserUrl.length > 1) {
       let subdir = browserUrl.shift()
       console.log([subdir])
       console.debug(browserUrl)
       let forbiddenDomains = ['freepoint', 'www', 'localhost', 'localhost:8080']
       if (!forbiddenDomains.includes(subdir)) {
-        this.$http.post(this.$store.state.url + "/getCompany", {
-          companyName: subdir
-        }).then(response => {
-          console.debug(response)
-          console.debug("Saving company information")
-          this.$store.commit('setCompany', response.data.company)
-          console.debug("Company saved", this.$store.state.company)
-
-          //Init User
-          console.debug("Loading login information from cookies")
-          if (localStorage.getItem('user')) {
-            this.$store.commit('setUser', JSON.parse(localStorage.getItem('user')))
-            console.debug("Loading login information from cookies completed")
-            this.getUserPoints()
-          } else {
-            console.debug('Loading login information from cookies abandoned.')
-          }
-
-        }).catch(error => {
-          console.error(error)
-          window.location.replace(document.location.protocol + '//' + browserUrl.join('.'))
-        })
+        this.loadCompanyInformation(subdir, browserUrl)
       } else if (!forbiddenDomains.includes(browserUrl[0])) {
         console.debug(browserUrl)
-        window.location.replace(document.location.protocol + '//' + browserUrl.join('.'))
+        this.sendBack(browserUrl)
       }
     }
 
@@ -57,8 +36,6 @@ export default {
         this.$store.state.design.colorMain
     )
   },
-  mounted() {
-  },
   methods: {
     sendVerificationEmail() {
       console.debug("Resending verification email")
@@ -66,9 +43,38 @@ export default {
         hash: this.$store.state.user.token
       }).catch(error => console.error(error))
     },
+    sendBack(urls){
+      window.location.replace(document.location.protocol + '//' + urls.join('.'))
+    },
+    loadCompanyInformation(subdir, urls){
+      console.debug(urls)
+      this.$http.post(this.$store.state.url + "/getCompany", {
+        companyName: subdir
+      }).then(response => {
+        console.debug(response)
+        console.debug("Saving company information")
+        this.$store.commit('setCompany', response.data.company)
+        console.debug("Company saved", this.$store.state.company)
+        this.loadUserData()
+      }).catch(error => {
+        console.error(error)
+        console.debug(urls)
+        this.sendBack(urls)
+      })
+    },
+    loadUserData(){
+      console.debug("Loading login information from cookies")
+      if (localStorage.getItem('user')) {
+        this.$store.commit('setUser', JSON.parse(localStorage.getItem('user')))
+        console.debug("Loading login information from cookies completed")
+        this.getUserPoints()
+      } else {
+        console.debug('Loading login information from cookies abandoned.')
+      }
+    },
     getUserPoints() {
       if (this.$store.state.user.token) {
-        console.debug("Loading user Points for company:", this.$store.state.company.companyName)
+        console.debug("Loading user points for company:", this.$store.state.company.companyName, this.$store.state.user.token)
         this.$http.post(this.$store.state.url + '/getPoints', {
           hash: this.$store.state.user.token,
           companyName: this.$store.state.company.companyName

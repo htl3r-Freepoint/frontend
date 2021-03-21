@@ -25,6 +25,9 @@
                placeholder="Nachname">
       </fp-input>
     </form>
+
+    <button class="btn btn-primary" @click="changeUser">Speichern</button>
+
     <form>
       <fp-input title="Altes Passwort">
         <font-awesome-icon slot="prepend" icon="key"/>
@@ -45,7 +48,6 @@
 </template>
 
 <script>
-import Axios from "axios";
 import FpInput from "../../components/Form Components/FpInput";
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {faAt, faKey, faUser} from "@fortawesome/free-solid-svg-icons";
@@ -66,8 +68,8 @@ export default {
     }
   },
   created() {
-    Axios.get(this.$store.state.url + "/user", {
-      token: this.$store.state.token
+    this.$http.post(this.$store.state.url + "/getUser", {
+      hash: this.$store.state.user.token
     }).then(response => {
       console.debug("Response:", response.data)
       this.username = response.data.username
@@ -77,13 +79,18 @@ export default {
     })
   },
   methods: {
-    updateData() {
-      Axios.post(this.$store.state.url + "/changeUser", {
-        toke: this.$store.state.token,
+    changeUser() {
+      this.$http.post(this.$store.state.url + "/changeUser", {
+        token: this.$store.state.user.token,
         username: this.username,
         firstName: this.firstName,
         lastName: this.lastName,
-        email: this.email,
+        email: this.email
+      })
+    },
+    changePassword() {
+      this.$http.post(this.$store.state.url + "/changeUser", {
+        token: this.$store.state.user.token,
         oldPassword: this.oldPassword,
         newPassword: this.newPassword
       })
