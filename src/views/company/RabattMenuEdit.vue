@@ -28,17 +28,56 @@
     </div>
 
     <!--NEW-->
-    <div>
+    <div v-if="$store.state.couponsNew.length > 0">
       <div class="d-flex flex-row justify-content-between border-bottom">
-        <h2 class="text-left">Neue Gutscheine</h2>
-        <button @click="saveCoupon" class="btn btn-primary">
+        <h2 class="text-left">Neu</h2>
+        <button @click="sendCouponArray(
+            '/newCoupon', $store.state.couponsNew,'resetCouponNew'
+              )" class="btn btn-primary">
           <font-awesome-icon icon="check"/>
         </button>
       </div>
-      <coupon v-for="(coupon, id) in  $store.state.couponsNew" :key="id" :coupon="coupon"
-              class="col-sm-6 col-md-4 col-xl-3">
+      <div>
+        <coupon v-for="(coupon, id) in $store.state.couponsNew" :key="id" :coupon="coupon"
+                class="col-sm-6 col-md-4 col-xl-3"></coupon>
+      </div>
+    </div>
 
-      </coupon>
+    <!--Edit-->
+    <div v-if="$store.state.couponsEdit.length > 0">
+      <div class="d-flex flex-row justify-content-between border-bottom">
+        <h2 class="text-left">
+          <font-awesome-icon icon="pen"/>
+          Ändern
+        </h2>
+        <button @click="sendCouponArray(
+            '/editCoupon', $store.state.couponsEdit,'resetCouponEdit'
+            )" class="btn btn-primary">
+          <font-awesome-icon icon="check"/>
+        </button>
+      </div>
+      <div>
+        <coupon v-for="(coupon, id) in $store.state.couponsEdit" :key="id" :coupon="coupon"
+                class="col-sm-6 col-md-4 col-xl-3"></coupon>
+      </div>
+    </div>
+
+    <!--Edit-->
+    <div v-if="$store.state.couponsDelete.length > 0">
+      <div class="d-flex flex-row justify-content-between border-bottom">
+        <h2 class="text-left">
+          Löschen
+        </h2>
+        <button @click="sendCouponArray(
+            '/deleteCoupon', $store.state.couponsDelete,'resetCouponDelete'
+            )" class="btn btn-primary">
+          <font-awesome-icon icon="check"/>
+        </button>
+      </div>
+      <div>
+        <coupon v-for="(coupon, id) in $store.state.couponsDelete" :key="id" :coupon="coupon"
+                class="col-sm-6 col-md-4 col-xl-3"></coupon>
+      </div>
     </div>
 
     <modal id="modalCreateNewCoupon" :title="'Neuer Coupon'">
@@ -54,10 +93,10 @@ import Modal from "@/components/Modal";
 import CouponEdit from "@/components/CouponEdit";
 
 import {library} from "@fortawesome/fontawesome-svg-core";
-import {faCheck, faPlusCircle} from "@fortawesome/free-solid-svg-icons";
+import {faCheck, faPen, faPlusCircle} from "@fortawesome/free-solid-svg-icons";
 import Coupon from "@/components/Coupon";
 
-library.add(faPlusCircle, faCheck)
+library.add(faPlusCircle, faCheck, faPen)
 
 export default {
   name: "RabattMenuEdit",
@@ -80,15 +119,15 @@ export default {
         this.editRights = response.data.editRights
       })
     },
-    saveCoupon() {
-      if (this.$store.state.couponsNew.length > 0) {
-        this.$http.post(this.$store.state.url + "/saveRabatt", {
+    sendCouponArray(url, array, commitFunction) {
+      if (array.length > 0) {
+        this.$http.post(this.$store.state.url + url, {
           hash: this.$store.state.user.token,
           firmenname: this.$store.state.company.companyName,
-          data: JSON.stringify(this.$store.state.couponsNew)
+          data: JSON.stringify(array)
         }).then(response => {
           console.debug(response)
-          this.$store.commit('resetCouponNew')
+          this.$store.commit(commitFunction)
           this.getData()
         })
       }

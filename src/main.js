@@ -116,11 +116,17 @@ const store = new Vuex.Store({
         setColorBanner(state, color) {
             state.design.colorBanner = color
         },
-        setCoupons(state, coupons){
+        setCoupons(state, coupons) {
             state.coupons = coupons
         },
-        resetCouponNew(state){
+        resetCouponNew(state) {
             state.couponsNew = []
+        },
+        resetCouponEdit(state) {
+            state.couponsEdit = []
+        },
+        resetCouponDelete(state) {
+            state.couponsDelete = []
         },
         resetCouponAll(state) {
             state.couponsNew = []
@@ -130,16 +136,16 @@ const store = new Vuex.Store({
         pushCouponsNew(state, coupon) {
             state.couponsNew.push(coupon)
         },
-        pushCouponsEdit(state, coupon){
+        pushCouponsEdit(state, coupon) {
+            console.debug("pushCouponsEdit", coupon)
+            state.couponsEdit.splice(state.couponsEdit.findIndex(x => x.id === coupon.id), 1)
+            state.coupons.splice(state.coupons.findIndex(x => x.id === coupon.id), 1)
             state.couponsEdit.push(coupon)
         },
         pushCouponsDelete(state, coupon) {
-            if (state.couponsNew.includes(coupon)){
-                state.couponsNew.splice(state.couponsNew.findIndex(x => x.id === coupon.id), 1)
-            }
-            if (state.couponsEdit.includes(coupon)){
-                state.couponsEdit.splice(state.couponsEdit.findIndex(x => x.id === coupon.id), 1)
-            }
+            state.coupons.splice(state.coupons.findIndex(x => x.id === coupon.id), 1)
+            state.couponsNew.splice(state.couponsNew.findIndex(x => x.id === coupon.id), 1)
+            state.couponsEdit.splice(state.couponsEdit.findIndex(x => x.id === coupon.id), 1)
             state.couponsDelete.push(coupon)
         }
     }
