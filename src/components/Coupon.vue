@@ -34,10 +34,8 @@
 
     </div>
 
-    <modal :id="'modalActionCoupon' + coupon.id">
-      <slot name="modal">
-        <coupon-detail :coupon="coupon"></coupon-detail>
-      </slot>
+    <modal :id="'modalActionCoupon' + coupon.id" v-if="$slots.modal">
+      <slot name="modal"></slot>
     </modal>
 
   </div>
@@ -51,11 +49,10 @@ library.add(faReceipt)
 
 
 import Modal from "@/components/Modal";
-import CouponDetail from "@/components/CouponDetail";
 
 export default {
   name: "Coupon",
-  components: {CouponDetail, Modal},
+  components: {Modal},
   props: ['coupon'],
   methods: {
     showActionModal() {
