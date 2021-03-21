@@ -4,11 +4,11 @@
       <font-awesome-icon icon="home"/>
     </router-link>
 
-    <router-link class="col router-link" to="/inventar" v-if="this.$store.state.user.token">
+    <router-link class="col router-link" to="/inventar" v-if="this.$store.state.user.token && this.$store.state.company.companyName">
       <font-awesome-icon icon="cubes"/>
     </router-link>
 
-    <router-link class="col router-link" to="/scan" v-if="this.$store.state.user.token">
+    <router-link class="col router-link" to="/scan" v-if="this.$store.state.user.token && this.$store.state.company.companyName">
       <font-awesome-icon icon="qrcode"/>
     </router-link>
 
