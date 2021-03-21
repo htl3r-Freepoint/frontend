@@ -96,6 +96,7 @@ export default {
         firmenname: this.$store.state.company.companyName,
         rabattID: id
       }).then(result => {
+        console.debug(result)
         this.$store.commit('setPoints', result.data.points)
         this.lastCoupon = result.data.coupon
         this.$("#lastCoupon").modal()
