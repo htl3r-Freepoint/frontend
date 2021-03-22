@@ -50,7 +50,7 @@
     <div class="container">
       <div class="row control-buttons justify-content-between">
         <button type="button" class="col-5 btn btn-danger" data-dismiss="modal" @click="resetData">Abbrechen</button>
-        <button type="button" class="col-5 btn btn-primary" data-dismiss="modal">Speichern</button>
+        <button type="button" class="col-5 btn btn-primary" data-dismiss="modal" @click="saveCoupon">Speichern</button>
       </div>
     </div>
 
@@ -58,7 +58,6 @@
 </template>
 
 <script>
-import Axios from "axios";
 
 export default {
   name: "FormEditCoupon",
@@ -66,6 +65,7 @@ export default {
   props: ['coupon'],
   data() {
     return {
+      id: 0,
       isPercent: true,
       title: "",
       text: "",
@@ -80,22 +80,19 @@ export default {
     }
   },
   methods: {
-    postNewCoupon() {
-      Axios.post(this.$store.state.url + '/coupon', {
-        params: {
-          id: this.coupon.id,
-          coupon: {
-            isPercent: this.isPercent,
-            title: this.title,
-            text: this.text,
-            price: this.price,
-            percentage: this.percentage,
-            value: this.value
-          }
-        }
+    saveCoupon() {
+      this.$store.commit("pushCouponsEdit", {
+        id: this.id,
+        isPercent: this.isPercent,
+        title: this.title,
+        text: this.text,
+        price: this.price,
+        percentage: this.percentage,
+        value: this.value
       })
     },
     resetData() {
+      this.id = this.coupon.id
       this.isPercent = this.coupon.isPercent
       this.title = this.coupon.title
       this.text = this.coupon.text
@@ -141,9 +138,7 @@ input[type="radio"] + span {
 }
 
 
-
-
-input[type="radio"]:checked + span{
+input[type="radio"]:checked + span {
   color: var(--text-color);
   transition: 0.3s;
   font-weight: bold;

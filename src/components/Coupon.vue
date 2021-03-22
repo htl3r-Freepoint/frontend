@@ -20,7 +20,7 @@
               }}
             </h4>
           </div>
-          <h4 class="primary-text font-weight-bold text-nowrap">{{ this.coupon.value + " FP" }}</h4>
+          <h4 class="primary-text font-weight-bold text-nowrap">{{ this.coupon.value }}</h4>
         </footer>
 
       </div>
@@ -34,10 +34,8 @@
 
     </button>
 
-    <modal :id="'modalActionCoupon' + coupon.id">
-      <slot name="modal">
-        <coupon-detail :coupon="coupon"></coupon-detail>
-      </slot>
+    <modal :id="'modalActionCoupon' + coupon.id" v-if="$slots.modal">
+      <slot name="modal"></slot>
     </modal>
 
   </div>
@@ -45,11 +43,10 @@
 
 <script>
 import Modal from "@/components/Modal";
-import CouponDetail from "@/components/CouponDetail";
 
 export default {
   name: "Coupon",
-  components: {CouponDetail, Modal},
+  components: {Modal},
   props: ['coupon'],
   methods: {
     showActionModal() {

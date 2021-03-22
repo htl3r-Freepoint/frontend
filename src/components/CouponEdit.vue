@@ -32,7 +32,7 @@
           <font-awesome-icon icon="pen"/>
         </button>
 
-        <button class="btn btn-danger mt-1">
+        <button class="btn btn-danger mt-1" @click="$store.commit('pushCouponsDelete', coupon)">
           <font-awesome-icon icon="trash"/>
         </button>
       </div>

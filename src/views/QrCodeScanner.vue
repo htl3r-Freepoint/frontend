@@ -1,9 +1,16 @@
 <template>
   <div>
-    <div v-if="error">
-      {{this.error}}
-    </div>
-    <qrcode-stream id="QRScanner" class="my-5" v-else @decode="onDecode" @init="checkCamera"/>
+    <qrcode-stream id="QRScanner" class="my-5" @decode="onDecode" @init="checkCamera"/>
+    <transition name="fade" v-on:enter="enterError">
+      <div class="alert alert-danger" v-if="error">
+        {{ this.error }}
+      </div>
+    </transition>
+    <transition name="fade" v-on:enter="enterSuccess">
+      <div class="alert alert-success" v-if="success">
+        Punkte erfolgreich zugewiesen
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -17,7 +24,7 @@ export default {
   data() {
     return {
       regex: new RegExp("_?R\\d-AT\\d_(.+)_(.+)_(\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2})_(\\d+,\\d{2})_(\\d+,\\d{2})_(\\d+,\\d{2})_(\\d+,\\d{2})_(\\d+,\\d{2})_(.+)={1,2}_(.+)=="),
-      error: ''
+      error: undefined
     }
   },
   methods: {
@@ -33,21 +40,33 @@ export default {
           hash: this.$store.state.user.token
         }).then(result => {
           this.$store.commit('setPoints', result.data)
+          this.success = true
         }).catch(function (error) {
           console.error(error)
+
         })
       } else {
-        console.error("Qrcode is invalid")
+        console.error("Qrcode ist entspricht nicht dem Standart")
       }
     },
     async checkCamera(promise) {
       try {
         await promise
       } catch (error) {
-        this.error = true
+        this.error = error
         console.error(error)
       }
     },
+    enterError() {
+      setTimeout(() => {
+        this.error = undefined;
+      }, 3000);
+    },
+    enterSuccess() {
+      setTimeout(() => {
+        this.success = false;
+      }, 3000);
+    }
   }
 }
 </script>
@@ -63,6 +82,19 @@ export default {
   #QRScanner{
     max-width: 300px;
   }
+}
+
+.alert {
+  width: fit-content;
+  margin: auto;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 1s
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0
 }
 
 </style>
