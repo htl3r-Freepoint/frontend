@@ -34,6 +34,7 @@ const routes = [
                 path: 'settings', component: () => import('@/views/company/Settings.vue'),
                 children: [
                     {path: 'profile', component: () => import('@/views/company/settings/Profile.vue')},
+                    {path: 'register', component: () => import('@/views/company/settings/Register.vue')},
                     {path: 'design', component: () => import('@/views/company/settings/Design')},
                     {path: 'flyer', component: () => import('@/views/company/settings/FlyerCustomizer.vue')},
                     {path: 'location', component: () => import('@/views/company/settings/Location.vue')},

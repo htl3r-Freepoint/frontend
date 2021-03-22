@@ -6,6 +6,10 @@
         <font-awesome-icon icon="user-circle"/>
         <div class="text-left">Profil bearbeiten</div>
       </router-link>
+      <router-link to="/company/settings/register">
+        <font-awesome-icon icon="cash-register"/>
+        <div class="text-left">Kassa verwalten</div>
+      </router-link>
       <router-link to="/company/settings/design">
         <font-awesome-icon icon="palette"/>
         <div class="text-left">Design</div>
@@ -42,6 +46,7 @@ import Submenu from "@/components/Submenu";
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {
   faBookOpen,
+  faCashRegister,
   faChartBar,
   faCompass,
   faInfo,
@@ -50,7 +55,7 @@ import {
   faUserFriends
 } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faInfo, faUserFriends, faCompass, faBookOpen, faChartBar, faPalette, faUserCircle)
+library.add(faInfo, faUserFriends, faCompass, faBookOpen, faChartBar, faPalette, faUserCircle, faCashRegister)
 
 export default {
   name: "Settings",

@@ -33,7 +33,6 @@ export default {
     postData(code) {
       if (this.regex.exec(code)) {
         console.debug(code)
-        //TODO insert API URL
         this.$http.post(this.$store.state.url + '/useCoupon', {
           hash: this.$store.state.user.token,
           code: code
@@ -78,6 +77,15 @@ export default {
   #QRScanner {
     max-width: 300px;
   }
+}
+
+#QRScanner{
+  max-width: 500px;
+  margin: auto;
+  border: 5px solid;
+  padding: 10px;
+  border-color: var(--store-primary);
+  border-radius: 10px;
 }
 
 .alert {

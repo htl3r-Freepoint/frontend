@@ -16,7 +16,6 @@
 
 <script>
 import {QrcodeStream} from 'vue-qrcode-reader'
-import Axios from "axios";
 
 export default {
   name: "QrCodeScannerView",
@@ -36,7 +35,7 @@ export default {
     postData(code) {
       if (this.regex.exec(code)) {
         console.debug(code)
-        Axios.post(this.$store.state.url + '/addQrCode', {
+        this.$http.post(this.$store.state.url + '/addQrCode', {
           code: code,
           hash: this.$store.state.user.token
         }).then(result => {
