@@ -24,7 +24,8 @@ export default {
   data() {
     return {
       regex: new RegExp("_?R\\d-AT\\d_(.+)_(.+)_(\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2})_(\\d+,\\d{2})_(\\d+,\\d{2})_(\\d+,\\d{2})_(\\d+,\\d{2})_(\\d+,\\d{2})_(.+)={1,2}_(.+)=="),
-      error: undefined
+      error: undefined,
+      success: undefined
     }
   },
   methods: {
@@ -46,7 +47,9 @@ export default {
 
         })
       } else {
-        console.error("Qrcode ist entspricht nicht dem Standart")
+        this.error = "Qrcode entspricht nicht dem Standart"
+        console.error(this.error)
+
       }
     },
     async checkCamera(promise) {
