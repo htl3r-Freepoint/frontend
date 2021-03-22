@@ -8,7 +8,7 @@
     </transition>
     <transition name="fade" v-on:enter="enterSuccess">
       <div class="alert alert-success" v-if="success">
-        Gutschein erfolgreich eingelöst
+        Punkte erfolgreich zugewiesen
       </div>
     </transition>
   </div>
@@ -24,7 +24,7 @@ export default {
   data() {
     return {
       regex: new RegExp("_?R\\d-AT\\d_(.+)_(.+)_(\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2})_(\\d+,\\d{2})_(\\d+,\\d{2})_(\\d+,\\d{2})_(\\d+,\\d{2})_(\\d+,\\d{2})_(.+)={1,2}_(.+)=="),
-      error: ''
+      error: undefined
     }
   },
   methods: {
@@ -43,22 +43,23 @@ export default {
           this.success = true
         }).catch(function (error) {
           console.error(error)
+
         })
       } else {
-        console.error("Qrcode is invalid")
+        console.error("Qrcode ist entspricht nicht dem Standart")
       }
     },
     async checkCamera(promise) {
       try {
         await promise
       } catch (error) {
-        this.error = true
+        this.error = error
         console.error(error)
       }
     },
     enterError() {
       setTimeout(() => {
-        this.error = false;
+        this.error = undefined;
       }, 3000);
     },
     enterSuccess() {

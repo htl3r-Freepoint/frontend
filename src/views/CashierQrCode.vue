@@ -60,7 +60,7 @@ export default {
     },
     enterError() {
       setTimeout(() => {
-        this.error = false;
+        this.error = undefined;
       }, 3000);
     }
   }
