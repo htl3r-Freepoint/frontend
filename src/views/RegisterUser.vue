@@ -11,10 +11,9 @@
         </p>
       </div>
     </div>
-
-
-
-
+    <div class="row justify-content-center" v-if="$store.state.loading">
+      <Progressbar></Progressbar>
+    </div>
 
 
   </div>
@@ -22,15 +21,16 @@
 
 <script>
 import FormRegisterUser from "@/components/forms/FormRegisterUser";
+import Progressbar from "@/components/Progressbar";
 
 export default {
   name: "RegisterUser",
-  components: {FormRegisterUser}
+  components: {Progressbar, FormRegisterUser}
 }
 </script>
 
-<style scoped>
-#register{
+<style scoped lang="scss">
+#register {
   padding: 2em;
 }
 </style>

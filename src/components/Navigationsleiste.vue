@@ -9,12 +9,13 @@
         </a>
       </div>
 
-      <div class="col-6 col-sm-3">
+      <div class="col-6 col-sm-3" v-if="this.$store.state.user.token">
         <div id="nav-points" class="font-weight-bold text-nowrap">
           {{ navNumber }}
           <font-awesome-icon icon="receipt"/>
         </div>
       </div>
+      <div class="col-6 col-sm-3" v-else></div>
 
       <navigation-links id="icons-header" class="col-sm-3"></navigation-links>
     </header>

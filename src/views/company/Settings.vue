@@ -58,14 +58,11 @@ export default {
 }
 </script>
 
-<style scoped>
-
-.text-left{
-  padding-left: 1em;
-}
-
-.settings-view{
-
+<style scoped lang="scss">
+nav {
+  div {
+    padding-left: 1em;
+  }
 }
 
 @media (min-width: 576px) {

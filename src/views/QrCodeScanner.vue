@@ -76,13 +76,12 @@ export default {
 #QRScanner{
   max-width: 500px;
   margin: auto;
+  border: 5px solid;
+  padding: 10px;
+  border-color: var(--store-primary);
+  border-radius: 10px;
 }
 
-@media (max-width: 560px) {
-  #QRScanner{
-    max-width: 300px;
-  }
-}
 
 .alert {
   width: fit-content;

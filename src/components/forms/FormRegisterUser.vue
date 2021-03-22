@@ -71,6 +71,7 @@ export default {
     register() {
       if (this.email && this.password && this.passwordConfirm && this.TOS) {
         if (this.password === this.passwordConfirm) {
+          this.$store.commit('setLoading', true)
           this.$http.post(this.$store.state.url + '/registerUser', {
             email: this.email,
             password: this.password,
@@ -81,6 +82,7 @@ export default {
             localStorage.removeItem('user')
             this.$store.commit('setUser', response.data)
             console.debug("Token:", this.$store.state.user)
+            this.$store.commit('setLoading', false)
             if (!this.overwritePathRedirect) window.history.length > 1 ? this.$router.go(-1) : this.$router.push({path: '/'})
           }).catch(error => {
             if (error.response) {

@@ -20,7 +20,7 @@
     </div>
 
     <button type="button" class="btn btn-primary" @click="register()" :disabled="!email && !companyName && !TOS">
-      Register
+      Erstellen
     </button>
 
   </form>
