@@ -31,10 +31,12 @@ export default {
       }
     }
 
-    document.querySelector(':root').style.setProperty(
-        '--store-primary',
-        this.$store.state.design.colorMain
-    )
+    let query = document.querySelector(':root').style
+    let palette = this.$store.state.design
+    query.setProperty('--store-primary', palette.main)
+    query.setProperty('--text-color', palette.text)
+    query.setProperty('--background-color', palette.background)
+    query.setProperty('--banner-color', palette.banner)
   },
   methods: {
     sendVerificationEmail() {
@@ -43,10 +45,10 @@ export default {
         hash: this.$store.state.user.token
       }).catch(error => console.error(error))
     },
-    sendBack(urls){
+    sendBack(urls) {
       window.location.replace(document.location.protocol + '//' + urls.join('.'))
     },
-    loadCompanyInformation(subdir, urls){
+    loadCompanyInformation(subdir, urls) {
       console.debug(urls)
       this.$http.post(this.$store.state.url + "/getCompany", {
         companyName: subdir
@@ -62,7 +64,7 @@ export default {
         this.sendBack(urls)
       })
     },
-    loadUserData(){
+    loadUserData() {
       console.debug("Loading login information from cookies")
       if (localStorage.getItem('user')) {
         this.$store.commit('setUser', JSON.parse(localStorage.getItem('user')))
@@ -108,7 +110,7 @@ p {
   color: var(--store-primary);
 }
 
-html{
+html {
   background: var(--background-color);
 }
 

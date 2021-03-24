@@ -42,7 +42,7 @@
 
       <div class="row p-5 justify-content-around" id="forms">
         <div class="col-md-4 mb-5">
-          <div v-if="this.$store.state.user.token">
+          <div v-if="this.$store.state.user.token && this.$store.state.user.verified">
             <h1 class="mb-4 form-header">Ein Geschäft erstellen</h1>
             <form-register-company class="shadow-lg p-3 bg-white rounded"></form-register-company>
           </div>

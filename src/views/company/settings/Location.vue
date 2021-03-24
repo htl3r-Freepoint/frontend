@@ -19,8 +19,6 @@
 </template>
 
 <script>
-
-import Axios from "axios";
 import Store from "@/components/Store";
 import FormNewStore from "@/components/forms/FormNewStore";
 import Modal from "@/components/Modal";
@@ -52,7 +50,7 @@ export default {
     }
   },
   created() {
-    Axios.post(this.$store.state.url + '/GetBetrieb.json', {
+    this.$http.post(this.$store.state.url + '/getBetrieb', {
       name: 'Schnitzelbude1337',
     }).then(result => {
       console.log(result.data)
@@ -61,7 +59,7 @@ export default {
   },
   methods: {
     saveStores() {
-      Axios.post(this.$store.state.url + "saveBetrieb")
+      this.$http.post(this.$store.state.url + "/saveBetrieb")
     }
   }
 }

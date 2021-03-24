@@ -47,7 +47,6 @@
     <div v-if="$store.state.couponsEdit.length > 0">
       <div class="d-flex flex-row justify-content-between border-bottom">
         <h2 class="text-left">
-          <font-awesome-icon icon="pen"/>
           Ändern
         </h2>
         <button @click="sendCouponArray(

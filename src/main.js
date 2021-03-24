@@ -15,6 +15,7 @@ Vue.component('font-awesome-layers-text', FontAwesomeLayersText)
 import Axios from "axios";
 import $ from 'jquery'
 import './registerServiceWorker'
+import Palette from "@/assets/classes/Palette";
 
 Vue.use(Vuex)
 
@@ -65,12 +66,7 @@ const store = new Vuex.Store({
             logo: undefined
         },
         points: 0,
-        design: {
-            colorMain: "#10cdb7",
-            colorText: "#2c3e50",
-            colorBackground: "#FAFAFA",
-            colorBanner: "#ffffff",
-        },
+        design: new Palette('#10cdb7', '#2c3e50', '#fafafa', '#ffffff'),
         coupons: [],
         couponsNew: [],
         couponsEdit: [],
@@ -82,6 +78,9 @@ const store = new Vuex.Store({
         },
         getPoints(state) {
             return state.points
+        },
+        getDesign(state) {
+            return state.design
         }
     },
     mutations: {
@@ -107,6 +106,9 @@ const store = new Vuex.Store({
         },
         setPoints(state, number) {
             state.points = number
+        },
+        setDesign(state, design) {
+            state.design = design
         },
         setColorMain(state, color) {
             state.design.colorMain = color

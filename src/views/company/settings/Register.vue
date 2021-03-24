@@ -13,7 +13,7 @@
         </div>
       </transition>
     </div>
-    <table class="col">
+    <table class="col" v-if="registers.length > 0">
       <tr>
         <th>Kassa ID</th>
         <th></th>

@@ -1,55 +1,37 @@
 <template>
   <div>
-    <fp-input label="Vorgefertigte Designs"
-              description="Dies sind vorgefertigte Farbpaletten mit denen Sie nichts falsch machen können.">
-      <button @click="setDesign('#B0b0b0', '#5c5c5c', '#F5f5f5', '#ffffff')" class="form-control p-0">
-        <farbpalette main="#dbdbdb" text="#5c5c5c" background="#F5f5f5" banner="#ffffff"></farbpalette>
+    <label class="font-weight-bold d-block text-left">Vorgefertigte Designs</label>
+    <div class="d-flex">
+      <button v-for="(palette, id) in predefinedPallettes" :key="id"
+              @click="setDesign(palette)"
+              class="form-control p-0 m-1">
+        <farbpalette :palette="palette"></farbpalette>
       </button>
-      <button @click="setDesign('#10cdb7', '#2c3e50', '#fafafa', '#ffffff')" class="form-control p-0">
-        <farbpalette main="#10cdb7" text="#2c3e50" background="#fafafa" banner="#ffffff"></farbpalette>
-      </button>
-      <button @click="setDesign('#B72424', '#000000', '#B45555', '#ffffff')" class="form-control p-0">
-        <farbpalette main="#0f61cc" text="#2c3e50" background="#fafafa" banner="#ffffff"></farbpalette>
-      </button>
-      <button @click="setDesign('#424242', '#000000', '#000000', '#ffffff')" class="form-control p-0">
-        <farbpalette main="#Cc0f0f" text="#2c3e50" background="#fafafa" banner="#ffffff"></farbpalette>
-      </button>
-      <button @click="setDesign('#07575b', '#003b46', '#66a5ad', '#C4dfe6')" class="form-control p-0">
-        <farbpalette main="#000000" text="#2c3e50" background="#fafafa" banner="#ffffff"></farbpalette>
-      </button>
-      <button @click="setDesign('#Aaa188', '#665f57', '#Eae2d6', '#D5c3aa')" class="form-control p-0">
-        <farbpalette main="#Aaa188" text="#81786e" background="#Eae2d6" banner="#D5c3aa"></farbpalette>
-      </button>
-      <button @click="setDesign('#3b0156', '#4b2867', '#E0dfff', '#A99acb')" class="form-control p-0">
-        <farbpalette main="#Cd7213" text="#2c3e50" background="#fafafa" banner="#ffffff"></farbpalette>
-      </button>
-      <button @click="setDesign('#Ff7700', '#16253d', '#Ffbf66', '#ffffff')" class="form-control p-0">
-        <farbpalette main="#D1b280" text="#2c3e50" background="#fafafa" banner="#ffffff"></farbpalette>
-      </button>
-      <button @click="setDesign('#008509', '#000000', '#64be6f', '#ffffff')" class="form-control p-0">
-        <farbpalette main="#008509" text="#2c3e50" background="#fafafa" banner="#ffffff"></farbpalette>
-      </button>
-    </fp-input>
+    </div>
+    <small class="form-text text-muted text-left mb-4">
+      Dies sind vorgefertigte Farbpaletten mit denen Sie nichts falsch machen können.
+    </small>
 
-    <fp-input label="Primärfarbe"
+    <fp-input label="Primär-Farbe"
               description="Die Primärfarbe bestimmt das grundlegende Aussehen ihrer Seite. Sie wird auf Buttons und als Akzentfarbe bei verschiedenen Elementen benutzt.">
       <font-awesome-icon slot="prepend" icon="palette"/>
-      <input @change="setColor" type="color" :value="color.toString()" class="form-control">
+      <input @change="setColorMain" type="color" :value="design.colorMain" class="form-control">
     </fp-input>
 
-    <fp-input label="Textfarbe" description="Mit dieser Auswahl verändern Sie die Farbe des Textes.">
+    <fp-input label="Text-Farbe" description="Mit dieser Auswahl verändern Sie die Farbe des Textes.">
       <font-awesome-icon slot="prepend" icon="palette"/>
-      <input @change="setTextColor" type="color" :value="textColor.toString()" class="form-control">
+      <input @change="setColorText" type="color" :value="design.colortext" class="form-control">
     </fp-input>
 
-    <fp-input label="Hintergrundfarbe" description="Mit dieser Auswahl bestimmen Sie die Hintergrundfarbe.">
+    <fp-input label="Hintergrund-Farbe" description="Mit dieser Auswahl bestimmen Sie die Hintergrundfarbe.">
       <font-awesome-icon slot="prepend" icon="palette"/>
-      <input @change="setBackgroundColor" type="color" :value="backgroundColor.toString()" class="form-control">
+      <input @change="setColorBackground" type="color" :value="design.colorBackground" class="form-control">
     </fp-input>
 
-    <fp-input label="Banner-Farbe" description="Mit dieser Auswahl verändern Sie die Farbe des Banners bzw. der Navigationsleiste.">
+    <fp-input label="Banner-Farbe"
+              description="Mit dieser Auswahl verändern Sie die Farbe des Banners bzw. der Navigationsleiste.">
       <font-awesome-icon slot="prepend" icon="palette"/>
-      <input @change="setBannerColor" type="color" :value="bannerColor.toString()" class="form-control">
+      <input @change="setColorBanner" type="color" :value="design.colorBanner" class="form-control">
     </fp-input>
   </div>
 </template>
@@ -60,6 +42,8 @@ import {library} from "@fortawesome/fontawesome-svg-core";
 import {faPalette} from "@fortawesome/free-solid-svg-icons";
 import Farbpalette from "@/components/Farbpalette";
 
+import Palette from '@/assets/classes/Palette'
+
 library.add(faPalette)
 
 export default {
@@ -67,81 +51,70 @@ export default {
   components: {Farbpalette, FpInput},
   data: function () {
     return {
-      color: '',
-      textColor: '',
-      backgroundColor: '',
-      bannerColor: '',
+      predefinedPallettes: [
+        new Palette('#10cdb7', '#2c3e50', '#fafafa', '#ffffff'),
+        new Palette('#B0b0b0', '#5c5c5c', '#F5f5f5', '#ffffff'),
+        new Palette('#B72424', '#000000', '#B45555', '#ffffff'),
+        new Palette('#424242', '#000000', '#000000', '#ffffff'),
+        new Palette('#07575b', '#003b46', '#66a5ad', '#C4dfe6'),
+        new Palette('#Aaa188', '#665f57', '#Eae2d6', '#D5c3aa'),
+        new Palette('#3b0156', '#4b2867', '#E0dfff', '#A99acb'),
+        new Palette('#Ff7700', '#16253d', '#Ffbf66', '#ffffff'),
+        new Palette('#008509', '#000000', '#64be6f', '#ffffff')
+      ],
+      design: new Palette('#10cdb7', '#2c3e50', '#fafafa', '#ffffff'),
+      query: document.querySelector(':root').style
     }
   },
   created() {
-    this.color = this.$store.state.design.colorMain
-    this.textColor = this.$store.state.design.colorText
-    this.backgroundColor = this.$store.state.design.colorBackground
-    this.bannerColor = this.$store.state.design.colorBanner
-    console.debug(this.color)
+
   },
+  /*beforeRouteLeave(to, from, next){
+
+  },*/
   methods: {
-    setDesign(main, text, background, banner) {
-      this.$store.commit('setColorMain', main)
-      document.querySelector(':root').style.setProperty(
-          '--store-primary',
-          this.$store.state.design.colorMain
-      )
-      this.$store.commit('setColorText', text)
-      document.querySelector(':root').style.setProperty(
-          '--text-color',
-          this.$store.state.design.colorText
-      )
-      this.$store.commit('setColorBackground', background)
-      document.querySelector(':root').style.setProperty(
-          '--background-color',
-          this.$store.state.design.colorBackground
-      )
-      this.$store.commit('setColorBanner', banner)
-      document.querySelector(':root').style.setProperty(
-          '--banner-color',
-          this.$store.state.design.colorBanner
-      )
-      this.color = this.$store.state.design.colorMain
-      this.textColor = this.$store.state.design.colorText
-      this.backgroundColor = this.$store.state.design.colorBackground
-      this.bannerColor = this.$store.state.design.colorBanner
+    setDesign(palette) {
+      console.debug("Setting styles")
+
+      this.$store.commit('setDesign', palette.main, palette.text, palette.background, palette.banner)
+      console.debug("Design", this.design)
+      this.designTemp = this.$store.state.design
+      console.debug("DesignTemp", this.designTemp)
+      console.debug("Design", this.design)
+
+      this.query.setProperty('--store-primary', palette.main)
+      this.query.setProperty('--text-color', palette.text)
+      this.query.setProperty('--background-color', palette.background)
+      this.query.setProperty('--banner-color', palette.banner)
     },
-    setColor(event) {
-      console.log(event.target.value)
-      this.color = event.target.value
-      this.$store.commit('setColorMain', this.color)
-      document.querySelector(':root').style.setProperty(
-          '--store-primary',
-          this.$store.state.design.colorMain
-      )
+    setColorMain(event) {
+      console.debug(this.design)
+      let color = event.target.value
+      console.debug(color)
+      this.design.colorMain = color
+      this.$store.commit('setColorMain', color)
+      this.query.setProperty('--store-primary', color)
     },
-    setTextColor(event) {
-      console.log(event.target.value)
-      this.textColor = event.target.value
-      this.$store.commit('setColorText', this.textColor)
-      document.querySelector(':root').style.setProperty(
-          '--text-color',
-          this.$store.state.design.colorText
-      )
+    setColorText(event) {
+      let color = event.target.value
+      console.debug(color)
+      this.design.colortext = color
+      this.$store.commit('setColorText', color)
+      this.query.setProperty('--text-color', color)
     },
-    setBackgroundColor(event) {
-      console.log(event.target.value)
-      this.backgroundColor = event.target.value
-      this.$store.commit('setColorBackground', this.backgroundColor)
-      document.querySelector(':root').style.setProperty(
-          '--background-color',
-          this.$store.state.design.colorBackground
-      )
+    setColorBackground(event) {
+      let color = event.target.value
+      console.debug(color)
+      this.design.colorBackground = color
+      this.$store.commit('setColorBackground', color)
+      this.query.setProperty('--background-color', color)
     },
-    setBannerColor(event) {
-      console.log(event.target.value)
-      this.bannerColor = event.target.value
-      this.$store.commit('setColorBanner', this.bannerColor)
-      document.querySelector(':root').style.setProperty(
-          '--banner-color',
-          this.$store.state.design.colorBanner
-      )
+    setColorBanner(event) {
+      let color = event.target.value
+      console.debug(color)
+      this.design.colorBanner = color
+      this.$store.commit('setColorBanner', color)
+      this.query.setProperty('--banner-color', color)
     }
   }
 }
@@ -150,4 +123,7 @@ export default {
 </script>
 
 <style lang="scss">
+label {
+  color: var(--text-color);
+}
 </style>

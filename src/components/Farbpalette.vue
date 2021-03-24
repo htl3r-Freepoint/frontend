@@ -1,68 +1,51 @@
 <template>
   <div id="grid">
-      <div class="main"></div>
-      <div class="text"></div>
-      <div class="background"></div>
-      <div class="banner"></div>
+    <div :style="main"/>
+    <div :style="text"/>
+    <div :style="background"/>
+    <div :sytel="banner"/>
   </div>
 </template>
 
 <script>
+import Palette from '@/assets/classes/Palette'
+
 export default {
   name: "farbpalette",
-  props: ['main', 'text', 'background', 'banner'],
-  created() {
-    /**
-    document.getElementById('#grid').style.setProperty(
-        '--main',
-        this.main
-    )
-    document.querySelector('#grid').style.setProperty(
-        '--text',
-        this.text
-    )
-    document.querySelector('#grid').style.setProperty(
-        '--background',
-        this.background
-    )
-    document.querySelector('#grid').style.setProperty(
-        '--banner',
-        this.banner
-    )*/
+  props: {
+    palette: Palette
+  },
+  data() {
+    return {
+      main: {
+        backgroundColor: this.palette.main
+      },
+      text: {
+        backgroundColor: this.palette.text
+      },
+      background: {
+        backgroundColor: this.palette.background
+      },
+      banner: {
+        backgroundColor: this.palette.banner
+      }
+    }
   }
 }
 </script>
 
 <style scoped lang="scss">
 
-#grid{
+#grid {
+  height: 100%;
+  width: 100%;
   display: grid;
   padding: 0;
-  grid-auto-rows: minmax(0.8em, auto);
-  --main: #07575b;
-  --text: #003b46;
-  --background: #66a5ad;
-  --banner: #C4dfe6;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto;
 
-  .main{
-    background-color: var(--main);
-    grid-column: 1;
-    grid-row: 1;
-  }
-  & .text{
-    background-color: var(--text);
-    grid-column: 2;
-    grid-row: 1;
-  }
-  & .background{
-    background-color: var(--background);
-    grid-column: 1;
-    grid-row: 2;
-  }
-  & .banner{
-    background-color: var(--banner);
-    grid-column: 2;
-    grid-row: 2;
+  div:first-child {
+    grid-column: span 3;
   }
 }
 </style>
