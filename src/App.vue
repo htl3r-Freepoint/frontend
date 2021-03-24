@@ -41,9 +41,8 @@ export default {
         hash: this.$store.state.user.token
       }).catch(error => console.error(error))
     },
-    // eslint-disable-next-line no-unused-vars
     sendBack(urls) {
-      /*window.location.replace(document.location.protocol + '//' + urls.join('.'))*/
+      window.location.replace(document.location.protocol + '//' + urls.join('.'))
     },
     loadCompanyInformation(subdir, urls) {
       console.debug("Loading company information")
