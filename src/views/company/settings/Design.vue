@@ -11,28 +11,31 @@
     <small class="form-text text-muted text-left mb-4">
       Dies sind vorgefertigte Farbpaletten mit denen Sie nichts falsch machen können.
     </small>
+    <form>
+      <fp-input label="Primär-Farbe"
+                description="Die Primärfarbe bestimmt das grundlegende Aussehen ihrer Seite. Sie wird auf Buttons und als Akzentfarbe bei verschiedenen Elementen benutzt.">
+        <font-awesome-icon slot="prepend" icon="palette"/>
+        <input @change="setColorMain" type="color" :value="design.main" class="form-control">
+      </fp-input>
 
-    <fp-input label="Primär-Farbe"
-              description="Die Primärfarbe bestimmt das grundlegende Aussehen ihrer Seite. Sie wird auf Buttons und als Akzentfarbe bei verschiedenen Elementen benutzt.">
-      <font-awesome-icon slot="prepend" icon="palette"/>
-      <input @change="setColorMain" type="color" :value="design.colorMain" class="form-control">
-    </fp-input>
+      <fp-input label="Text-Farbe" description="Mit dieser Auswahl verändern Sie die Farbe des Textes.">
+        <font-awesome-icon slot="prepend" icon="palette"/>
+        <input @change="setColorText" type="color" :value="design.text" class="form-control">
+      </fp-input>
 
-    <fp-input label="Text-Farbe" description="Mit dieser Auswahl verändern Sie die Farbe des Textes.">
-      <font-awesome-icon slot="prepend" icon="palette"/>
-      <input @change="setColorText" type="color" :value="design.colortext" class="form-control">
-    </fp-input>
+      <fp-input label="Hintergrund-Farbe" description="Mit dieser Auswahl bestimmen Sie die Hintergrundfarbe.">
+        <font-awesome-icon slot="prepend" icon="palette"/>
+        <input @change="setColorBackground" type="color" :value="design.background" class="form-control">
+      </fp-input>
 
-    <fp-input label="Hintergrund-Farbe" description="Mit dieser Auswahl bestimmen Sie die Hintergrundfarbe.">
-      <font-awesome-icon slot="prepend" icon="palette"/>
-      <input @change="setColorBackground" type="color" :value="design.colorBackground" class="form-control">
-    </fp-input>
+      <fp-input label="Banner-Farbe"
+                description="Mit dieser Auswahl verändern Sie die Farbe des Banners bzw. der Navigationsleiste.">
+        <font-awesome-icon slot="prepend" icon="palette"/>
+        <input @change="setColorBanner" type="color" :value="design.banner" class="form-control">
+      </fp-input>
 
-    <fp-input label="Banner-Farbe"
-              description="Mit dieser Auswahl verändern Sie die Farbe des Banners bzw. der Navigationsleiste.">
-      <font-awesome-icon slot="prepend" icon="palette"/>
-      <input @change="setColorBanner" type="color" :value="design.colorBanner" class="form-control">
-    </fp-input>
+      <button type="button" class="btn btn-primary" @click="savePalette">Speichern</button>
+    </form>
   </div>
 </template>
 
@@ -67,20 +70,14 @@ export default {
     }
   },
   created() {
-
+    this.design = this.$store.getters.getDesign
+    console.debug(this.design)
   },
-  /*beforeRouteLeave(to, from, next){
-
-  },*/
   methods: {
     setDesign(palette) {
       console.debug("Setting styles")
-
-      this.$store.commit('setDesign', palette.main, palette.text, palette.background, palette.banner)
-      console.debug("Design", this.design)
-      this.designTemp = this.$store.state.design
-      console.debug("DesignTemp", this.designTemp)
-      console.debug("Design", this.design)
+      this.design = palette
+      this.$store.commit('setDesign', palette)
 
       this.query.setProperty('--store-primary', palette.main)
       this.query.setProperty('--text-color', palette.text)
@@ -91,30 +88,41 @@ export default {
       console.debug(this.design)
       let color = event.target.value
       console.debug(color)
-      this.design.colorMain = color
+      this.design.main = color
       this.$store.commit('setColorMain', color)
       this.query.setProperty('--store-primary', color)
     },
     setColorText(event) {
       let color = event.target.value
       console.debug(color)
-      this.design.colortext = color
+      this.design.text = color
       this.$store.commit('setColorText', color)
       this.query.setProperty('--text-color', color)
     },
     setColorBackground(event) {
       let color = event.target.value
       console.debug(color)
-      this.design.colorBackground = color
+      this.design.background = color
       this.$store.commit('setColorBackground', color)
       this.query.setProperty('--background-color', color)
     },
     setColorBanner(event) {
       let color = event.target.value
       console.debug(color)
-      this.design.colorBanner = color
+      this.design.banner = color
       this.$store.commit('setColorBanner', color)
       this.query.setProperty('--banner-color', color)
+    },
+    savePalette() {
+      console.debug(JSON.stringify(this.design.toArray()))
+      this.$http.post(this.$store.state.url + '/saveDesign', {
+        hash: this.$store.state.user.token,
+        farbcode: JSON.stringify(this.design.toArray()),
+        companyName: this.$store.state.company.companyName
+      }).then(result => {
+        console.log(result)
+
+      })
     }
   }
 }

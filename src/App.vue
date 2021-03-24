@@ -17,11 +17,13 @@ export default {
   components: {Navigationsleiste},
   created() {
     //Init Company
+    this.loadUserData()
+
     const browserUrl = window.location.host.split('.')
     if (browserUrl.length > 1) {
       let subdir = browserUrl.shift()
-      console.log([subdir])
-      console.debug(browserUrl)
+      console.log("Company URL:", subdir)
+      console.debug("Other URLs:",browserUrl)
       let forbiddenDomains = ['freepoint', 'www', 'localhost', 'localhost:8080']
       if (!forbiddenDomains.includes(subdir)) {
         this.loadCompanyInformation(subdir, browserUrl)
@@ -30,13 +32,7 @@ export default {
         this.sendBack(browserUrl)
       }
     }
-
-    let query = document.querySelector(':root').style
-    let palette = this.$store.state.design
-    query.setProperty('--store-primary', palette.main)
-    query.setProperty('--text-color', palette.text)
-    query.setProperty('--background-color', palette.background)
-    query.setProperty('--banner-color', palette.banner)
+    this.loadColorPalette()
   },
   methods: {
     sendVerificationEmail() {
@@ -45,11 +41,12 @@ export default {
         hash: this.$store.state.user.token
       }).catch(error => console.error(error))
     },
+    // eslint-disable-next-line no-unused-vars
     sendBack(urls) {
-      window.location.replace(document.location.protocol + '//' + urls.join('.'))
+      /*window.location.replace(document.location.protocol + '//' + urls.join('.'))*/
     },
     loadCompanyInformation(subdir, urls) {
-      console.debug(urls)
+      console.debug("Loading company information")
       this.$http.post(this.$store.state.url + "/getCompany", {
         companyName: subdir
       }).then(response => {
@@ -57,10 +54,9 @@ export default {
         console.debug("Saving company information")
         this.$store.commit('setCompany', response.data.company)
         console.debug("Company saved", this.$store.state.company)
-        this.loadUserData()
+        this.getUserPoints()
       }).catch(error => {
         console.error(error)
-        console.debug(urls)
         this.sendBack(urls)
       })
     },
@@ -68,10 +64,9 @@ export default {
       console.debug("Loading login information from cookies")
       if (localStorage.getItem('user')) {
         this.$store.commit('setUser', JSON.parse(localStorage.getItem('user')))
-        console.debug("Loading login information from cookies completed")
-        this.getUserPoints()
+        console.debug("Loading login information completed")
       } else {
-        console.debug('Loading login information from cookies abandoned.')
+        console.debug('Loading login information abandoned')
       }
     },
     getUserPoints() {
@@ -86,6 +81,14 @@ export default {
           console.debug(error)
         })
       }
+    },
+    loadColorPalette(){
+      let query = document.querySelector(':root').style
+      let palette = this.$store.state.company.design.colorPalette
+      query.setProperty('--store-primary', palette.main)
+      query.setProperty('--text-color', palette.text)
+      query.setProperty('--background-color', palette.background)
+      query.setProperty('--banner-color', palette.banner)
     }
   }
 }

@@ -5,4 +5,8 @@ export default class Palette {
         this.background = background
         this.banner = banner
     }
+
+    toArray(){
+        return [this.main, this.text, this.background, this.banner]
+    }
 }

@@ -63,10 +63,12 @@ const store = new Vuex.Store({
             contactMail: undefined,
             conversionRate: undefined,
             domain: undefined,
-            logo: undefined
+            design: {
+                logo: undefined,
+                colorPalette: new Palette('#10cdb7', '#2c3e50', '#fafafa', '#ffffff')
+            }
         },
         points: 0,
-        design: new Palette('#10cdb7', '#2c3e50', '#fafafa', '#ffffff'),
         coupons: [],
         couponsNew: [],
         couponsEdit: [],
@@ -80,7 +82,7 @@ const store = new Vuex.Store({
             return state.points
         },
         getDesign(state) {
-            return state.design
+            return state.company.design.colorPalette
         }
     },
     mutations: {
@@ -103,24 +105,26 @@ const store = new Vuex.Store({
         },
         setCompany(state, company) {
             state.company = company
+            let tmp = JSON.parse(company.design.colorPalette)
+            state.company.design.colorPalette = new Palette(tmp[0], tmp[1], tmp[2], tmp[3])
         },
         setPoints(state, number) {
             state.points = number
         },
         setDesign(state, design) {
-            state.design = design
+            state.company.design.colorPalette = design
         },
         setColorMain(state, color) {
-            state.design.colorMain = color
+            state.company.design.colorPalettemain = color
         },
         setColorText(state, color) {
-            state.design.colorText = color
+            state.company.design.colorPalette.text = color
         },
         setColorBackground(state, color) {
-            state.design.colorBackground = color
+            state.company.design.colorPalette.background = color
         },
         setColorBanner(state, color) {
-            state.design.colorBanner = color
+            state.company.design.colorPalette.banner = color
         },
         setCoupons(state, coupons) {
             state.coupons = coupons
