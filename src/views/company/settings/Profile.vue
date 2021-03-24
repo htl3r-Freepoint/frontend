@@ -31,14 +31,13 @@
       <font-awesome-icon slot="append" icon="euro-sign"/>
     </fp-input>
 
-    <button type="submit" class="btn btn-primary">Speichern</button>
+    <button type="submit" class="btn btn-primary"  @click="saveChanges">Speichern</button>
   </form>
 
 </template>
 
 <script>
 import FpInput from "@/components/Form Components/FpInput";
-import Axios from "axios";
 
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {faImage, faSign, faEnvelope, faEuroSign, faReceipt} from "@fortawesome/free-solid-svg-icons";
@@ -58,18 +57,23 @@ export default {
     }
   },
   created() {
-    Axios.get(this.$store.state.url + "/changeFirma", {
-      token: this.$store.state.token,
-      companyName: ''
+    this.$http.post(this.$store.state.url + "/getCompany", {
+      hash: this.$store.state.user.token
+    }).then(response => {
+      console.debug("Response:", response.data)
+      this.companyName = response.data.companyName
+      this.email = response.data.contactMail
+      this.exchangeRate = response.data.conversionRate
     })
   },
   methods: {
     onFileChange(event) {
       this.logo = event.target.files[0]
       this.url = URL.createObjectURL(this.logo)
+      this.$store.commit('setLogo', this.url)
     },
     saveChanges() {
-      Axios.post(this.$store.state.url + "/changeFirma", {
+      this.$http.post(this.$store.state.url + "/changeCompany", {
         token: this.$store.state.token,
         logo: this.logo,
         companyName: this.companyName,

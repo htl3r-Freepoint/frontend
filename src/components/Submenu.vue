@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" id="submenu">
 
     <div class="navbar navbar-expand-lg navbar-light mobile">
       <div class="row justify-content-between mb-1">
@@ -58,6 +58,10 @@ export default {
 
   .desktop {
     display: none;
+  }
+
+  #submenu{
+    margin-bottom: 80px;
   }
 }
 

@@ -5,7 +5,7 @@
     <header id="nav-header" class="justify-content-center py-2">
       <div class="col-6 col-sm-3">
         <a href="/">
-          <img src="../assets/icons/Schriftzug.svg" height="30">
+          {{this.$store.state.company.logo}}
         </a>
       </div>
 

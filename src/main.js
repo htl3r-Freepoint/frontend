@@ -122,6 +122,9 @@ const store = new Vuex.Store({
         setColorBanner(state, color) {
             state.design.colorBanner = color
         },
+        setLogo(state, logo){
+          state.company.logo = logo
+        },
         setCoupons(state, coupons) {
             state.coupons = coupons
         },
