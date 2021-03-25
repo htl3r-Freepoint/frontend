@@ -1,19 +1,21 @@
 <template>
   <div class="container">
-    <div class="d-flex justify-content-between">
-      <h2 class="text-uppercase font-weight-bold">
+    <div class="d-flex justify-content-between pb-5 row">
+      <h2 class="text-uppercase font-weight-bold col-sm  mt-3">
         {{ $store.state.company.companyName ? $store.state.company.companyName : "ERROR: no Company selected" }}
       </h2>
-      <router-link class="btn btn-primary" to="/cashier" v-if="editRights > 0">
-        <font-awesome-icon icon="qrcode"/>
-      </router-link>
-      <div class="d-flex justify-content-end" v-if="editRights === 2 || editRights === 3">
-        <router-link class="btn btn-primary mr-1" to="/company/coupons/edit">
-          <font-awesome-icon icon="pen"/>
+      <div class="d-flex justify-content-end col-sm mt-3">
+        <router-link class="btn btn-primary mr-2" to="/cashier" v-if="editRights > 0">
+          <font-awesome-icon icon="qrcode"/>
         </router-link>
-        <router-link class="btn btn-primary" to="/company/settings/profile">
-          <font-awesome-icon icon="cog"/>
-        </router-link>
+        <div v-if="editRights === 2 || editRights === 3">
+          <router-link class="btn btn-primary mr-2" to="/company/coupons/edit">
+            <font-awesome-icon icon="pen"/>
+          </router-link>
+          <router-link class="btn btn-primary" to="/company/settings/profile">
+            <font-awesome-icon icon="cog"/>
+          </router-link>
+        </div>
       </div>
     </div>
 
@@ -44,7 +46,9 @@
           <div class="container">
             <div class="row control-buttons justify-content-between">
               <button type="button" class="col-5 btn btn-danger font-weight-bold" data-dismiss="modal">Zurück</button>
-              <button type="button" class="col-5 btn btn-primary font-weight-bold" data-dismiss="modal" @click="buyCoupon(coupon.id)" :disabled="$store.state.points < coupon.value">Kaufen</button>
+              <button type="button" class="col-5 btn btn-primary font-weight-bold" data-dismiss="modal"
+                      @click="buyCoupon(coupon.id)" :disabled="$store.state.points < coupon.value">Kaufen
+              </button>
             </div>
           </div>
         </div>
@@ -52,7 +56,6 @@
     </div>
 
     <modal id="lastCoupon">
-      hekp
       <vue-qr-code :value="lastCoupon.code"/>
     </modal>
 
@@ -84,7 +87,7 @@ export default {
   },
   methods: {
     getData() {
-      console.debug('Company:',this.$store.state.company.companyName)
+      console.debug('Company:', this.$store.state.company.companyName)
       this.$http.post(this.$store.state.url + "/getRabatt", {
         hash: this.$store.state.user.token ? this.$store.state.user.token : undefined,
         firmenname: this.$store.state.company.companyName
@@ -94,7 +97,7 @@ export default {
         this.editRights = response.data.editRights
       })
     },
-    buyCoupon(id){
+    buyCoupon(id) {
       this.$http.post(this.$store.state.url + "/buyCoupon", {
         hash: this.$store.state.user.token ? this.$store.state.user.token : undefined,
         firmenname: this.$store.state.company.companyName,

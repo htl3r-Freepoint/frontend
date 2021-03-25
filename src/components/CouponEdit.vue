@@ -2,7 +2,7 @@
   <div class="coupon">
     <div class="card">
       <div class="card-body text-left d-flex flex-column justify-content-between pb-1">
-        <div>
+        <div class="pr-2">
           <h4 class="font-weight-bold">{{ this.coupon.title }}</h4>
           <p>{{ this.coupon.text }}</p>
         </div>

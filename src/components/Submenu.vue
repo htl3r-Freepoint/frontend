@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" id="submenu">
 
     <div class="navbar navbar-expand-lg navbar-light mobile">
       <div class="row justify-content-between mb-1">
@@ -51,13 +51,17 @@ export default {
   display: block;
 }
 
-@media (max-width: 560px) {
+@media (max-width: 576px) {
   .mobile {
     display: block;
   }
 
   .desktop {
     display: none;
+  }
+
+  #submenu{
+    margin-bottom: 80px;
   }
 }
 

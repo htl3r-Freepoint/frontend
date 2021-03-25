@@ -2,7 +2,7 @@
 
   <form>
     <div id="preview">
-      <img v-if="url" :src="url"/>
+      <img v-if="this.$store.state.company.logo" :src="url"/>
     </div>
 
     <fp-input label="Logo"
@@ -32,7 +32,7 @@
     </fp-input>
 
     <div class="d-flex justify-content-center">
-      <button type="button" class="btn btn-primary">Speichern</button>
+      <button type="button" class="btn btn-primary" @click="saveChanges">Speichern</button>
       <button type="button" class="btn btn-danger font-weight-bold" @click="modalDelete">Firma Löschen</button>
     </div>
 
@@ -50,7 +50,6 @@
 
 <script>
 import FpInput from "@/components/Form Components/FpInput";
-import Axios from "axios";
 
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {faImage, faSign, faEnvelope, faEuroSign, faReceipt} from "@fortawesome/free-solid-svg-icons";
@@ -72,6 +71,15 @@ export default {
     }
   },
   created() {
+    this.$http.post(this.$store.state.url + "/getCompany", {
+      hash: this.$store.state.user.token,
+      companyName: this.$store.state.company.companyName
+    }).then(response => {
+      console.debug("Response:", response.data)
+      this.companyName = response.data.company.companyName
+      this.email = response.data.company.contactMail
+      this.exchangeRate = response.data.company.conversionRate
+    })
   },
   methods: {
     modalDelete() {
@@ -80,14 +88,15 @@ export default {
     onFileChange(event) {
       this.logo = event.target.files[0]
       this.url = URL.createObjectURL(this.logo)
+      this.$store.commit('setLogo', this.url)
     },
     saveChanges() {
-      Axios.post(this.$store.state.url + "/changeFirma", {
-        token: this.$store.state.token,
-        logo: this.logo,
+      this.$http.post(this.$store.state.url + "/updateCompany", {
+        hash: this.$store.state.user.token,
         companyName: this.companyName,
-        email: this.email,
-        exchangeRate: this.exchangeRate
+        contactMail: this.email,
+        conversionRate: this.exchangeRate,
+        logo: this.url
       }).then(response => {
         console.debug(response)
       }).catch(error => {

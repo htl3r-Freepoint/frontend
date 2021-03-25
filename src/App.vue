@@ -99,7 +99,7 @@ export default {
 :root {
   --store-primary: #10cdb7;
   --text-color: #153E73;
-  --background-color: #FAFAFA;
+  --background-color: #fafafa;
   --banner-color: #ffffff;
   --flyer-color: #aaa;
 }
@@ -117,7 +117,7 @@ html {
 }
 
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Arial;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

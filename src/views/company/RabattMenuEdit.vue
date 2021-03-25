@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" id="rabatt-menu-edit">
     <div class="d-flex justify-content-between">
       <h2 class="text-uppercase font-weight-bold">
         {{ $store.state.company.companyName ? $store.state.company.companyName : "ERROR: no Company selected" }}
@@ -29,7 +29,7 @@
 
     <!--NEW-->
     <div v-if="$store.state.couponsNew.length > 0">
-      <div class="d-flex flex-row justify-content-between border-bottom">
+      <div class="d-flex flex-row justify-content-between border-bottom edit-headline">
         <h2 class="text-left">Neu</h2>
         <button @click="sendCouponArray(
             '/newCoupon', $store.state.couponsNew,'resetCouponNew'
@@ -45,7 +45,7 @@
 
     <!--Edit-->
     <div v-if="$store.state.couponsEdit.length > 0">
-      <div class="d-flex flex-row justify-content-between border-bottom">
+      <div class="d-flex flex-row justify-content-between border-bottom edit-headline">
         <h2 class="text-left">
           Ändern
         </h2>
@@ -63,7 +63,7 @@
 
     <!--Edit-->
     <div v-if="$store.state.couponsDelete.length > 0">
-      <div class="d-flex flex-row justify-content-between border-bottom">
+      <div class="d-flex flex-row justify-content-between border-bottom edit-headline">
         <h2 class="text-left">
           Löschen
         </h2>
@@ -143,6 +143,18 @@ export default {
 
 #coupon-container {
   padding: 0.2rem 1.2rem;
+}
+
+@media (max-width: 560px) {
+  #rabatt-menu-edit {
+    margin-bottom: 80px;
+  }
+}
+
+.edit-headline{
+  margin-top: 3em;
+  border-color: var(--store-primary) !important;
+  border-width: 3px !important;
 }
 
 .add-coupon {
