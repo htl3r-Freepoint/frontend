@@ -1,16 +1,16 @@
 <template>
   <div>
-    <div id="statBar">
-      <div v-tooltip.hover:top="'Gescannte Rechnungen'">
-        {{ data.scanned }}
-      </div>
-      <div v-tooltip.hover:top="'Gekaufte Rabatte'">
-        {{ data.bought }}
-      </div>
-      <div v-tooltip.hover:top="'Eingelöste Rabatte'">
-        {{ data.used }}
-      </div>
-    </div>
+    <!--    <div id="statBar">
+          <div v-tooltip.hover:top="'Gescannte Rechnungen pro Woche'">
+            {{ data.scanned.length }}
+          </div>
+          <div v-tooltip.hover:top="'Gekaufte Rabatte pro Woche'">
+            {{ data.bought.length }}
+          </div>
+          <div v-tooltip.hover:top="'Eingelöste Rabatte pro Woche'">
+            {{ data.used.length }}
+          </div>
+        </div>-->
     <div id="UserAction" class="col mt-1 mb-1"/>
   </div>
 </template>
@@ -24,24 +24,29 @@ export default {
   data() {
     return {
       data: {
-        scanned: 43,
-        bought: 86,
-        used: 32
+        scanned: [],
+        bought: [],
+        used: [],
+        opened: []
       }
     }
   },
   created() {
-    this.$http.post(this.$store.state.url + '/getStatistik', {
-      token: this.$store.state.token
-    }).then(response => {
-      console.debug()
-      this.data = response.data
-    })
   },
   mounted() {
-    this.basicChart()
+    this.loadData()
   },
   methods: {
+    loadData() {
+      this.$http.post(this.$store.state.url + '/getStatistik', {
+        hash: this.$store.state.user.token,
+        companyName: this.$store.state.company.companyName
+      }).then(response => {
+        console.debug(response)
+        this.data = response.data
+        this.basicChart()
+      })
+    },
     basicChart() {
       this.Chart = Highchart.chart('UserAction', {
         chart: {
@@ -90,38 +95,16 @@ export default {
         },
         series: [{
           name: 'Rechnungen eingescannt',
-          action: 'eingescannt',
-          data: [
-            [Date.UTC(2021, 1, 1), 8],
-            [Date.UTC(2021, 1, 2), 3],
-            [Date.UTC(2021, 1, 3), 13],
-            [Date.UTC(2021, 1, 4), 6],
-            [Date.UTC(2021, 1, 5), 9],
-            [Date.UTC(2021, 1, 6), 3],
-            [Date.UTC(2021, 1, 7), 1]
-          ]
+          data: this.data.scanned.reverse()
         }, {
           name: 'Rabatte gekauft',
-          data: [
-            [Date.UTC(2021, 1, 1), 10],
-            [Date.UTC(2021, 1, 2), 15],
-            [Date.UTC(2021, 1, 3), 5],
-            [Date.UTC(2021, 1, 4), 30],
-            [Date.UTC(2021, 1, 5), 12],
-            [Date.UTC(2021, 1, 6), 6],
-            [Date.UTC(2021, 1, 7), 8]
-          ]
+          data: this.data.bought.reverse()
         }, {
           name: 'Rabatte eingelöst',
-          data: [
-            [Date.UTC(2021, 1, 1), 5],
-            [Date.UTC(2021, 1, 2), 7],
-            [Date.UTC(2021, 1, 3), 3],
-            [Date.UTC(2021, 1, 4), 8],
-            [Date.UTC(2021, 1, 5), 3],
-            [Date.UTC(2021, 1, 6), 5],
-            [Date.UTC(2021, 1, 7), 1]
-          ]
+          data: this.data.used.reverse()
+        }, {
+          name: 'Seite geöffnet',
+          data: this.data.opened.reverse()
         }]
       })
     }
@@ -134,7 +117,7 @@ export default {
 #statBar {
   display: flex;
   flex-direction: row;
-  background-color: grey;
+  background-color: #2b2b2b;
   color: white;
   margin: auto;
   width: fit-content;
@@ -144,6 +127,7 @@ export default {
   & div {
     padding: 0 .5em;
     border-right: white solid 2px;
+    font-weight: bold;
 
     &:last-child {
       border: none;
