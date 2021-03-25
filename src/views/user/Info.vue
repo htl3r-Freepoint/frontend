@@ -48,21 +48,12 @@ export default {
 </script>
 
 <style scoped>
-.terms {
-  margin-bottom: 2em;
-}
-
-.faq {
-  margin-bottom: 3em;
-}
-
-.faq-headline {
+.info-headline {
   font-weight: bold;
   margin-top: 1em;
 }
 
-.faq-text {
+.info-text {
   margin-bottom: 1em;
 }
-
 </style>

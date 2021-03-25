@@ -83,6 +83,7 @@ export default {
       companyName: this.$store.state.company.companyName
     }).then(response => {
       console.debug("Response:", response.data)
+      this.logo = response.data.company.logo
       this.companyName = response.data.company.companyName
       this.email = response.data.company.contactMail
       this.exchangeRate = response.data.company.conversionRate

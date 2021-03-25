@@ -20,9 +20,7 @@ const routes = [
         path: '/user', component: () => import('@/views/User.vue'),
         children: [
             {path: 'profile', component: () => import('@/views/user/Profile.vue')},
-            {path: 'info', component: () => import('@/views/user/Info.vue')},
-            {path: 'help', component: () => import('@/views/user/Help.vue')},
-            {path: 'feedback', component: () => import('@/views/user/Feedback.vue')}
+            {path: 'info', component: () => import('@/views/user/Info.vue')}
         ]
     },
     {
