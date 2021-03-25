@@ -4,9 +4,9 @@
       <div id="login-form" class="shadow-lg p-3 mb-5 bg-white rounded">
         <h2>Anmelden</h2>
         <form-login class="p-4"></form-login>
-        <p>
+<!--        <p>
           <router-link to="/forgot-password">Passwort vergessen</router-link>
-        </p>
+        </p>-->
         <p>
           Sie haben noch keinen Account? Sie können sich hier
           <router-link to="/register">registrieren.</router-link>

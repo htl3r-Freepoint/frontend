@@ -107,6 +107,7 @@ const store = new Vuex.Store({
         setCompany(state, company) {
             state.company = company
             let tmp = JSON.parse(company.design.colorPalette)
+            console.debug('Company design', tmp)
             state.company.design.colorPalette = new Palette(tmp[0], tmp[1], tmp[2], tmp[3])
         },
         setPoints(state, number) {

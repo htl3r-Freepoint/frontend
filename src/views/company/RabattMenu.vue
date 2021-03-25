@@ -5,14 +5,16 @@
         {{ $store.state.company.companyName ? $store.state.company.companyName : "ERROR: no Company selected" }}
       </h2>
       <div class="d-flex justify-content-end col-sm mt-3">
-        <router-link class="btn btn-primary mr-2" to="/cashier" v-if="editRights > 0">
-          <font-awesome-icon icon="qrcode"/>
-        </router-link>
-        <div v-if="editRights === 2 || editRights === 3">
-          <router-link class="btn btn-primary mr-2" to="/company/coupons/edit">
+        <div>
+          <router-link class="btn btn-primary" to="/cashier" v-if="editRights > 0">
+            <font-awesome-icon icon="qrcode"/>
+          </router-link>
+          <router-link class="btn btn-primary mx-2" to="/company/coupons/edit"
+                       v-if="editRights === 2 || editRights === 3">
             <font-awesome-icon icon="pen"/>
           </router-link>
-          <router-link class="btn btn-primary" to="/company/settings/profile">
+          <router-link class="btn btn-primary" to="/company/settings/profile"
+                       v-if="editRights === 2 || editRights === 3">
             <font-awesome-icon icon="cog"/>
           </router-link>
         </div>

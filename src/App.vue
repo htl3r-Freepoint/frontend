@@ -32,7 +32,6 @@ export default {
         this.sendBack(browserUrl)
       }
     }
-    this.loadColorPalette()
   },
   methods: {
     sendVerificationEmail() {
@@ -44,6 +43,7 @@ export default {
     sendBack(urls) {
       window.location.replace(document.location.protocol + '//' + urls.join('.'))
     },
+    // eslint-disable-next-line no-unused-vars
     loadCompanyInformation(subdir, urls) {
       console.debug("Loading company information")
       this.$http.post(this.$store.state.url + "/getCompany", {
@@ -52,7 +52,7 @@ export default {
         console.debug(response)
         console.debug("Saving company information")
         this.$store.commit('setCompany', response.data.company)
-        console.debug("Company saved", this.$store.state.company)
+        this.loadColorPalette()
         this.getUserPoints()
       }).catch(error => {
         console.error(error)

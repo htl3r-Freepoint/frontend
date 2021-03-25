@@ -1,20 +1,19 @@
 <template>
   <div>
     <div class="text-left mb-5">
-      <h5>FAQ:</h5>
-      <div class="info-headline">
+      <h4>FAQ:</h4>
+      <h5 class="info-headline">
         Wie funktioniert die App?
-      </div>
+      </h5>
       <div>
-        Die Applikation "Name der Geschäftsapp" wurde mithilfe von FreePoint erstellt. FreePoint übernimmt sowohl
+        Die Applikation {{ $store.state.company.companyName }} wurde mithilfe von FreePoint erstellt. FreePoint übernimmt sowohl
         die
-        Funktionalität als auch die Wartung dieser App. Das Geschäft "Name des Geschäftes" hat freie
-        Entscheidungsmacht
-        über die Rabatte und das Design.
+        Funktionalität als auch die Wartung dieser App. Das Geschäft {{ $store.state.company.companyName }} hat freie
+        Entscheidungsmacht über die Rabatte und das Design.
       </div>
-      <div class="info-headline">
+      <h5 class="info-headline">
         Wie entstand FreePoint?
-      </div>
+      </h5>
       <div>
         Freepoint entstand aus der Ideenschmiede vier junger Männer der HTL Rennweg Wien. Diese haben dieses Projekt
         im

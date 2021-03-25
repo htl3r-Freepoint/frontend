@@ -15,7 +15,7 @@
     <fp-input label="Firmenname"
               description="Ihr Firmenname ist dafür da, ihr Unternehmen zu finden, wir empfehlen nicht diesen zu ändern, außer es ist absolut nötig.">
       <font-awesome-icon slot="prepend" icon="sign"/>
-      <input type="text" class="form-control" v-model="companyName" placeholder="Firmenname">
+      <input type="text" class="form-control" v-model="companyName" placeholder="Firmenname" disabled>
     </fp-input>
 
     <fp-input label="Kontakt Email"
@@ -35,6 +35,12 @@
       <button type="button" class="btn btn-primary" @click="saveChanges">Speichern</button>
       <button type="button" class="btn btn-danger font-weight-bold" @click="modalDelete">Firma Löschen</button>
     </div>
+
+    <transition name="fade" v-on:enter="enterSuccess">
+      <div class="alert alert-success" v-if="success">
+        Daten wurden gespeichert
+      </div>
+    </transition>
 
     <modal id="deleteConfirmation">
       <form class="d-flex flex-column">
@@ -62,6 +68,7 @@ export default {
   components: {Modal, FpInput},
   data() {
     return {
+      success: false,
       userPassword: '',
       logo: '',
       url: '',
@@ -99,6 +106,7 @@ export default {
         logo: this.url
       }).then(response => {
         console.debug(response)
+        this.success = true
       }).catch(error => {
         console.error(error)
       })
@@ -109,6 +117,11 @@ export default {
         companyName: this.$store.state.company.companyName,
         password: this.userPassword
       })
+    },
+    enterSuccess() {
+      setTimeout(() => {
+        this.success = false;
+      }, 3000);
     }
   }
 }
@@ -123,5 +136,13 @@ export default {
 
 #preview img {
   max-width: 200px;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 1s
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0
 }
 </style>
