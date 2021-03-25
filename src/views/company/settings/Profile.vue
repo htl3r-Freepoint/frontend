@@ -2,36 +2,36 @@
 
   <form>
     <div id="preview">
-      <img v-if="url" :src="url" />
+      <img v-if="this.$store.state.company.logo" :src="url"/>
     </div>
 
     <fp-input label="Logo"
-        description="Laden Sie hier ihr eigenes Logo hoch. Alternativ wird einfach ihr Firmenname Angezeigt.">
+              description="Laden Sie hier ihr eigenes Logo hoch. Alternativ wird einfach ihr Firmenname Angezeigt.">
       <font-awesome-icon slot="prepend" icon="image"/>
       <input type="file" @change="onFileChange" accept="image/*">
     </fp-input>
 
 
     <fp-input label="Firmenname"
-        description="Ihr Firmenname ist dafür da, ihr Unternehmen zu finden, wir empfehlen nicht diesen zu ändern, außer es ist absolut nötig.">
+              description="Ihr Firmenname ist dafür da, ihr Unternehmen zu finden, wir empfehlen nicht diesen zu ändern, außer es ist absolut nötig.">
       <font-awesome-icon slot="prepend" icon="sign"/>
       <input type="text" class="form-control" v-model="companyName" placeholder="Firmenname">
     </fp-input>
 
     <fp-input label="Kontakt Email"
-        description="Ihre Kontakt-Email ist für alle Kunden sichtbar">
+              description="Ihre Kontakt-Email ist für alle Kunden sichtbar">
       <font-awesome-icon slot="prepend" icon="envelope"/>
       <input type="email" class="form-control" v-model="email" placeholder="Kontakt Email">
     </fp-input>
 
     <fp-input label="Tauschrate"
-        description="Dieser Wert bestimmt, wie viel € einen Punkt wert ist.">
+              description="Dieser Wert bestimmt, wie viel € einen Punkt wert ist.">
       <font-awesome-icon slot="prepend" icon="receipt"/>
       <input type="number" min="1" class="form-control text-right" v-model="exchangeRate">
       <font-awesome-icon slot="append" icon="euro-sign"/>
     </fp-input>
 
-    <button type="submit" class="btn btn-primary"  @click="saveChanges">Speichern</button>
+    <button type="submit" class="btn btn-primary" @click="saveChanges">Speichern</button>
   </form>
 
 </template>
@@ -58,12 +58,13 @@ export default {
   },
   created() {
     this.$http.post(this.$store.state.url + "/getCompany", {
-      hash: this.$store.state.user.token
+      hash: this.$store.state.user.token,
+      companyName: this.$store.state.company.companyName
     }).then(response => {
       console.debug("Response:", response.data)
-      this.companyName = response.data.companyName
-      this.email = response.data.contactMail
-      this.exchangeRate = response.data.conversionRate
+      this.companyName = response.data.company.companyName
+      this.email = response.data.company.contactMail
+      this.exchangeRate = response.data.company.conversionRate
     })
   },
   methods: {
@@ -73,12 +74,12 @@ export default {
       this.$store.commit('setLogo', this.url)
     },
     saveChanges() {
-      this.$http.post(this.$store.state.url + "/changeCompany", {
-        token: this.$store.state.token,
-        logo: this.logo,
+      this.$http.post(this.$store.state.url + "/updateCompany", {
+        hash: this.$store.state.user.token,
         companyName: this.companyName,
-        email: this.email,
-        exchangeRate: this.exchangeRate
+        contactMail: this.email,
+        conversionRate: this.exchangeRate,
+        logo: this.url
       }).then(response => {
         console.debug(response)
       }).catch(error => {

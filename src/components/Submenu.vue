@@ -51,7 +51,7 @@ export default {
   display: block;
 }
 
-@media (max-width: 560px) {
+@media (max-width: 576px) {
   .mobile {
     display: block;
   }
