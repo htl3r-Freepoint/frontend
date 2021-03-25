@@ -56,7 +56,8 @@ const store = new Vuex.Store({
         user: {
             token: undefined,
             username: undefined,
-            verified: false
+            verified: false,
+            rights: 0
         },
         company: {
             companyName: undefined,
@@ -183,6 +184,16 @@ router.beforeEach((to, from, next) => {
             localStorage.removeItem('user')
             store.commit("deleteUser")
         })
+
+        if (store.state.company.companyName){
+            Vue.prototype.$http.post(store.state.url + "/getUserRights",{
+                hash: store.state.user.token,
+                companyName: store.state.company.companyName
+            }).then(response => {
+                console.debug(response)
+                store.state.user.rights = response.data
+            })
+        }
     }
     next()
 })
