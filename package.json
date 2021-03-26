@@ -22,7 +22,7 @@
     "gsap": "^3.6.0",
     "highcharts": "^9.0.0",
     "jquery": "^3.5.1",
-    "jspdf": "^2.1.1",
+    "jspdf": "^2.3.1",
     "mapbox-gl": "^2.0.1",
     "popper.js": "^1.16.1",
     "qrcode": "^1.4.4",
