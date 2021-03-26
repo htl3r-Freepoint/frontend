@@ -20,11 +20,13 @@
 
     <div class="row row-input btn-toolbar">
       <div class="col btn-group">
-        <label class="btn btn-primary font-weight-bold">
-          <input type="radio" :value="false" v-model="isPercent"> Euro €
+        <label class="btn btn-primary">
+          <input type="radio" :value="false" v-model="isPercent">
+          <span class="underline">Euro €</span>
         </label>
-        <label class="btn btn-primary font-weight-bold">
-          <input type="radio" :value="true" v-model="isPercent"> Prozent %
+        <label class="btn btn-primary">
+          <input type="radio" :value="true" v-model="isPercent">
+          <span class="underline">Prozent %</span>
         </label>
       </div>
     </div>
@@ -48,7 +50,7 @@
     <div class="container">
       <div class="row control-buttons justify-content-between">
         <button type="button" class="col-5 btn btn-danger" data-dismiss="modal" @click="resetData">Abbrechen</button>
-        <button type="button" class="col-5 btn btn-primary" data-dismiss="modal">Speichern</button>
+        <button type="button" class="col-5 btn btn-primary" data-dismiss="modal" @click="saveCoupon">Speichern</button>
       </div>
     </div>
 
@@ -56,7 +58,6 @@
 </template>
 
 <script>
-import Axios from "axios";
 
 export default {
   name: "FormEditCoupon",
@@ -64,6 +65,7 @@ export default {
   props: ['coupon'],
   data() {
     return {
+      id: 0,
       isPercent: true,
       title: "",
       text: "",
@@ -78,22 +80,19 @@ export default {
     }
   },
   methods: {
-    postNewCoupon() {
-      Axios.post(this.$store.state.url + '/coupon', {
-        params: {
-          id: this.coupon.id,
-          coupon: {
-            isPercent: this.isPercent,
-            title: this.title,
-            text: this.text,
-            price: this.price,
-            percentage: this.percentage,
-            value: this.value
-          }
-        }
+    saveCoupon() {
+      this.$store.commit("pushCouponsEdit", {
+        id: this.id,
+        isPercent: this.isPercent,
+        title: this.title,
+        text: this.text,
+        price: this.price,
+        percentage: this.percentage,
+        value: this.value
       })
     },
     resetData() {
+      this.id = this.coupon.id
       this.isPercent = this.coupon.isPercent
       this.title = this.coupon.title
       this.text = this.coupon.text
@@ -105,7 +104,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .row-input {
   padding-bottom: 0.5em;
 }
@@ -134,9 +133,19 @@ input + label {
   border-width: 2px;
 }
 
-input:checked + label {
-  background: var(--store-primary);
+input[type="radio"] + span {
+  font-weight: normal;
 }
+
+
+input[type="radio"]:checked + span {
+  color: var(--text-color);
+  transition: 0.3s;
+  font-weight: bold;
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+}
+
 
 .control-buttons {
   padding-top: 2em;

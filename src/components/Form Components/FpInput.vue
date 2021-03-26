@@ -1,15 +1,16 @@
 <template>
   <div class="form-group">
-    <p class="col-form-label text-left font-weight-bold" v-if="label">{{ label }}</p>
-    <div class="input-group mb-2">
-      <span class="input-group-prepend input-group-text" v-if="$slots.prepend">
-        <slot name="prepend"></slot>
+    <label class="font-weight-bold d-block text-left">{{ label }}
+      <div class="input-group mt-2">
+      <span class="input-group-prepend" v-if="$slots.prepend">
+        <span class="input-group-text"><slot name="prepend"></slot></span>
       </span>
-      <slot><input class="form-control danger"></slot>
-      <span class="input-group-append input-group-text" v-if="$slots.append">
-        <slot name="append"></slot>
+        <slot><input class="form-control"></slot>
+        <span class="input-group-append" v-if="$slots.append">
+          <span class="input-group-text"><slot name="append"></slot></span>
       </span>
-    </div>
+      </div>
+    </label>
     <small class="form-text text-muted text-left">{{ description }}</small>
   </div>
 </template>
@@ -21,6 +22,25 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+label{
+  color: var(--text-color);
+}
 
+.form-control{
+  background-color: #efefef;
+  border-width: 0px;
+  &:hover{
+    background-color: #d9d9d9;
+  }
+  &:focus{
+    border-color: var(--store-primary);
+    border-bottom-width: 2px;
+  }
+}
+
+.input-group-text{
+  background-color: var(--store-primary);
+  color: white;
+}
 </style>

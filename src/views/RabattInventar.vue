@@ -2,9 +2,13 @@
   <div class="container">
     <div id="coupon-container" class="row justify-content-center">
       <coupon v-for="(coupon, id) in coupons" :key="id"
-              class="col-12 col-md-4 col-sm-6"
-              :coupon="coupon"
-              :edit-rights="false"></coupon>
+              class="col-sm-6 col-md-4 col-xl-3"
+              :coupon="coupon">
+        <font-awesome-icon slot="actionIcon" icon="qrcode"/>
+        <div slot="modal">
+          <vue-qr-code :value="coupon.code"></vue-qr-code>
+        </div>
+      </coupon>
     </div>
 
   </div>
@@ -12,43 +16,32 @@
 
 <script>
 import Coupon from "@/components/Coupon";
-import CouponDetail from "@/components/CouponDetail";
-import Axios from "axios";
-import Modal from "@/components/Modal";
+import VueQrCode from "vue-qrcode";
+
+import {library} from "@fortawesome/fontawesome-svg-core";
+import {faQrcode} from "@fortawesome/free-solid-svg-icons";
+
+library.add(faQrcode)
 
 export default {
   name: "RabattInventar",
-  // eslint-disable-next-line vue/no-unused-components
-  components: {Modal, CouponDetail, Coupon},
+  components: {Coupon, VueQrCode},
   data() {
     return {
-      coupons: [
-        {
-          id: 0,
-          title: 'Hamburger',
-          text: 'Genieße den saftigen Hamburger mit Gurken und Salat, um -20%',
-          isPercent: true,
-          price: 0.00,
-          percentage: 20,
-          value: 15
-        },
-        {
-          id: 1,
-          title: 'Cheeseburger',
-          text: 'Genieße den saftigen Cheeseburger mit Gurken, Salat und geschmolzenem Ementaler, um -1€',
-          isPercent: false,
-          price: 1.00,
-          percentage: 0,
-          value: 25
-        }
-      ]
+      coupons: []
     }
+  },
+  created() {
+    this.getInventory()
   },
   methods: {
     getInventory() {
-      Axios.get(this.$store.state.url + "inventar.json", {
-        user: 1
+      console.debug("Fetchin alls User Coupons")
+      this.$http.post(this.$store.state.url + "/getUserCoupons", {
+        hash: this.$store.state.user.token,
+        companyName: this.$store.state.company.companyName
       }).then(result => {
+        console.debug(result)
         this.coupons = result.data
       }).catch(function (error) {
         console.error(error)

@@ -2,13 +2,13 @@
   <div>
     <form>
       <fp-input label="Username">
-        <i slot="prepend" class="fas fa-user"/>
+        <font-awesome-icon slot="prepend" icon="user"/>
         <input type="text" class="form-control"
                v-model="username"
                placeholder="Username">
       </fp-input>
       <fp-input>
-        <i slot="prepend" class="fas fa-at"/>
+        <font-awesome-icon slot="prepend" icon="at"/>
         <input type="email" class="form-control"
                v-model="email"
                placeholder="Email">
@@ -25,44 +25,73 @@
                placeholder="Nachname">
       </fp-input>
     </form>
-    <form>
-      <div class="form-group">
-        <fp-input>
-          <i slot="prepend" class="fas fa-key"/>
-          <input type="password" class="form-control"
-                 v-model="oldPassword"
-                 placeholder="Altes Passwort"
-                 autocomplete="old-password">
-        </fp-input>
-        <fp-input>
-          <i slot="prepend" class="fas fa-key"/>
 
-        </fp-input>
-      </div>
+    <button class="btn btn-primary" type="button" @click="changeUser">Speichern</button>
+
+    <form>
+      <fp-input title="Altes Passwort">
+        <font-awesome-icon slot="prepend" icon="key"/>
+        <input type="password" class="form-control"
+               v-model="oldPassword"
+               placeholder="Altes Passwort"
+               autocomplete="password">
+      </fp-input>
+      <fp-input title="Neues Passwort">
+        <font-awesome-icon slot="prepend" icon="key"/>
+        <input type="password" class="form-control"
+               v-model="newPassword"
+               placeholder="Neues Passwort"
+               autocomplete="password">
+      </fp-input>
+      <button class="btn btn-primary" type="button" @click="changePassword">Passwort Ändern</button>
     </form>
+
+    <button type="button" class="btn btn-danger font-weight-bold mt-3" @click="modalDelete">Account Löschen</button>
+
+    <transition name="fade" v-on:enter="enterSuccess">
+      <div class="alert alert-success" v-if="success">
+        Daten wurden gespeichert
+      </div>
+    </transition>
+
+    <modal id="deleteConfirmation">
+      <form class="d-flex flex-column">
+        <fp-input label="Geben sie ihr Passwort zur Bestätiugung ein">
+          <input class="form-control" type="password" v-model="userPassword">
+        </fp-input>
+        <button class="btn btn-danger" type="button" @click="deleteUser" :disabled="!userPassword">Löschen</button>
+      </form>
+    </modal>
   </div>
 </template>
 
 <script>
-import Axios from "axios";
-import FpInput from "../../components/Form Components/FpInput";
+import FpInput from "@/components/Form Components/FpInput.vue";
+import Modal from "@/components/Modal.vue"
+
+import {library} from "@fortawesome/fontawesome-svg-core";
+import {faAt, faKey, faUser} from "@fortawesome/free-solid-svg-icons";
+
+library.add(faUser, faAt, faKey)
 
 export default {
   name: "Profile",
-  components: {FpInput},
+  components: {FpInput, Modal},
   data() {
     return {
+      userPassword: '',
       username: '',
       firstName: '',
       lastName: '',
       email: '',
       oldPassword: '',
-      newPassword: ''
+      newPassword: '',
+      success: false
     }
   },
   created() {
-    Axios.get(this.$store.state.url + "/user", {
-      token: this.$store.state.token
+    this.$http.post(this.$store.state.url + "/getUser", {
+      hash: this.$store.state.user.token
     }).then(response => {
       console.debug("Response:", response.data)
       this.username = response.data.username
@@ -72,21 +101,55 @@ export default {
     })
   },
   methods: {
-    updateData() {
-      Axios.post(this.$store.state.url + "/changeUser", {
-        toke: this.$store.state.token,
+    modalDelete() {
+      this.$('#deleteConfirmation').modal()
+    },
+    changeUser() {
+      this.$http.post(this.$store.state.url + "/changeUser", {
+        token: this.$store.state.user.token,
         username: this.username,
         firstName: this.firstName,
         lastName: this.lastName,
-        email: this.email,
+        email: this.email
+      }).then(response => {
+        response
+        this.success = true
+      })
+    },
+    changePassword() {
+      this.$http.post(this.$store.state.url + "/changeUser", {
+        token: this.$store.state.user.token,
         oldPassword: this.oldPassword,
         newPassword: this.newPassword
+      }).then(response => {
+        response
+        this.success = true
       })
+    },
+    deleteUser(){
+      this.$http.post(this.$store.state.url + "/deleteUser", {
+        hash: this.$store.state.user.token,
+        password: this.userPassword
+      }).then(response => {
+        console.debug(response)
+        this.$('#deleteConfirmation').modal()
+      })
+    },
+    enterSuccess() {
+      setTimeout(() => {
+        this.success = false;
+      }, 3000);
     }
   }
 }
 </script>
 
 <style scoped>
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 1s
+}
 
+.fade-enter, .fade-leave-to {
+  opacity: 0
+}
 </style>

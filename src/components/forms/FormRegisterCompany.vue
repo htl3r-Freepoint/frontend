@@ -1,31 +1,43 @@
 <template>
-  <form class="col">
-    <div class="col form-group">
-      <input type="text" class="col form-control" id="inputRegisterName" v-model="companyName"
-             placeholder="Company Name..." required>
-    </div>
-    <div class="col form-group">
-      <input type="email" class="col form-control" id="inputRegisterEmail" v-model="email"
-             placeholder="E-Mail..." required>
-      <small id="emailHelp" class="col form-text text-muted">We will never share your email with anyone else.</small>
-    </div>
-    <div class="col form-check">
+  <form>
+    <register-input>
+      <font-awesome-icon icon="user" slot="prepend"/>
+      <input type="text" class="form-control" id="inputRegisterName" v-model="companyName"
+             placeholder="Geschäftsname" autocomplete="Geschäftsname" required>
+    </register-input>
+
+    <register-input description="Wir werden Ihre E-Mail-Adresse nicht weiterleiten.">
+      <font-awesome-icon icon="at" slot="prepend"/>
+      <input type="email" class="form-control" id="inputRegisterEmail" v-model="email"
+             placeholder="E-Mail-Adresse" required>
+    </register-input>
+
+    <div class="form-group form-check">
       <input type="checkbox" class="form-check-input" id="inputRegisterTOS" v-model="TOS" required>
-      <label for="inputRegisterTOS">By checking this, you hereby agree to our
-        <router-link to="/terms-and-service">Terms and Services</router-link>
+      <label for="inputRegisterTOS">Durch Ankreuzen dieser Option akzeptieren Sie unsere
+        <router-link to="/terms-and-service">Nutzungsbedingungen.</router-link>
       </label>
     </div>
-    <div class="col form-group">
-      <button type="button" class="btn btn-primary" @click="register()">Register</button>
-    </div>
+
+    <button type="button" class="btn btn-primary" @click="register()" :disabled="!email && !companyName && !TOS">
+      Erstellen
+    </button>
+
   </form>
 </template>
 
 <script>
-import Axios from "axios";
+
+import RegisterInput from "@/components/Form Components/RegisterInput";
+
+import {library} from "@fortawesome/fontawesome-svg-core";
+import {faAt, faUser} from "@fortawesome/free-solid-svg-icons";
+
+library.add(faAt, faUser)
 
 export default {
   name: "FormRegisterCompany",
+  components: {RegisterInput},
   data() {
     return {
       email: "",
@@ -35,14 +47,14 @@ export default {
   },
   methods: {
     register() {
-      if (this.email && this.companyName) {
-        Axios.post(this.$store.state.url + "/registerCompany", {
+      if (this.email && this.companyName && this.TOS) {
+        this.$http.post(this.$store.state.url + "/registerCompany", {
           name: this.companyName,
           email: this.email,
-          hash: this.$store.state.token
+          hash: this.$store.state.user.token
         }).then((response) => {
           console.debug(response)
-
+          if (response.data.company) window.location.href = response.data.company.name + ".localhost:8080"
         }).catch(error => {
           if (error.response) {
             console.debug("Data:", error.response.data);
@@ -55,7 +67,7 @@ export default {
           }
           console.debug("Config:", error.config);
         })
-      }
+      } else console.log("Please fill all required fields in the form")
     }
   }
 }

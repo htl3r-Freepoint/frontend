@@ -1,14 +1,14 @@
 {
   "name": "freepoint",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "serve-https": "vue-cli-service serve --https",
-    "server-dist": "serve -s dist",
     "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
     "reinstall": "npm ci",
-    "lint": "vue-cli-service lint"
+    "serve-dist": "serve -s dist",
+    "serve-https": "vue-cli-service serve --https"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.34",
@@ -19,21 +19,27 @@
     "axios": "^0.21.1",
     "bootstrap": "^4.5.2",
     "core-js": "^3.6.5",
+    "gsap": "^3.6.0",
+    "highcharts": "^9.0.0",
     "jquery": "^3.5.1",
     "jspdf": "^2.1.1",
     "mapbox-gl": "^2.0.1",
     "popper.js": "^1.16.1",
+    "qrcode": "^1.4.4",
     "qrcode-generator": "^1.4.4",
+    "register-service-worker": "^1.7.1",
     "vue": "^2.6.12",
     "vue-cli": "^2.9.6",
+    "vue-qrcode": "^0.3.5",
     "vue-qrcode-reader": "^2.3.14",
     "vue-router": "^3.4.7",
-    "vuex": "^3.6.0"
+    "vuex": "^3.6.2"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.15.1",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-pwa": "~4.5.0",
     "@vue/cli-plugin-router": "^4.5.6",
     "@vue/cli-service": "~4.5.0",
     "babel-eslint": "^10.1.0",

@@ -14,17 +14,19 @@
 
     <div class="row">
       <div class="form-group col">
-        <input type="number" class="form-control" placeholder="Benötigte Punkte" v-model="value" required/>
+        <input type="number" class="form-control" placeholder="Benötigte Punkte" v-model="value" min="1" required/>
       </div>
     </div>
 
     <div class="row row-input btn-toolbar">
       <div class="col btn-group">
         <label class="btn btn-primary font-weight-bold">
-          <input type="radio" :value="false" v-model="isPercent"> Euro €
+          <input type="radio" :value="false" v-model="isPercent">
+          <span>Euro €</span>
         </label>
         <label class="btn btn-primary font-weight-bold">
-          <input type="radio" :value="true" v-model="isPercent"> Prozent %
+          <input type="radio" :value="true" v-model="isPercent">
+          <span>Prozent %</span>
         </label>
       </div>
     </div>
@@ -49,7 +51,11 @@
     <div class="container">
       <div class="row control-buttons justify-content-between">
         <button type="button" class="col-5 btn btn-danger" data-dismiss="modal" @click="resetData">Abbrechen</button>
-        <button type="button" class="col-5 btn btn-primary" data-dismiss="modal">Speichern</button>
+        <button type="button" class="col-5 btn btn-primary"
+                data-dismiss="modal"
+                @click="saveCoupon"
+                :disabled="title === '' || value < 1">Speichern
+        </button>
       </div>
     </div>
 
@@ -57,7 +63,6 @@
 </template>
 
 <script>
-import Axios from "axios";
 
 export default {
   name: "FormNewCoupon",
@@ -68,26 +73,22 @@ export default {
       isPercent: true,
       title: "",
       text: "",
-      price: 0,
+      price: 1,
       percentage: 0,
-      value: undefined
+      value: 1
     }
   },
   methods: {
-    postNewCoupon() {
-      Axios.post(this.url + '/coupon.js', {
-        params: {
-          store: this.store,
-          coupon: {
-            isPercent: this.isPercent,
-            title: this.title,
-            text: this.text,
-            price: this.price,
-            percentage: this.percentage,
-            value: this.value
-          }
-        }
+    saveCoupon() {
+      this.$store.commit('pushCouponsNew', {
+        isPercent: this.isPercent,
+        title: this.title,
+        text: this.text,
+        price: this.price,
+        percentage: this.percentage,
+        value: this.value
       })
+      this.resetData()
     },
     resetData() {
       this.isPercent = true;
@@ -95,7 +96,7 @@ export default {
       this.text = ""
       this.price = 0
       this.percentage = 0
-      this.value = 0
+      this.value = 1
     }
   }
 }
@@ -107,7 +108,7 @@ export default {
   padding-bottom: 0.5em;
 }
 
-.btn-toolbar{
+.btn-toolbar {
   padding-bottom: 1em;
 }
 
@@ -134,8 +135,16 @@ input + label {
   border-width: 2px;
 }
 
-input:checked + label {
-  background: var(--store-primary);
+input[type="radio"] + span {
+  font-weight: normal;
+}
+
+input[type="radio"]:checked + span {
+  color: var(--text-color);
+  transition: 0.3s;
+  font-weight: bold;
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
 }
 
 .control-buttons {

@@ -1,82 +1,115 @@
 <template>
   <div class="container">
-    <h2>{{$route.params.company}}</h2>
-    <div class="col custom-control custom-switch align-self-end">
-      <input id="edit-mode" type="checkbox" class="custom-control-input" v-model="editRights">
-      <label class="custom-control-label" for="edit-mode">Edit Mode</label>
-    </div>
-
-    <router-link class="btn btn-primary" to="/company/settings/profile">Settings</router-link>
-
-    <div id="coupon-container" class="row justify-content-center py-2">
-      <coupon v-for="(coupon, id) in coupons" v-bind:key="id"
-              class="col-12 col-md-4 col-sm-6"
-              :coupon="coupon"
-              :edit-rights="editRights">
-      </coupon>
-
-      <div v-if="editRights" class="add-coupon col-12 col-md-4 col-sm-6">
-        <button class="btn-block"
-                data-toggle="modal" data-target="#modalCreateNewCoupon">
-          <i class="fas fa-plus-circle align-self-center"></i>
-        </button>
+    <div class="d-flex justify-content-between pb-5 row">
+      <h2 class="text-uppercase font-weight-bold col-sm  mt-3">
+        {{ $store.state.company.companyName ? $store.state.company.companyName : "ERROR: no Company selected" }}
+      </h2>
+      <div class="d-flex justify-content-end col-sm mt-3">
+        <div>
+          <router-link class="btn btn-primary" to="/cashier" v-if="editRights > 0">
+            <font-awesome-icon icon="qrcode"/>
+          </router-link>
+          <router-link class="btn btn-primary mx-2" to="/company/coupons/edit"
+                       v-if="editRights === 2 || editRights === 3">
+            <font-awesome-icon icon="pen"/>
+          </router-link>
+          <router-link class="btn btn-primary" to="/company/settings/profile"
+                       v-if="editRights === 2 || editRights === 3">
+            <font-awesome-icon icon="cog"/>
+          </router-link>
+        </div>
       </div>
     </div>
 
-    <modal id="modalCreateNewCoupon" :title="'Neuer Coupon'">
-      <form-new-coupon></form-new-coupon>
+    <div id="coupon-container" class="row justify-content-center py-2">
+      <coupon v-for="(coupon, id) in $store.state.coupons" v-bind:key="id"
+              class="col-sm-6 col-md-4 col-xl-3"
+              :coupon="coupon">
+        <font-awesome-icon slot="actionIcon" style="position: absolute; left: 9.5px; top:10.5px" icon="shopping-cart"/>
+        <div slot="modal" class="container">
+          <h2>{{ coupon.title }}</h2>
+          <p class="text-left">{{ coupon.text }}</p>
+          <div class="d-flex flex-row justify-content-between w-50 m-auto">
+            <h3 class="font-weight-bold">
+              {{
+                coupon.isPercent ?
+                    !(coupon.percentage > 0) || coupon.percentage >= 100 ?
+                        'Gratis' : '-' + coupon.percentage + '%'
+                    :
+                    !(coupon.price > 0) || coupon.price >= 100 ?
+                        'Gratis' : '-' + coupon.price + '€'
+              }}
+            </h3>
+            <h3 class="primary-text">
+              {{ coupon.value }}
+              <font-awesome-icon icon="receipt"/>
+            </h3>
+          </div>
+          <div class="container">
+            <div class="row control-buttons justify-content-between">
+              <button type="button" class="col-5 btn btn-danger font-weight-bold" data-dismiss="modal">Zurück</button>
+              <button type="button" class="col-5 btn btn-primary font-weight-bold" data-dismiss="modal"
+                      @click="buyCoupon(coupon.id)" :disabled="$store.state.points < coupon.value">Kaufen
+              </button>
+            </div>
+          </div>
+        </div>
+      </coupon>
+    </div>
+
+    <modal id="lastCoupon">
+      <vue-qr-code :value="lastCoupon.code"/>
     </modal>
 
   </div>
 </template>
 
 <script>
-import Axios from 'axios'
 import Coupon from "@/components/Coupon";
-import FormNewCoupon from "@/components/forms/FormNewCoupon";
-import Modal from "@/components/Modal";
+import Modal from '@/components/Modal'
+import VueQrCode from 'vue-qrcode'
+
+import {library} from "@fortawesome/fontawesome-svg-core";
+import {faPen, faQrcode, faReceipt, faShoppingCart} from "@fortawesome/free-solid-svg-icons";
+
+library.add(faShoppingCart, faPen, faReceipt, faQrcode)
 
 export default {
   name: "RabattMenu",
-  components: {Modal, FormNewCoupon, Coupon},
+  components: {Coupon, Modal, VueQrCode},
   data() {
     return {
-      user: '1',
-      store: '1',
-      editRights: false,
-      coupons: [
-        {
-          id: 0,
-          title: 'Hamburger',
-          text: 'Genieße den saftigen Hamburger mit Gurken und Salat, um -20%',
-          isPercent: true,
-          price: 0.00,
-          percentage: 20,
-          value: 15
-        },
-        {
-          id: 1,
-          title: 'Cheeseburger',
-          text: 'Genieße den saftigen Cheeseburger mit Gurken, Salat und geschmolzenem Ementaler, um -1€',
-          isPercent: false,
-          price: 1.00,
-          percentage: 0,
-          value: 25
-        }
-      ]
+      editRights: 0,
+      coupons: [],
+      lastCoupon: {code: 'no Coupon Provided'}
     }
+  },
+  mounted() {
+    this.getData()
   },
   methods: {
     getData() {
-      Axios.get(this.$store.state.url + "/Rabatte", {
-        params: {
-          user: this.user,
-          store: this.$route.params.company
-        }
-      }).then(r => this.coupons = r)
+      console.debug('Company:', this.$store.state.company.companyName)
+      this.$http.post(this.$store.state.url + "/getRabatt", {
+        hash: this.$store.state.user.token ? this.$store.state.user.token : undefined,
+        firmenname: this.$store.state.company.companyName
+      }).then(response => {
+        console.debug("Coupons:", response)
+        this.$store.commit('setCoupons', response.data.coupons)
+        this.editRights = response.data.editRights
+      })
     },
-    saveCoupon(){
-
+    buyCoupon(id) {
+      this.$http.post(this.$store.state.url + "/buyCoupon", {
+        hash: this.$store.state.user.token ? this.$store.state.user.token : undefined,
+        firmenname: this.$store.state.company.companyName,
+        rabattID: id
+      }).then(result => {
+        console.debug(result)
+        this.$store.commit('setPoints', result.data.points)
+        this.lastCoupon = result.data.coupon
+        this.$("#lastCoupon").modal()
+      })
     }
   }
 }

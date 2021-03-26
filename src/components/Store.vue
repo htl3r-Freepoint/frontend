@@ -41,10 +41,10 @@
       <div class="edit-buttons">
         <button class="btn btn-primary mb-1" data-toggle="modal"
                 :data-target="'#modalEditStore'+store.id">
-          <i class="fas fa-pen"></i>
+          <font-awesome-icon icon="pen"></font-awesome-icon>
         </button>
         <button class="btn btn-danger mt-1">
-          <i class="fas fa-trash"></i>
+          <font-awesome-icon icon="trash"></font-awesome-icon>
         </button>
       </div>
     </td>
@@ -57,6 +57,11 @@
 <script>
 import Modal from "@/components/Modal";
 import FormEditStore from "@/components/forms/FormEditStore";
+
+import {library} from "@fortawesome/fontawesome-svg-core";
+import {faPen, faTrash} from "@fortawesome/free-solid-svg-icons";
+
+library.add(faPen, faTrash)
 
 export default {
   name: "store",
@@ -90,6 +95,5 @@ tr {
   background: var(--store-primary);
   border: none;
   border-radius: 20px;
-  font-size: 1.5em;
 }
 </style>

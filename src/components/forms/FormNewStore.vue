@@ -30,7 +30,7 @@
         <td><input type="text" class="form-control" v-model="open.saturday"></td>
       </tr>
       <tr>
-        <td>Sontag</td>
+        <td>Sonntag</td>
         <td><input type="text" class="form-control" v-model="open.sunday"></td>
       </tr>
     </table>

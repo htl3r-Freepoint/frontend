@@ -1,34 +1,28 @@
 <template>
   <div>
     <qrcode-stream id="QRScanner" class="my-5" @decode="onDecode" @init="checkCamera"/>
-    <transition name="fade">
+    <transition name="fade" v-on:enter="enterError">
       <div class="alert alert-danger" v-if="error">
         {{ this.error }}
       </div>
     </transition>
-    <button class="btn btn-info" @click="() => {success = !success}">
-      toogle success
-    </button>
-    <transition name="fade" v-on:enter="enterSuccess">
-      <div class="alert alert-success" v-if="success">
-        Gutschein erfolgreich eingelöst
-      </div>
-    </transition>
+    <modal id="onSuccess">
+      <h1>Rabattcode eingelöst</h1>
+    </modal>
   </div>
 </template>
 
 <script>
 import {QrcodeStream} from 'vue-qrcode-reader'
-import Axios from "axios";
+import Modal from '@/components/Modal'
 
 export default {
   name: "CashierQrCode",
-  components: {QrcodeStream},
+  components: {QrcodeStream, Modal},
   data() {
     return {
       regex: new RegExp(""),
-      error: undefined,
-      success: false
+      error: undefined
     }
   },
   methods: {
@@ -39,15 +33,17 @@ export default {
     postData(code) {
       if (this.regex.exec(code)) {
         console.debug(code)
-        //TODO insert API URL
-        Axios.post(this.$store.state.url + '/', {
-          code: code,
-          UserId: 2
+        this.$http.post(this.$store.state.url + '/useCoupon', {
+          hash: this.$store.state.user.token,
+          code: code
         }).then(result => {
-          this.$store.commit('setPoints', result.data)
+          console.debug(result)
+          this.coupon = result.data
           this.success = true
-        }).catch(function (error) {
+          this.$('#onSuccess').modal()
+        }).catch(error => {
           console.error(error)
+          this.error = error
         })
       } else {
         console.error("Qrcode is invalid")
@@ -61,9 +57,9 @@ export default {
         console.error(error)
       }
     },
-    enterSuccess() {
+    enterError() {
       setTimeout(() => {
-        this.success = false;
+        this.error = undefined;
       }, 3000);
     }
   }
@@ -81,6 +77,15 @@ export default {
   #QRScanner {
     max-width: 300px;
   }
+}
+
+#QRScanner{
+  max-width: 500px;
+  margin: auto;
+  border: 5px solid;
+  padding: 10px;
+  border-color: var(--store-primary);
+  border-radius: 10px;
 }
 
 .alert {

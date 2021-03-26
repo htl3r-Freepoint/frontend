@@ -10,7 +10,7 @@
     </table>
     <button class="btn btn-primary btn-block"
             data-toggle="modal" data-target="#modalCreateNewStore">
-      <i class="fas fa-plus-circle align-self-center"></i>
+      <font-awesome-icon icon="plus-circle"></font-awesome-icon>
     </button>
     <modal id="modalCreateNewStore" :title="'Neuer Store'">
       <form-new-store></form-new-store>
@@ -19,11 +19,14 @@
 </template>
 
 <script>
-
-import Axios from "axios";
 import Store from "@/components/Store";
 import FormNewStore from "@/components/forms/FormNewStore";
 import Modal from "@/components/Modal";
+
+import {library} from "@fortawesome/fontawesome-svg-core";
+import {faPlusCircle} from "@fortawesome/free-solid-svg-icons";
+
+library.add(faPlusCircle)
 
 export default {
   name: "Location",
@@ -47,7 +50,7 @@ export default {
     }
   },
   created() {
-    Axios.post(this.$store.state.url + '/GetBetrieb.json', {
+    this.$http.post(this.$store.state.url + '/getBetrieb', {
       name: 'Schnitzelbude1337',
     }).then(result => {
       console.log(result.data)
@@ -56,7 +59,7 @@ export default {
   },
   methods: {
     saveStores() {
-      Axios.post(this.$store.state.url + "saveBetrieb")
+      this.$http.post(this.$store.state.url + "/saveBetrieb")
     }
   }
 }
