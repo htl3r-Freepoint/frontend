@@ -20,7 +20,7 @@
               }}
             </h4>
           </div>
-          <h4 class="primary-text font-weight-bold text-nowrap">{{ this.coupon.value + " " }} <font-awesome-icon icon="receipt"/></h4>
+          <h4 v-if="coupon.value" class="primary-text font-weight-bold text-nowrap">{{ this.coupon.value + " " }} <font-awesome-icon icon="receipt"/></h4>
         </footer>
 
       </div>

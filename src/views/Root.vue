@@ -46,7 +46,7 @@
             <h1 class="mb-4 form-header">Ein Geschäft erstellen</h1>
             <form-register-company class="shadow-lg p-3 bg-white rounded"></form-register-company>
           </div>
-          <div v-else>
+          <div v-else-if="!this.$store.state.user.token">
             <h1 class="mb-4 form-header">Anmelden</h1>
             <form-login class="shadow-lg p-3 bg-white rounded"></form-login>
           </div>

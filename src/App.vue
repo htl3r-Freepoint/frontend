@@ -11,13 +11,14 @@
 
 <script>
 import Navigationsleiste from "@/components/Navigationsleiste";
-import Vue from "vue";
 
 export default {
   name: "App",
   components: {Navigationsleiste},
   created() {
     //Init Company
+
+    this.loadUserData()
 
     const browserUrl = window.location.host.split('.')
     if (browserUrl.length > 1) {
@@ -52,8 +53,8 @@ export default {
         console.debug(response)
         console.debug("Saving company information")
         this.$store.commit('setCompany', response.data.company)
-        this.loadUserData()
         this.loadColorPalette()
+        this.getUserPoints()
       }).catch(error => {
         console.error(error)
         this.sendBack(urls)
@@ -64,26 +65,6 @@ export default {
       if (localStorage.getItem('user')) {
         this.$store.commit('setUser', JSON.parse(localStorage.getItem('user')))
         console.debug("Loading login information completed")
-        Vue.prototype.$http.post(this.$store.state.url + '/checkLogin', {
-          hash: this.$store.state.user.token
-        }).then(response => {
-          if (response.data.valid) {
-            if (!this.$store.state.user.verified) {
-              if (response.data.verified) {
-                this.$store.commit("setVerification", response.data.verified)
-                localStorage.setItem('user', JSON.stringify(this.$store.state.user))
-                console.debug("User verificated")
-              } else console.debug("User needs to verify")
-            }
-          } else {
-            throw new Error()
-          }
-        }).catch(error => {
-          console.error(error)
-          localStorage.removeItem('user')
-          this.$store.commit("deleteUser")
-        })
-        this.getUserPoints()
       } else {
         console.debug('Loading login information abandoned')
       }
