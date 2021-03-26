@@ -50,7 +50,7 @@ Vue.directive('tooltip', {
 
 const store = new Vuex.Store({
     state: {
-        url: 'https://freepoint.at/api',
+        url: 'https://www.freepoint.htl3r.com/api',
         loading: false,
         /*url: 'localhost:8000/api',*/
         user: {
