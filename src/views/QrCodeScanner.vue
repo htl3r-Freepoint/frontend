@@ -39,7 +39,7 @@ export default {
           code: code,
           hash: this.$store.state.user.token
         }).then(result => {
-          this.$store.commit('setPoints', result.data)
+          this.$store.commit('setPoints', result.data.all_points)
           this.success = true
         }).catch(function (error) {
           console.error(error)

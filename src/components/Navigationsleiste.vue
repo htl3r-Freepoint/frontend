@@ -33,6 +33,7 @@
 
 <script>
 import NavigationLinks from "@/components/NavigationLinks";
+// eslint-disable-next-line no-unused-vars
 import gsap from 'gsap'
 
 import {library} from "@fortawesome/fontawesome-svg-core";
